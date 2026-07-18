@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulut Emre Sakarya — AI Otomasyon & Backend</title>
+<meta name="description" content="Canlı sistemler, demolar ve vaka çalışmaları. AI otomasyon, WhatsApp botları, özel backend çözümleri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4;
+    --ink:#141F2A;
+    --ink-soft:#3E4C5A;
+    --line:#C6CDD6;
+    --cobalt:#1746D1;
+    --live:#0E8A4A;
+    --demo:#B45309;
+    --case:#5B6472;
+    --card:#F7F9FB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+    position:sticky;top:0;z-index:10;
+  }
+  .topbar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    height:56px;
+  }
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--ink)}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--ink-soft);text-decoration:none;
+  }
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  @media(max-width:560px){.topnav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line)}
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px;
+  }
+  h1{
+    font-family:'Archivo',sans-serif;
+    font-variation-settings:'wdth' 118;
+    font-weight:850;
+    font-size:clamp(34px,6vw,58px);
+    line-height:1.04;
+    letter-spacing:-.015em;
+    max-width:16ch;
+  }
+  h1 .accent{color:var(--cobalt)}
+  .hero-sub{
+    margin-top:22px;max-width:56ch;color:var(--ink-soft);font-size:17px;
+  }
+  .hero-strip{
+    margin-top:36px;
+    display:flex;flex-wrap:wrap;gap:0;
+    border:1px solid var(--line);
+    background:var(--card);
+  }
+  .stat{
+    padding:14px 22px;
+    border-right:1px solid var(--line);
+    flex:1;min-width:150px;
+  }
+  .stat:last-child{border-right:none}
+  .stat .num{
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;
+    font-variation-settings:'wdth' 110;
+  }
+  .stat .lbl{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);
+    margin-top:2px;letter-spacing:.03em;
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:26px;gap:16px;flex-wrap:wrap;
+  }
+  h2{
+    font-family:'Archivo',sans-serif;font-weight:800;
+    font-variation-settings:'wdth' 112;
+    font-size:26px;letter-spacing:-.01em;
+  }
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+
+  /* ---------- manifest rows ---------- */
+  .manifest{border:1px solid var(--line);background:var(--card)}
+  .row{
+    display:grid;
+    grid-template-columns:110px 1fr 180px;
+    gap:20px;
+    padding:22px;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .row:last-child{border-bottom:none}
+  .status{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
+  .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
+  .st-case{color:var(--case)} .st-case .dot{background:var(--case);border-radius:1px}
+  .proj-name{
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;
+    font-variation-settings:'wdth' 106;
+    letter-spacing:-.005em;
+  }
+  .proj-desc{color:var(--ink-soft);font-size:15px;margin-top:6px;max-width:58ch}
+  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    border:1px solid var(--line);
+    padding:2px 8px;color:var(--ink-soft);background:var(--paper);
+  }
+  .row-link{
+    justify-self:end;align-self:center;
+  }
+  .btn{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;
+    text-decoration:none;
+    padding:9px 18px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    background:transparent;
+    transition:background .15s,color .15s;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary:hover{background:var(--cobalt);color:#fff}
+  .btn-soon{
+    border-color:var(--line);color:var(--ink-soft);cursor:default;
+  }
+  .btn-soon:hover{background:transparent;color:var(--ink-soft)}
+  @media(max-width:720px){
+    .row{grid-template-columns:1fr;gap:10px;padding:18px}
+    .row-link{justify-self:start;margin-top:4px}
+  }
+
+  /* ---------- stack ---------- */
+  .stack-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .stack-cell{background:var(--card);padding:20px 22px}
+  .stack-cell h3{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--cobalt);letter-spacing:.05em;margin-bottom:10px;
+  }
+  .stack-cell p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
+
+  /* ---------- contact ---------- */
+  .contact{padding:64px 0 80px;border-bottom:none}
+  .contact-inner{
+    border:1px solid var(--ink);
+    background:var(--card);
+    padding:40px;
+    display:flex;justify-content:space-between;align-items:center;
+    gap:24px;flex-wrap:wrap;
+  }
+  .contact-inner h2{max-width:20ch}
+  .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+  footer{padding:24px 0 40px}
+  footer .wrap{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· ai-otomasyon</span></div>
+    <nav class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="#canli">canlı</a>
+      <a href="#demolar">demolar</a>
+      <a href="#vaka">vaka</a>
+      <a href="#iletisim">iletişim</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">AI OTOMASYON · BACKEND · KOCAELİ, TR</p>
+    <h1>Mockup değil,<br><span class="accent">çalışan sistemler.</span></h1>
+    <p class="hero-sub">Bulut Emre Sakarya — freelance AI otomasyon ve backend geliştirici.
+    WhatsApp botları, agentic sistemler ve özel otomasyonlar kuruyorum; hepsi kendi
+    sunucularında 7/24 canlı çalışıyor. Aşağıdaki her satır gerçek bir sistem.</p>
+    <div class="hero-strip" role="list" aria-label="Özet istatistikler">
+      <div class="stat" role="listitem"><div class="num">8+</div><div class="lbl">teslim edilen sistem</div></div>
+      <div class="stat" role="listitem"><div class="num">7/24</div><div class="lbl">canlı VDS altyapısı</div></div>
+      <div class="stat" role="listitem"><div class="num">AWS</div><div class="lbl">certified cloud practitioner</div></div>
+      <div class="stat" role="listitem"><div class="num">%1</div><div class="lbl">replit agent global sıralama</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="canli">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Canlı Sistemler</h2>
+      <span class="sec-note">şu an yayında — tıkla, gör</span>
+    </div>
+    <div class="manifest">
+
+      <div class="row">
+        <span class="status st-live"><span class="dot"></span>CANLI</span>
+        <div>
+          <div class="proj-name">CleanHome</div>
+          <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri — teslimden beri kesintisiz yayında.</p>
+          <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-live"><span class="dot"></span>CANLI</span>
+        <div>
+          <div class="proj-name">Nilbaşak Tabldot</div>
+          <p class="proj-desc">Yemek servisi firması için kurumsal site + Türkçe PDF fiyat teklif altyapısı. Windows-server SMTP kısıtı Brevo HTTP API ile çözüldü.</p>
+          <div class="tags"><span class="tag">web</span><span class="tag">pdf otomasyonu</span><span class="tag">e-posta api</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="https://nilbasak.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-live"><span class="dot"></span>CANLI</span>
+        <div>
+          <div class="proj-name">Armut İş Takip Botu</div>
+          <p class="proj-desc">Armut'taki yeni iş ilanlarını anlık yakalayıp Telegram'a düşüren bot. Inline reddetme butonları, okundu senkronizasyonu — Oracle Cloud üzerinde 7/24.</p>
+          <div class="tags"><span class="tag">python</span><span class="tag">telegram api</span><span class="tag">oracle cloud</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">iç sistem</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="demolar">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>İnteraktif Demolar</h2>
+      <span class="sec-note">gerçek kod, örnek veri</span>
+    </div>
+    <div class="manifest">
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">Otel AI Müşteri Temsilcisi</div>
+          <p class="proj-desc">WhatsApp üzerinden rezervasyon sorularını yanıtlayan, oda müsaitliği kontrol eden AI asistan. Meta Cloud API + özel FastAPI backend mimarisinin otel senaryosuna uyarlanmış demosu.</p>
+          <div class="tags"><span class="tag">whatsapp cloud api</span><span class="tag">llm</span><span class="tag">fastapi</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">yakında</span></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">Kripto Futures Paper-Trading Botu</div>
+          <p class="proj-desc">MEXC futures için strateji botu — gerçek zamanlı fiyat akışı, sanal bakiye ile risksiz canlı takip panosu. Yalnızca Python stdlib, sıfır bağımlılık.</p>
+          <div class="tags"><span class="tag">python</span><span class="tag">websocket</span><span class="tag">canlı dashboard</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">yakında</span></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">TotoMaster</div>
+          <p class="proj-desc">Spor Toto kuponları için kombinatoryal optimizasyon motoru. Filtre-öncelikli kapsama algoritması; masaüstü sürümün tarayıcıda çalışan PWA portu.</p>
+          <div class="tags"><span class="tag">optimizasyon</span><span class="tag">pwa</span><span class="tag">javascript</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">yakında</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="vaka">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Vaka Çalışmaları</h2>
+      <span class="sec-note">müşteri verisi gizli — sonuçlar gerçek</span>
+    </div>
+    <div class="manifest">
+
+      <div class="row">
+        <span class="status st-case"><span class="dot"></span>VAKA</span>
+        <div>
+          <div class="proj-name">TrueMax — AI Emlak Lead Üretimi</div>
+          <p class="proj-desc">RE/MAX TRUE için uçtan uca AI destekli müşteri adayı üretim sistemi. Otomatik toplama, skorlama ve danışmanlara dağıtım; ilk aylarda ciddi net gelir üretti.</p>
+          <div class="tags"><span class="tag">lead-gen</span><span class="tag">ai pipeline</span><span class="tag">emlak</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">talep üzerine</span></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-case"><span class="dot"></span>VAKA</span>
+        <div>
+          <div class="proj-name">Tırdaş — Lojistik SaaS</div>
+          <p class="proj-desc">WhatsApp tabanlı yük eşleştirme sisteminin React Native mobil uygulamaya dönüşümü. OTP girişi, rol bazlı onboarding, yük/araç ilanları, push bildirimleri.</p>
+          <div class="tags"><span class="tag">react native</span><span class="tag">whatsapp bot</span><span class="tag">ai eşleştirme</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">talep üzerine</span></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-case"><span class="dot"></span>VAKA</span>
+        <div>
+          <div class="proj-name">WhatsApp AI Müşteri Temsilcisi — Endüstri</div>
+          <p class="proj-desc">Endüstriyel ürün firması için üç kademeli AI müşteri temsilcisi mimarisi: ürün sorgulama, teklif toplama, insan devri. Meta Cloud API + VDS üzerinde özel scriptler.</p>
+          <div class="tags"><span class="tag">whatsapp cloud api</span><span class="tag">agentic</span><span class="tag">b2b</span></div>
+        </div>
+        <div class="row-link"><span class="btn btn-soon">talep üzerine</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Nasıl Çalışıyorum</h2>
+      <span class="sec-note">hazır platform yok, kod var</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-cell">
+        <h3>ÇEKİRDEK</h3>
+        <p>Python · Node.js · FastAPI · PostgreSQL · LangChain / LangGraph</p>
+      </div>
+      <div class="stack-cell">
+        <h3>ALTYAPI</h3>
+        <p>Kendi VDS sunucularım (Oracle Cloud vb.) — abonelik platformlarına bağımlılık yok, aylık araç maliyeti sıfır.</p>
+      </div>
+      <div class="stack-cell">
+        <h3>YAKLAŞIM</h3>
+        <p>Her otomasyon özel yazılmış script. No-code araç kullanmıyorum; sistemin her satırına hakimim, her şey özelleştirilebilir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" class="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <h2>Projeniz için konuşalım.</h2>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="https://bionluk.com/bulutemresakarya" target="_blank" rel="noopener">Bionluk profili ↗</a>
+        <a class="btn" href="mailto:bulutemresakarya@gmail.com">E-posta gönder</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 bulut emre sakarya</span>
+    <span>kartepe / kocaeli · uzaktan çalışmaya açık</span>
+  </div>
+</footer>
+
+</body>
+</html>
