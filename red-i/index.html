@@ -170,7 +170,7 @@
 </head>
 <body>
 
-<div class="demo-banner">İNTERAKTİF DEMO — örnek görüşme verisi · sonuç metrikleri <b>gerçek saha performansından</b> (Ocak–Eylül 2025)</div>
+<div class="demo-banner">İNTERAKTİF DEMO — örnek görüşme verisi · TrueMax motorunun <b>RedPartners için uyarlanmış</b> ikinci kurulumu</div>
 
 <header>
   <div class="wrap">
@@ -178,16 +178,16 @@
       <div class="hero-text">
         <p class="eyebrow">BULUR &nbsp;|&nbsp; İKNA EDER &nbsp;|&nbsp; YÖNLENDİRİR</p>
         <h1>RED<span>-i</span></h1>
-        <p class="sub"><b>Dijital portföy akış sistemi.</b> Sahibinden portföylerde ilk teması otomatik kurar, "iş birliğine açık" mülk sahiplerini yapay zeka ile tespit eder ve doğru danışmana taşır. Danışman sadece yüz yüze görüşme ve satışa odaklanır.</p>
+        <p class="sub"><b>Dijital portföy akış sistemi.</b> TrueMax'in RE/MAX TRUE'daki 11 aylık kanıtlanmış başarısının ardından RedPartners'ın talebiyle kurulan ikinci kurulum: aynı motor, yepyeni marka kimliği. Sahibinden portföylerde ilk teması otomatik kurar, "iş birliğine açık" mülk sahiplerini tespit eder ve doğru danışmana taşır.</p>
       </div>
       <img class="mascot" src="maskot.png" alt="RED-i maskotu" onerror="this.style.display='none'">
     </div>
 
-    <div class="results" aria-label="Gerçek saha sonuçları (Ocak–Eylül 2025)">
-      <div class="res"><div class="num">30.000+</div><div class="lbl">ulaşılan mülk sahibi</div></div>
-      <div class="res"><div class="num">2.778</div><div class="lbl">iş birliği onayı</div></div>
-      <div class="res"><div class="num">₺39,1 Mr</div><div class="lbl">toplam portföy bedeli</div></div>
+    <div class="results" aria-label="Kurulum bilgileri">
+      <div class="res"><div class="num">2. kurulum</div><div class="lbl">truemax motorunun markaya uyarlanmış hali</div></div>
+      <div class="res"><div class="num">Talep üzerine</div><div class="lbl">truemax'in saha başarısı görülünce sipariş edildi</div></div>
       <div class="res"><div class="num">60+/saat</div><div class="lbl">temas kapasitesi (manuel: 20/gün)</div></div>
+      <div class="res"><div class="num">RedPartners</div><div class="lbl">canlı kullanıldı, kurumsal kimlikle</div></div>
     </div>
   </div>
 </header>
@@ -223,24 +223,10 @@
   </div>
 </div>
 
-<section class="dist">
-  <div class="wrap">
-    <h2 class="sec">Yanıt Dağılımı</h2>
-    <p class="sec-sub">5.171 sınıflandırılmış görüşmenin yapay zeka niyet analizi sonuçları:</p>
-    <div class="bars">
-      <div class="bar-row"><span class="k">Olumsuz</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#B9A6AC" data-w="28.5%"></div></div><span class="v">%28,5 · 1.472</span></div>
-      <div class="bar-row"><span class="k">Nötr</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#E0A63C" data-w="27%"></div></div><span class="v">%27,0 · 1.395</span></div>
-      <div class="bar-row"><span class="k">Olumlu</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--red)" data-w="26.7%"></div></div><span class="v">%26,7 · 1.383</span></div>
-      <div class="bar-row"><span class="k">Satılmış / Tamamlanmış</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#6B7A8C" data-w="16.2%"></div></div><span class="v">%16,2 · 840</span></div>
-      <div class="bar-row"><span class="k">Spam / Sistem / Engel</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#D9CDD1" data-w="0.7%"></div></div><span class="v">%0,6 · 32</span></div>
-    </div>
-    <div class="dist-note">🔸 <b>İş birliğine açık oran: %54,2</b> — her iki mülk sahibinden biri (olumlu + nötr) danışman görüşmesine kapı açıyor.</div>
-  </div>
-</section>
-
 <section class="compare">
   <div class="wrap">
     <h2 class="sec">Klasik Danışman vs RED-i Destekli Danışman</h2>
+    <p class="sec-sub">Kardeş sistem TrueMax'in 11 aylık saha verisine dayanan kapasite karşılaştırması — detaylı sonuçlar <a href="../truemax-ai/" style="color:var(--red)">TrueMax.ai sayfasında</a>.</p>
     <div class="cmp-wrap">
       <table class="cmp-table">
         <thead><tr><th>KRİTER</th><th>KLASİK DANIŞMAN</th><th>RED-İ DESTEKLİ</th></tr></thead>
@@ -388,12 +374,6 @@ function play(n){current=n;clearTimers();$body.innerHTML="";
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>play(t.dataset.scene)));
 document.getElementById("replay").addEventListener("click",()=>play(current));
 play("owner");
-
-/* bar animasyonu */
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.style.width=e.target.dataset.w;io.unobserve(e.target)}
-}),{threshold:.4});
-document.querySelectorAll(".bar-fill").forEach(b=>io.observe(b));
 </script>
 </body>
 </html>
