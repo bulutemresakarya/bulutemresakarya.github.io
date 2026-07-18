@@ -166,6 +166,32 @@
   }
   .replay:hover{border-color:var(--blue);color:var(--blue)}
 
+  /* results band */
+  .results{
+    margin-top:26px;border:1px solid var(--line);border-radius:12px;background:#fff;
+    display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden;
+  }
+  .res{padding:16px 18px;border-right:1px solid var(--line)}
+  .res:last-child{border-right:none}
+  .res .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(19px,2.4vw,25px);font-variation-settings:'wdth' 108;color:var(--blue-dark)}
+  .res .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.03em}
+  @media(max-width:820px){.results{grid-template-columns:repeat(2,1fr)}.res:nth-child(2){border-right:none}}
+  @media(max-width:480px){.results{grid-template-columns:1fr}.res{border-right:none;border-bottom:1px solid var(--line)}.res:last-child{border-bottom:none}}
+
+  /* yanıt dağılımı */
+  .dist{padding:40px 0 6px}
+  .dist h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:24px;margin-bottom:6px}
+  .dist-sub{color:var(--muted);font-size:14.5px;margin-bottom:16px;max-width:70ch}
+  .bars{border:1px solid var(--line);border-radius:12px;background:#fff;padding:24px}
+  .bar-row{display:grid;grid-template-columns:200px 1fr 80px;gap:14px;align-items:center;padding:7px 0}
+  .bar-row .k{font-size:13.5px}
+  .bar-track{height:14px;background:var(--bg);border-radius:7px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:7px;transition:width 1s ease}
+  .bar-row .v{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:var(--muted)}
+  .dist-note{margin-top:16px;padding:13px 16px;border-radius:10px;background:rgba(33,150,243,.07);border:1px solid rgba(33,150,243,.25);font-size:14px}
+  .dist-note b{color:var(--blue-dark)}
+  @media(max-width:640px){.bar-row{grid-template-columns:1fr;gap:5px}.bar-row .v{text-align:left}}
+
   /* tech strip */
   .tech{padding:36px 0 50px}
   .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -182,7 +208,7 @@
 </head>
 <body>
 
-<div class="demo-banner">İNTERAKTİF DEMO — örnek veri · gerçek sistem RE/MAX TRUE'da <b>canlı çalıştı</b>, ilk aylarda ciddi net gelir üretti</div>
+<div class="demo-banner">İNTERAKTİF DEMO — görüşme verisi örnektir · sonuç metrikleri <b>gerçek</b>: RE/MAX TRUE, Ocak–Kasım 2025</div>
 
 <header>
   <div class="wrap">
@@ -199,6 +225,13 @@
       <div class="pstep"><div class="n">04</div><div class="t">Atama</div><div class="d">bölge-uzman eşleşmesi</div></div>
       <div class="pstep"><div class="n">05</div><div class="t">Kabul</div><div class="d">2 saatlik zamanaşımı</div></div>
       <div class="pstep"><div class="n">06</div><div class="t">Takip</div><div class="d">/durum · /yetki · /ilan</div></div>
+    </div>
+
+    <div class="results" aria-label="Gerçek saha sonuçları (RE/MAX TRUE, Ocak–Kasım 2025)">
+      <div class="res"><div class="num">30.000+</div><div class="lbl">ulaşılan mülk sahibi</div></div>
+      <div class="res"><div class="num">2.778</div><div class="lbl">iş birliği onayı</div></div>
+      <div class="res"><div class="num">₺39,1 Mr</div><div class="lbl">toplam portföy bedeli</div></div>
+      <div class="res"><div class="num">60+/saat</div><div class="lbl">temas kapasitesi (manuel: 20/gün)</div></div>
     </div>
   </div>
 </header>
@@ -231,6 +264,21 @@
     <button class="replay" id="replay">↻ Sahneyi baştan oynat</button>
   </div>
 </div>
+
+<section class="dist">
+  <div class="wrap">
+    <h2>Yanıt Dağılımı</h2>
+    <p class="dist-sub">11 aylık canlı kullanımda 5.171 sınıflandırılmış görüşmenin yapay zeka niyet analizi:</p>
+    <div class="bars">
+      <div class="bar-row"><span class="k">Olumsuz</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#B8C2CE" data-w="28.5%"></div></div><span class="v">%28,5 · 1.472</span></div>
+      <div class="bar-row"><span class="k">Nötr</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#E0A63C" data-w="27%"></div></div><span class="v">%27,0 · 1.395</span></div>
+      <div class="bar-row"><span class="k">Olumlu</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--blue)" data-w="26.7%"></div></div><span class="v">%26,7 · 1.383</span></div>
+      <div class="bar-row"><span class="k">Satılmış / Tamamlanmış</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#6B7A8C" data-w="16.2%"></div></div><span class="v">%16,2 · 840</span></div>
+      <div class="bar-row"><span class="k">Spam / Sistem / Engel</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:#D7DEE6" data-w="0.7%"></div></div><span class="v">%0,6 · 32</span></div>
+    </div>
+    <div class="dist-note">🔹 <b>İş birliğine açık oran: %54,2</b> — her iki mülk sahibinden biri (olumlu + nötr) danışman görüşmesine kapı açtı.</div>
+  </div>
+</section>
 
 <section class="tech">
   <div class="wrap">
@@ -393,7 +441,11 @@ function play(name){
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>play(t.dataset.scene)));
 document.getElementById("replay").addEventListener("click",()=>play(current));
 play("owner");
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.width=e.target.dataset.w;io.unobserve(e.target)}
+}),{threshold:.4});
+document.querySelectorAll(".bar-fill").forEach(b=>io.observe(b));
 </script>
 </body>
 </html>
-
