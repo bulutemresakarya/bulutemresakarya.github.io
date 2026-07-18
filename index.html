@@ -24,7 +24,6 @@
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
   body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-  .btn-soon {opacity: 0.5; cursor: not-allowed; pointer-events: none; /* Linkin tıklanabilirliğini tamamen kapatır */}
   .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
   .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
   .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em}
@@ -62,7 +61,20 @@
   .proj-desc{color:var(--ink-soft);font-size:15px;margin-top:6px;max-width:58ch}
   .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
-  .row-link{justify-self:end;align-self:center}
+  .row-link {
+  justify-self: end;
+  align-self: center;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  }
+
+  /* Yakında butonları için eklenecek yeni sınıf */
+  .btn-soon {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* Linkin tıklanabilirliğini tamamen kapatır */
+   }
   .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:9px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .15s,color .15s;white-space:nowrap}
   .btn:hover{background:var(--ink);color:var(--paper)}
   .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
