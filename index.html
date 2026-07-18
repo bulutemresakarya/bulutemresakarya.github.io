@@ -90,14 +90,13 @@
   @media(max-width:720px){
     .row{grid-template-columns:1fr;gap:10px;padding:18px}
     .row-link{
-      justify-self:start;
-      margin-top:4px;
-      flex-direction: row; /* Mobilde yan yana dizer */
-      flex-wrap: wrap; /* Sığmazsa aşağı atar */
-      min-width: 100%;
+      justify-self: stretch; /* Konteyneri tam genişliğe yayar */
+      margin-top: 12px;
+      flex-direction: column; /* Mobilde de alt alta dizer */
+      align-items: stretch; /* Tüm butonları ekran genişliğine eşitler */
+      width: 100%;
     }
   }
-
   .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .stack-cell{background:var(--card);padding:20px 22px}
   .stack-cell h3{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--cobalt);letter-spacing:.05em;margin-bottom:10px}
