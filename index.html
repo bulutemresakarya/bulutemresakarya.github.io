@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulut Emre Sakarya — AI Otomasyon & Backend</title>
+<meta name="description" content="Canlı sistemler ve interaktif demolar. AI otomasyon, WhatsApp botları, dashboard'lar, özel backend çözümleri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF0F4;
+    --ink:#141F2A;
+    --ink-soft:#3E4C5A;
+    --line:#C6CDD6;
+    --cobalt:#1746D1;
+    --live:#0E8A4A;
+    --demo:#B45309;
+    --card:#F7F9FB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em}
+  .brand b{color:var(--cobalt);font-weight:500}
+  .topnav{display:flex;gap:20px}
+  .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--cobalt)}
+  .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  @media(max-width:560px){.topnav{display:none}}
+
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line)}
+  .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px}
+  h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118;font-weight:850;font-size:clamp(34px,6vw,58px);line-height:1.04;letter-spacing:-.015em;max-width:16ch}
+  h1 .accent{color:var(--cobalt)}
+  .hero-sub{margin-top:22px;max-width:56ch;color:var(--ink-soft);font-size:17px}
+  .hero-strip{margin-top:36px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
+  .stat{padding:14px 22px;border-right:1px solid var(--line);flex:1;min-width:150px}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;font-variation-settings:'wdth' 110}
+  .stat .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;letter-spacing:.03em}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;gap:16px;flex-wrap:wrap}
+  h2{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 112;font-size:26px;letter-spacing:-.01em}
+  .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+
+  .manifest{border:1px solid var(--line);background:var(--card)}
+  .row{display:grid;grid-template-columns:110px 1fr 180px;gap:20px;padding:22px;border-bottom:1px solid var(--line);align-items:start}
+  .row:last-child{border-bottom:none}
+  .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
+  .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
+  .proj-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
+  .proj-desc{color:var(--ink-soft);font-size:15px;margin-top:6px;max-width:58ch}
+  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
+  .row-link{justify-self:end;align-self:center}
+  .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:9px 18px;border:1px solid var(--ink);color:var(--ink);background:transparent;transition:background .15s,color .15s;white-space:nowrap}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
+  .btn-primary:hover{background:var(--cobalt);color:#fff}
+  @media(max-width:720px){
+    .row{grid-template-columns:1fr;gap:10px;padding:18px}
+    .row-link{justify-self:start;margin-top:4px}
+  }
+
+  .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stack-cell{background:var(--card);padding:20px 22px}
+  .stack-cell h3{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--cobalt);letter-spacing:.05em;margin-bottom:10px}
+  .stack-cell p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
+
+  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:720px){.cert-grid{grid-template-columns:1fr}}
+  .cert{background:var(--card);padding:16px 20px;display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+  .cert .c-name{font-weight:600;font-size:14.5px}
+  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px}
+  .cert .c-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);white-space:nowrap}
+
+  .contact{padding:64px 0 80px;border-bottom:none}
+  .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .contact-inner h2{max-width:20ch}
+  .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+  footer{padding:24px 0 40px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· ai-otomasyon</span></div>
+    <nav class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="#demolar">demolar</a>
+      <a href="#canli">canlı</a>
+      <a href="#sertifikalar">sertifikalar</a>
+      <a href="#iletisim">iletişim</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">AI OTOMASYON · BACKEND · KOCAELİ, TR</p>
+    <h1>Mockup değil,<br><span class="accent">çalışan sistemler.</span></h1>
+    <p class="hero-sub">Bulut Emre Sakarya — freelance AI otomasyon ve backend geliştirici.
+    WhatsApp botları, agentic sistemler, dashboard'lar ve özel otomasyonlar kuruyorum; hepsi kendi
+    sunucularında 7/24 canlı çalışıyor. Aşağıdaki demoların tamamı gerçek, sahada çalışmış sistemlerin canlandırmasıdır.</p>
+    <div class="hero-strip" role="list" aria-label="Özet istatistikler">
+      <div class="stat" role="listitem"><div class="num">6</div><div class="lbl">ürün · canlı + demo</div></div>
+      <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
+      <div class="stat" role="listitem"><div class="num">AWS</div><div class="lbl">certified cloud practitioner</div></div>
+      <div class="stat" role="listitem"><div class="num">%1</div><div class="lbl">replit agent global sıralama</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="demolar">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>İnteraktif Demolar</h2>
+      <span class="sec-note">gerçek sistemler, örnek veri — tıkla, dene</span>
+    </div>
+    <div class="manifest">
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</div>
+          <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması, bölge-uzman eşleştirmeli atama, /kabul · /durum · /yetki komut döngüsü. Demoda danışman rolünde komutları kendin deneyebilirsin.</p>
+          <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</div>
+          <p class="proj-desc">Aynı motorun RedPartners kurulumu, kanıtlanmış saha sonuçlarıyla: 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli. Demo sayfasında yanıt dağılımı analizi ve tam sunum PDF'i de var.</p>
+          <div class="tags"><span class="tag">ai niyet analizi</span><span class="tag">whatsapp</span><span class="tag">lead-gen</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="red-i/">Demoyu dene →</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</div>
+          <p class="proj-desc">Yük–araç pazaryeri: WhatsApp gruplarındaki serbest metin ilanları AI ile yapılandırıp botta ve mobil uygulamada aynı havuzda sunar. Demoda iki telefon yan yana — bota kendin yaz, uygulamada sekmeleri gez.</p>
+          <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="tirdas/">Demoyu dene →</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">Danışman Performans Dashboard'u</div>
+          <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
+          <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu aç →</a></div>
+      </div>
+
+      <div class="row">
+        <span class="status st-demo"><span class="dot"></span>DEMO</span>
+        <div>
+          <div class="proj-name">MEXC Futures Trader Bot</div>
+          <p class="proj-desc">Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları; açık pozisyon takibi ve canlı PnL akışı. Orijinali yalnızca Python stdlib ile yazıldı, paper-trading modunda müşteriye canlı sunuldu.</p>
+          <div class="tags"><span class="tag">python</span><span class="tag">mexc api</span><span class="tag">canlı dashboard</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="mexc/">Demoyu aç →</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="canli">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Canlı Sistemler</h2>
+      <span class="sec-note">şu an yayında</span>
+    </div>
+    <div class="manifest">
+      <div class="row">
+        <span class="status st-live"><span class="dot"></span>CANLI</span>
+        <div>
+          <div class="proj-name">CleanHome</div>
+          <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri — teslimden beri kesintisiz yayında.</p>
+          <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
+        </div>
+        <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Nasıl Çalışıyorum</h2>
+      <span class="sec-note">hazır platform yok, kod var</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-cell"><h3>ÇEKİRDEK</h3><p>Python · Node.js · FastAPI · PostgreSQL · LangChain / LangGraph · React Native</p></div>
+      <div class="stack-cell"><h3>ALTYAPI</h3><p>Kendi VDS sunucularım (Oracle Cloud vb.) — abonelik platformlarına bağımlılık yok, aylık araç maliyeti sıfır.</p></div>
+      <div class="stack-cell"><h3>YAKLAŞIM</h3><p>Her otomasyon özel yazılmış kod. No-code araç kullanmıyorum; sistemin her satırına hakimim, her şey özelleştirilebilir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sertifikalar">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Sertifikalar & Eğitim</h2>
+      <span class="sec-note">anadolu üniv. yönetim bilişim sistemleri, 2026</span>
+    </div>
+    <div class="cert-grid">
+      <div class="cert"><div><div class="c-name">AWS Certified Cloud Practitioner (CLF-C02)</div><div class="c-org">Amazon Web Services</div></div><span class="c-year">2025</span></div>
+      <div class="cert"><div><div class="c-name">Bilgi Sistemi Tasarımı Sertifika Programı</div><div class="c-org">Anadolu Üniversitesi</div></div><span class="c-year">2026</span></div>
+      <div class="cert"><div><div class="c-name">Onur Belgesi — Bahar Dönemi</div><div class="c-org">Anadolu Üniversitesi</div></div><span class="c-year">2026</span></div>
+      <div class="cert"><div><div class="c-name">Yapay Zekâ Etiği</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert"><div><div class="c-name">Etkili İletişim Stratejileri · Müşteriyi Tanımak · İletişim ve Network Yönetimi</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert"><div><div class="c-name">Bilgi Teknolojileri Stajı (Python, Excel, Photoshop, AutoCAD)</div><div class="c-org">TNC Group · Europäisches Bildungsinstitut</div></div><span class="c-year">2025</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" class="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <h2>Projeniz için konuşalım.</h2>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="https://bionluk.com/bulutemresakarya" target="_blank" rel="noopener">Bionluk profili ↗</a>
+        <a class="btn" href="mailto:bulutemresakarya@gmail.com">E-posta gönder</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 bulut emre sakarya</span>
+    <span>kartepe / kocaeli · uzaktan çalışmaya açık</span>
+  </div>
+</footer>
+
+</body>
+</html>
