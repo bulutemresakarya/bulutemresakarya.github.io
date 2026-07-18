@@ -51,7 +51,7 @@
   .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
 
   .manifest{border:1px solid var(--line);background:var(--card)}
-  .row{display:grid;grid-template-columns:110px 1fr 180px;gap:20px;padding:22px;border-bottom:1px solid var(--line);align-items:start}
+  .row{display:grid;grid-template-columns:110px 1fr auto;gap:20px;padding:22px;border-bottom:1px solid var(--line);align-items:start}
   .row:last-child{border-bottom:none}
   .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px}
   .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -62,11 +62,18 @@
   .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
   .row-link {
-  justify-self: end;
-  align-self: center;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+    justify-self: end;
+    align-self: center;
+    display: flex;
+    flex-direction: column; /* Butonları alt alta dizer */
+    align-items: stretch; /* Hepsini en geniş butonla aynı boyuta getirir */
+    gap: 10px;
+    min-width: 180px; /* Görsel denge için minimum genişlik */
+  }
+
+  /* Buton içindeki metinlerin tam ortalanması için */
+  .row-link .btn {
+    text-align: center;
   }
 
   /* Yakında butonları için eklenecek yeni sınıf */
@@ -82,7 +89,13 @@
   .btn-primary:hover{background:var(--cobalt);color:#fff}
   @media(max-width:720px){
     .row{grid-template-columns:1fr;gap:10px;padding:18px}
-    .row-link{justify-self:start;margin-top:4px}
+    .row-link{
+      justify-self:start;
+      margin-top:4px;
+      flex-direction: row; /* Mobilde yan yana dizer */
+      flex-wrap: wrap; /* Sığmazsa aşağı atar */
+      min-width: 100%;
+    }
   }
 
   .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -178,7 +191,7 @@
           <a class="btn btn-soon" href="#">Play Store (Yakında)</a>
           <a class="btn btn-soon" href="#">App Store (Yakında)</a>
         </div>
-        </a>
+
       </div>
 
       <div class="row">
