@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bulutemresakarya.github.io/sitemap.xml
