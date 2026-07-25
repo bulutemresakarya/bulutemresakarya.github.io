@@ -139,8 +139,15 @@
   .contact{padding:64px 0 80px;border-bottom:none}
   .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
   .contact-inner h2{max-width:20ch}
+  .contact-text h2{max-width:20ch}
+  .contact-sub{margin-top:10px;color:var(--ink-soft);font-size:15px;max-width:42ch}
+  @media(max-width:720px){
+    .contact-inner{padding:28px;flex-direction:column;align-items:flex-start}
+    .contact-actions{width:100%}
+    .contact-actions .btn{flex:1;text-align:center}
+  }
   .contact-actions{display:flex;gap:12px;flex-wrap:wrap}
-
+  
   footer{padding:24px 0 40px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
 </style>
