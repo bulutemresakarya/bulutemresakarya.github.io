@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quadly — Etkileşimli Demo · Karaarslan Digital</title>
+<style>
+:root{
+  --ink:#08071A;
+  --ink-2:#0F0D28;
+  --panel:#17143A;
+  --panel-2:#1E1A49;
+  --violet:#7B4DFF;
+  --violet-2:#9B78FF;
+  --amber:#E8A317;
+  --white:#FFFFFF;
+  --dim:#A49CD0;
+  --dim-2:#6F6899;
+  --line:rgba(255,255,255,.10);
+  --ok:#3DDC97;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(123,77,255,.30), transparent 60%),
+    radial-gradient(760px 500px at 8% 104%, rgba(232,163,23,.14), transparent 62%),
+    var(--ink);
+  color:var(--white);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- page chrome ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:34px 24px 70px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  border-bottom:1px solid var(--line);padding-bottom:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:14px;letter-spacing:.06em}
+.brand span{color:var(--amber)}
+.tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2)}
+
+.hero{display:flex;gap:56px;align-items:flex-start;margin-top:52px;flex-wrap:wrap}
+.hero-copy{flex:1 1 380px;min-width:300px;max-width:520px}
+.eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:600}
+h1{font-size:clamp(38px,5.4vw,60px);line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;font-weight:800}
+h1 em{font-style:normal;color:var(--violet-2)}
+.hero-copy p{color:var(--dim);font-size:15.5px;line-height:1.65;margin:20px 0 0;max-width:44ch}
+.hint{margin-top:30px;border-left:2px solid var(--amber);padding:2px 0 2px 16px;
+  font-size:13px;color:var(--dim);line-height:1.6}
+.hint b{color:#fff;font-weight:600}
+
+.legend{margin-top:34px;display:grid;gap:10px}
+.leg{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--dim);line-height:1.5}
+.leg i{flex:none;width:22px;height:22px;border-radius:7px;background:rgba(123,77,255,.18);
+  display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;color:var(--violet-2)}
+
+/* ---------- phone ---------- */
+.phone-col{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{
+  width:342px;height:718px;border-radius:44px;background:#05040F;
+  padding:11px;position:relative;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 40px 90px rgba(0,0,0,.66), 0 0 0 1px rgba(123,77,255,.16), 0 0 70px rgba(123,77,255,.18);
+}
+.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;
+  background:var(--ink-2);display:flex;flex-direction:column}
+.notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:112px;height:26px;background:#05040F;border-radius:0 0 16px 16px;z-index:60}
+.statusbar{height:42px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 20px 5px;font-size:11.5px;font-weight:600;color:#fff;z-index:50}
+.statusbar .r{display:flex;gap:5px;align-items:center;opacity:.85;font-size:10px;letter-spacing:.04em}
+
+.view{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;display:none}
+.view.on{display:block}
+.view::-webkit-scrollbar{width:0}
+
+/* ---------- map ---------- */
+.map{position:absolute;inset:0;background:#0C0A24}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.mapfade{position:absolute;inset:0;background:
+  linear-gradient(180deg, rgba(8,7,26,.85) 0%, rgba(8,7,26,0) 22%, rgba(8,7,26,0) 52%, rgba(8,7,26,.92) 100%)}
+
+.searchbar{position:absolute;top:12px;left:14px;right:14px;z-index:20;
+  background:rgba(23,20,58,.94);border:1px solid var(--line);border-radius:15px;
+  padding:11px 13px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px)}
+.searchbar .t{font-size:13.5px;font-weight:600;flex:1}
+.searchbar .ic{width:26px;height:26px;border-radius:8px;background:rgba(123,77,255,.2);
+  display:grid;place-items:center;font-size:12px}
+
+.chips{position:absolute;top:62px;left:0;right:0;z-index:20;display:flex;gap:7px;
+  padding:0 14px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-size:11.5px;font-weight:600;padding:6.5px 12px;border-radius:999px;
+  background:rgba(23,20,58,.92);border:1px solid var(--line);color:var(--dim);cursor:pointer;
+  transition:.16s;white-space:nowrap;backdrop-filter:blur(10px)}
+.chip.on{background:var(--violet);border-color:var(--violet);color:#fff}
+.chip:active{transform:scale(.95)}
+
+.pin{position:absolute;z-index:15;cursor:pointer;transform:translate(-50%,-100%);
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1);animation:drop .5s cubic-bezier(.34,1.4,.64,1) backwards}
+.pin:hover{transform:translate(-50%,-100%) scale(1.07)}
+.pin.sel{transform:translate(-50%,-100%) scale(1.13);z-index:18}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-140%) scale(.7)}}
+.pin-b{background:var(--violet);border-radius:999px;padding:4px 11px 4px 4px;display:flex;
+  align-items:center;gap:7px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.pin.amber .pin-b{background:var(--amber)}
+.pin.amber .pin-t b{color:#2A1A00}
+.pin.amber .pin-t s{color:rgba(42,26,0,.7)}
+.pin-a{width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-size:12px;background:rgba(255,255,255,.22)}
+.pin-t{line-height:1.15;padding-right:2px}
+.pin-t b{display:block;font-size:11.5px;font-weight:700;color:#fff}
+.pin-t s{display:block;font-size:9.5px;text-decoration:none;color:rgba(255,255,255,.78);font-weight:500}
+.pin-tip{width:0;height:0;margin:-1px auto 0;border-left:6px solid transparent;
+  border-right:6px solid transparent;border-top:8px solid var(--violet)}
+.pin.amber .pin-tip{border-top-color:var(--amber)}
+
+.me{position:absolute;left:47%;top:56%;z-index:14;transform:translate(-50%,-50%)}
+.me i{display:block;width:15px;height:15px;border-radius:50%;background:#2F7BFF;
+  border:2.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.me::after{content:'';position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;
+  border-radius:50%;background:rgba(47,123,255,.45);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(5);opacity:0}100%{opacity:0}}
+
+/* ---------- bottom sheet ---------- */
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:30;
+  background:linear-gradient(180deg,var(--panel) 0%,var(--ink-2) 100%);
+  border-top:1px solid rgba(155,120,255,.30);
+  border-radius:24px 24px 0 0;padding:9px 18px 20px;
+  transform:translateY(calc(100% + 4px));transition:transform .34s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -18px 44px rgba(0,0,0,.55)}
+.sheet.up{transform:translateY(0)}
+.grab{width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.22);margin:0 auto 14px}
+
+.sh-top{display:flex;gap:12px;align-items:flex-start}
+.sh-ic{width:44px;height:44px;border-radius:14px;background:rgba(123,77,255,.2);flex:none;
+  display:grid;place-items:center;font-size:20px}
+.sh-h{flex:1}
+.sh-h b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.sh-h s{display:block;text-decoration:none;font-size:12px;color:var(--dim);margin-top:3px}
+.sh-dist{font-size:11px;font-weight:700;color:var(--amber);background:rgba(232,163,23,.13);
+  padding:5px 9px;border-radius:8px;flex:none}
+
+.sh-meta{display:flex;gap:8px;margin-top:15px}
+.mbox{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:9px 10px}
+.mbox .k{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim-2);font-weight:600}
+.mbox .v{font-size:13px;font-weight:700;margin-top:3px}
+
+.seatrow{display:flex;align-items:center;gap:9px;margin-top:16px}
+.seat{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:16px;
+  background:rgba(123,77,255,.85);border:2px solid transparent;transition:.3s}
+.seat.free{background:transparent;border:2px dashed rgba(232,163,23,.85);color:var(--amber);font-size:19px;font-weight:300}
+.seat.pop{animation:pop .45s cubic-bezier(.34,1.6,.64,1)}
+@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+.seattx{font-size:11.5px;color:var(--dim);line-height:1.35;margin-left:2px}
+.seattx b{display:block;color:#fff;font-size:12.5px;font-weight:700}
+
+.note{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.55;
+  background:rgba(255,255,255,.04);border-left:2px solid var(--violet);padding:9px 12px;border-radius:0 10px 10px 0}
+
+.btn{display:block;width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;
+  background:var(--violet);color:#fff;font-size:15px;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:.18s;letter-spacing:.01em}
+.btn:hover{background:#8A5FFF}
+.btn:active{transform:scale(.98)}
+.btn.amber{background:var(--amber);color:#2A1A00}
+.btn.amber:hover{background:#F5B334}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim);margin-top:9px;
+  padding:11px;font-size:13.5px}
+.btn.done{background:rgba(61,220,151,.14);color:var(--ok);cursor:default}
+.btn.done:hover{background:rgba(61,220,151,.14)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* ---------- generic screens ---------- */
+.pad{padding:6px 18px 100px}
+.vh{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:12px 0 4px}
+.vs{font-size:12.5px;color:var(--dim);margin-bottom:18px;line-height:1.5}
+
+.field{margin-bottom:15px}
+.lbl{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim-2);
+  font-weight:700;margin-bottom:7px}
+.opts{display:flex;gap:7px;flex-wrap:wrap}
+.opt{font-size:12.5px;font-weight:600;padding:9px 13px;border-radius:11px;cursor:pointer;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--dim);transition:.16s}
+.opt.on{background:rgba(123,77,255,.2);border-color:var(--violet);color:#fff}
+.opt:active{transform:scale(.96)}
+.inp{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;
+  padding:12px 13px;color:#fff;font-size:13.5px;font-family:inherit;outline:none}
+.inp:focus{border-color:var(--violet)}
+.inp::placeholder{color:var(--dim-2)}
+
+.card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:16px;
+  padding:14px;margin-bottom:11px;cursor:pointer;transition:.16s}
+.card:hover{border-color:rgba(155,120,255,.4);background:rgba(255,255,255,.07)}
+.card-t{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card-t b{font-size:14.5px;font-weight:700}
+.card-t s{text-decoration:none;font-size:11.5px;color:var(--dim);display:block;margin-top:3px}
+.badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;flex:none;letter-spacing:.03em}
+.badge.ok{background:rgba(61,220,151,.15);color:var(--ok)}
+.badge.wait{background:rgba(232,163,23,.15);color:var(--amber)}
+.badge.own{background:rgba(123,77,255,.2);color:var(--violet-2)}
+.card-b{display:flex;gap:6px;margin-top:12px;align-items:center}
+.mini{width:25px;height:25px;border-radius:50%;background:rgba(123,77,255,.8);display:grid;
+  place-items:center;font-size:11px}
+.mini.free{background:transparent;border:1.5px dashed rgba(232,163,23,.8);color:var(--amber)}
+.card-b .sp{flex:1}
+.card-b .tm{font-size:11.5px;color:var(--dim);font-weight:600}
+
+.empty{text-align:center;padding:56px 20px;color:var(--dim-2)}
+.empty .e{font-size:36px;margin-bottom:12px;opacity:.5}
+.empty b{display:block;color:var(--dim);font-size:14px;font-weight:600;margin-bottom:6px}
+.empty p{font-size:12.5px;line-height:1.55;margin:0}
+
+.prof-top{display:flex;gap:14px;align-items:center;padding:14px 0 20px}
+.prof-av{width:64px;height:64px;border-radius:22px;background:linear-gradient(140deg,var(--violet),#4A2FB0);
+  display:grid;place-items:center;font-size:26px;font-weight:800}
+.prof-top b{font-size:19px;font-weight:800;display:block}
+.prof-top s{text-decoration:none;font-size:12.5px;color:var(--dim);display:block;margin-top:3px}
+.stats{display:flex;gap:8px;margin-bottom:18px}
+.stat{flex:1;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:14px;
+  padding:12px 10px;text-align:center}
+.stat b{display:block;font-size:19px;font-weight:800;color:var(--violet-2)}
+.stat s{display:block;text-decoration:none;font-size:10px;color:var(--dim-2);margin-top:3px;
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+.row s{text-decoration:none;color:var(--dim-2);font-size:12.5px}
+
+/* ---------- tabbar ---------- */
+.tabbar{flex:none;height:66px;display:flex;background:rgba(12,10,32,.97);
+  border-top:1px solid var(--line);backdrop-filter:blur(16px);z-index:40}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  cursor:pointer;color:var(--dim-2);font-size:9.5px;font-weight:700;letter-spacing:.03em;
+  padding-bottom:6px;transition:.16s}
+.tab .g{font-size:19px;line-height:1;filter:grayscale(1) opacity(.55);transition:.16s}
+.tab.on{color:var(--violet-2)}
+.tab.on .g{filter:none;transform:translateY(-1px)}
+
+/* ---------- toast / push ---------- */
+.push{position:absolute;top:48px;left:12px;right:12px;z-index:80;
+  background:rgba(28,24,64,.98);border:1px solid rgba(155,120,255,.35);border-radius:17px;
+  padding:12px 14px;display:flex;gap:11px;align-items:flex-start;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);backdrop-filter:blur(16px);
+  transform:translateY(-160%);transition:transform .42s cubic-bezier(.34,1.4,.64,1)}
+.push.on{transform:translateY(0)}
+.push .ic{width:30px;height:30px;border-radius:9px;background:var(--violet);flex:none;
+  display:grid;place-items:center;font-size:14px}
+.push .tx b{display:block;font-size:12.5px;font-weight:700}
+.push .tx s{display:block;text-decoration:none;font-size:11.5px;color:var(--dim);margin-top:2px;line-height:1.4}
+
+.ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.ctl button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--dim);
+  font-family:inherit;font-size:11.5px;font-weight:600;padding:8px 13px;border-radius:10px;cursor:pointer;
+  transition:.16s}
+.ctl button:hover{border-color:rgba(155,120,255,.45);color:#fff}
+.caption{font-size:11px;color:var(--dim-2);text-align:center;max-width:330px;line-height:1.5}
+
+footer{margin-top:70px;border-top:1px solid var(--line);padding-top:20px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim-2)}
+
+@media (max-width:900px){
+  .wrap{padding:24px 16px 50px}
+  .hero{gap:38px;margin-top:34px;justify-content:center}
+  .phone{width:min(342px,92vw);height:min(718px,182vw)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">KARAARSLAN <span>DIGITAL</span></div>
+    <div class="tag">Etkileşimli Demo · KD-2026-07-QDL</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Faz 1 — MVP akışı</div>
+      <h1>Quadly<br><em>çalışırken</em><br>böyle görünür.</h1>
+      <p>Bu, tasarım görseli değil; sağdaki telefonda gerçekten tıklanabilen bir prototip. Faz 1 kapsamındaki ana akışı baştan sona deneyebilirsiniz.</p>
+
+      <div class="hint"><b>Nasıl denenir:</b> Haritadaki bir masaya dokunun, detayı açın ve “Masaya katıl”a basın. Ardından alt menüden yeni bir masa açmayı deneyin.</div>
+
+      <div class="legend">
+        <div class="leg"><i>1</i><div><b style="color:#fff">Keşfet</b> — konumunuza göre yakındaki açık masalar haritada. Oyun türüne göre filtrelenir.</div></div>
+        <div class="leg"><i>2</i><div><b style="color:#fff">Masa detayı</b> — kaç kişi var, kim eksik, nerede ve saat kaçta. Katılım tek dokunuş.</div></div>
+        <div class="leg"><i>3</i><div><b style="color:#fff">Masa aç</b> — oyun, konum, saat ve kişi sayısını seçin; masanız haritada yayınlansın.</div></div>
+        <div class="leg"><i>4</i><div><b style="color:#fff">Bildirim</b> — masanız dolduğunda push bildirimi düşer.</div></div>
+      </div>
+    </div>
+
+    <div class="phone-col">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="statusbar"><span id="clock">20:15</span><span class="r">◉ ▮▮▮ 87%</span></div>
+
+          <div class="push" id="push">
+            <div class="ic">◆</div>
+            <div class="tx"><b id="pushT">Quadly</b><s id="pushS">Masanız tamamlandı.</s></div>
+          </div>
+
+          <!-- ===== KEŞFET ===== -->
+          <section class="view on" id="v-map">
+            <div class="map">
+              <svg viewBox="0 0 340 640" preserveAspectRatio="xMidYMid slice">
+                <rect width="340" height="640" fill="#0C0A24"/>
+                <path d="M-20 210 L360 168" stroke="#1A1740" stroke-width="15"/>
+                <path d="M-20 400 L360 372" stroke="#1A1740" stroke-width="19"/>
+                <path d="M-20 545 L360 528" stroke="#1A1740" stroke-width="12"/>
+                <path d="M78 -20 L96 660" stroke="#1A1740" stroke-width="16"/>
+                <path d="M228 -20 L212 660" stroke="#1A1740" stroke-width="13"/>
+                <path d="M300 -20 L316 660" stroke="#161334" stroke-width="9"/>
+                <path d="M-20 300 L360 292" stroke="#161334" stroke-width="7"/>
+                <path d="M-20 470 L360 456" stroke="#161334" stroke-width="6"/>
+                <rect x="102" y="222" width="98" height="60" rx="6" fill="#131031"/>
+                <rect x="240" y="196" width="52" height="82" rx="6" fill="#131031"/>
+                <rect x="14" y="418" width="62" height="70" rx="6" fill="#131031"/>
+                <rect x="118" y="418" width="80" height="54" rx="6" fill="#131031"/>
+                <rect x="236" y="404" width="58" height="72" rx="6" fill="#131031"/>
+                <rect x="18" y="222" width="46" height="58" rx="6" fill="#131031"/>
+                <path d="M118 300 h84 v66 h-84 z" fill="#0F2A22" opacity=".85"/>
+                <circle cx="160" cy="333" r="20" fill="#12362A" opacity=".8"/>
+                <path d="M-20 588 L360 574 L360 660 L-20 660 Z" fill="#0A1730"/>
+              </svg>
+              <div class="mapfade"></div>
+
+              <div class="searchbar">
+                <div class="ic">⌕</div>
+                <div class="t">Kadıköy, İstanbul</div>
+                <div class="ic" style="background:rgba(255,255,255,.07)">⚙</div>
+              </div>
+              <div class="chips" id="chips">
+                <div class="chip on" data-f="all">Tümü</div>
+                <div class="chip" data-f="Okey">Okey</div>
+                <div class="chip" data-f="Bilardo">Bilardo</div>
+                <div class="chip" data-f="Kağıt">Kağıt</div>
+                <div class="chip" data-f="Tavla">Tavla</div>
+              </div>
+
+              <div class="me"><i></i></div>
+              <div id="pins"></div>
+            </div>
+
+            <div class="sheet" id="sheet">
+              <div class="grab"></div>
+              <div id="sheetBody"></div>
+            </div>
+          </section>
+
+          <!-- ===== MASA AÇ ===== -->
+          <section class="view" id="v-new">
+            <div class="pad">
+              <div class="vh">Masa aç</div>
+              <div class="vs">Masanız yayınlandığında yakındaki oyunculara bildirim gider.</div>
+
+              <div class="field">
+                <div class="lbl">Oyun</div>
+                <div class="opts" id="oGame">
+                  <div class="opt on">Okey</div><div class="opt">Bilardo</div>
+                  <div class="opt">Kağıt</div><div class="opt">Tavla</div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="lbl">Buluşma yeri</div>
+                <input class="inp" id="iPlace" value="Merkez Kıraathanesi" placeholder="Mekan adı">
+              </div>
+              <div class="field">
+                <div class="lbl">Saat</div>
+                <div class="opts" id="oTime">
+                  <div class="opt">18:00</div><div class="opt on">19:30</div>
+                  <div class="opt">21:00</div><div class="opt">Yarın 20:00</div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="lbl">Kaç kişi aranıyor</div>
+                <div class="opts" id="oSeat">
+                  <div class="opt on">1 kişi</div><div class="opt">2 kişi</div><div class="opt">3 kişi</div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="lbl">Seviye</div>
+                <div class="opts" id="oLvl">
+                  <div class="opt">Yeni başlayan</div><div class="opt on">Orta</div><div class="opt">İleri</div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="lbl">Not (isteğe bağlı)</div>
+                <input class="inp" id="iNote" placeholder="Örn. Çay bizden, keyifli oynayalım.">
+              </div>
+
+              <button class="btn amber" onclick="createTable()">Masayı yayınla</button>
+              <div class="caption" style="margin-top:12px;text-align:left">Tam konumunuz kimseyle paylaşılmaz — yalnızca buluşma noktası ve yaklaşık mesafe görünür.</div>
+            </div>
+          </section>
+
+          <!-- ===== MASALARIM ===== -->
+          <section class="view" id="v-mine">
+            <div class="pad">
+              <div class="vh">Masalarım</div>
+              <div class="vs">Katıldığınız ve açtığınız masalar.</div>
+              <div id="mineList"></div>
+            </div>
+          </section>
+
+          <!-- ===== PROFİL ===== -->
+          <section class="view" id="v-prof">
+            <div class="pad">
+              <div class="prof-top">
+                <div class="prof-av">B</div>
+                <div><b>Bulut E.</b><s>Kadıköy · Okey, Tavla · Orta seviye</s></div>
+              </div>
+              <div class="stats">
+                <div class="stat"><b id="sJoin">0</b><s>Masa</s></div>
+                <div class="stat"><b>4.8</b><s>Puan</s></div>
+                <div class="stat"><b>12</b><s>Oyuncu</s></div>
+              </div>
+              <div class="row"><span>Oynadığım oyunlar</span><s>Okey, Tavla ›</s></div>
+              <div class="row"><span>Konum izni</span><s>Açık ›</s></div>
+              <div class="row"><span>Bildirimler</span><s>Açık ›</s></div>
+              <div class="row"><span>Engellenen kullanıcılar</span><s>0 ›</s></div>
+              <div class="row"><span>Gizlilik ve KVKK</span><s>›</s></div>
+              <div class="row" style="border:0"><span>Yardım ve şikayet</span><s>›</s></div>
+            </div>
+          </section>
+
+          <div class="tabbar">
+            <div class="tab on" data-v="v-map"><span class="g">🗺️</span>Keşfet</div>
+            <div class="tab" data-v="v-new"><span class="g">➕</span>Masa aç</div>
+            <div class="tab" data-v="v-mine"><span class="g">🎲</span>Masalarım</div>
+            <div class="tab" data-v="v-prof"><span class="g">👤</span>Profil</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctl">
+        <button onclick="resetDemo()">Demoyu sıfırla</button>
+        <button onclick="firePush('Yakınında yeni masa','Kadıköy · Okey · 4. oyuncu aranıyor')">Bildirim örneği</button>
+      </div>
+      <div class="caption">Prototip amaçlıdır; harita ve kullanıcılar temsilidir. Gerçek uygulamada canlı harita servisi ve doğrulanmış kullanıcı hesapları kullanılır.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Karaarslan Digital</div>
+    <div>Quadly · Faz 1 Prototip</div>
+    <div>26.07.2026</div>
+  </footer>
+</div>
+
+<script>
+const G = {Okey:'🀄', Bilardo:'🎱', 'Kağıt':'🃏', Tavla:'⚅'};
+
+const SEED = [
+  {id:1, game:'Okey',    place:'Merkez Kıraathanesi', area:'Moda',       dist:'0.3 km', time:'Bugün 19:00', lvl:'Orta',          seats:4, taken:3, x:52, y:30, note:'Üç kişiyiz, dördüncüyü bekliyoruz. Çay bizden.'},
+  {id:2, game:'Kağıt',   place:'Kadife Sokak Kafe',   area:'Kadife Sk.', dist:'0.7 km', time:'Bugün 20:30', lvl:'Yeni başlayan', seats:4, taken:2, x:80, y:44, note:'Batak oynuyoruz, öğrenmek isteyen de gelebilir.'},
+  {id:3, game:'Bilardo', place:'Rıhtım Bilardo Salonu',area:'Rıhtım',    dist:'0.5 km', time:'Bugün 21:00', lvl:'İleri',         seats:2, taken:1, x:22, y:47, amber:true, note:'Amerikan bilardo, masa ayırttım.'},
+  {id:4, game:'Okey',    place:'Yeldeğirmeni Çay Evi',area:'Yeldeğirmeni',dist:'1.2 km',time:'Yarın 18:00', lvl:'Orta',          seats:4, taken:2, x:70, y:71, note:'Haftalık okey grubumuz, yeni oyuncu arıyoruz.'},
+  {id:5, game:'Tavla',   place:'Bahariye Kahve',      area:'Bahariye',   dist:'0.9 km', time:'Bugün 19:30', lvl:'İleri',         seats:2, taken:1, x:33, y:22, amber:true, note:'Beşli maç, kaybeden çayları ısmarlar.'}
+];
+
+let tables = [];
+let filter = 'all';
+let selected = null;
+let mine = [];
+
+function clone(){ return SEED.map(t=>Object.assign({},t)); }
+
+/* ---------- rendering ---------- */
+function renderPins(){
+  const box = document.getElementById('pins');
+  box.innerHTML = '';
+  tables.filter(t => filter==='all' || t.game===filter).forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className = 'pin' + (t.amber?' amber':'') + (selected===t.id?' sel':'');
+    el.style.left = t.x+'%';
+    el.style.top = t.y+'%';
+    el.style.animationDelay = (i*55)+'ms';
+    el.innerHTML = `<div class="pin-b"><div class="pin-a">${G[t.game]||'🎲'}</div>
+      <div class="pin-t"><b>${t.game}</b><s>${t.dist}</s></div></div><div class="pin-tip"></div>`;
+    el.onclick = ()=>openSheet(t.id);
+    box.appendChild(el);
+  });
+}
+
+function seatsHTML(t, popLast){
+  let h = '';
+  for(let i=0;i<t.seats;i++){
+    if(i < t.taken) h += `<div class="seat${(popLast && i===t.taken-1)?' pop':''}">👤</div>`;
+    else h += '<div class="seat free">+</div>';
+  }
+  const left = t.seats - t.taken;
+  h += `<div class="seattx"><b>${left===0?'Masa tamam':left+' kişi aranıyor'}</b>${t.taken}/${t.seats} oyuncu</div>`;
+  return h;
+}
+
+function openSheet(id, popLast){
+  selected = id;
+  const t = tables.find(x=>x.id===id);
+  const joined = mine.includes(id);
+  const full = t.taken >= t.seats;
+  let btn;
+  if(joined) btn = `<button class="btn done">✓ Katıldınız — Masalarım'da</button>`;
+  else if(full) btn = `<button class="btn" disabled>Masa dolu</button>`;
+  else btn = `<button class="btn" onclick="join(${id})">Masaya katıl</button>`;
+
+  document.getElementById('sheetBody').innerHTML = `
+    <div class="sh-top">
+      <div class="sh-ic">${G[t.game]||'🎲'}</div>
+      <div class="sh-h"><b>${t.game} Masası</b><s>${t.place} · ${t.area}</s></div>
+      <div class="sh-dist">${t.dist}</div>
+    </div>
+    <div class="sh-meta">
+      <div class="mbox"><div class="k">Saat</div><div class="v">${t.time}</div></div>
+      <div class="mbox"><div class="k">Seviye</div><div class="v">${t.lvl}</div></div>
+    </div>
+    <div class="seatrow">${seatsHTML(t, popLast)}</div>
+    ${t.note?`<div class="note">${t.note}</div>`:''}
+    ${btn}
+    <button class="btn ghost" onclick="closeSheet()">Kapat</button>`;
+  document.getElementById('sheet').classList.add('up');
+  renderPins();
+}
+
+function closeSheet(){
+  document.getElementById('sheet').classList.remove('up');
+  selected = null;
+  renderPins();
+}
+
+function join(id){
+  const t = tables.find(x=>x.id===id);
+  t.taken = Math.min(t.seats, t.taken+1);
+  mine.push(id);
+  openSheet(id, true);
+  renderMine();
+  document.getElementById('sJoin').textContent = mine.length;
+  if(t.taken >= t.seats){
+    setTimeout(()=>firePush('Masa tamamlandı 🎉', `${t.place} · ${t.time} — görüşmek üzere!`), 700);
+  } else {
+    setTimeout(()=>firePush('Katılımınız alındı', `${t.place} masasına eklendiniz.`), 500);
+  }
+}
+
+function renderMine(){
+  const box = document.getElementById('mineList');
+  if(!mine.length){
+    box.innerHTML = `<div class="empty"><div class="e">🎲</div><b>Henüz masanız yok</b>
+      <p>Keşfet sekmesinden yakındaki bir masaya katılın ya da kendi masanızı açın.</p></div>`;
+    return;
+  }
+  box.innerHTML = mine.map(id=>{
+    const t = tables.find(x=>x.id===id);
+    const full = t.taken>=t.seats;
+    const badge = t.own ? '<span class="badge own">Masa sahibi</span>'
+                : full ? '<span class="badge ok">Tamamlandı</span>'
+                : '<span class="badge wait">Oyuncu bekleniyor</span>';
+    let seats='';
+    for(let i=0;i<t.seats;i++) seats += i<t.taken?'<div class="mini">👤</div>':'<div class="mini free">+</div>';
+    return `<div class="card" onclick="goTo('v-map');openSheet(${t.id})">
+      <div class="card-t"><div><b>${G[t.game]||'🎲'} ${t.game} · ${t.place}</b><s>${t.area} · ${t.dist}</s></div>${badge}</div>
+      <div class="card-b">${seats}<div class="sp"></div><div class="tm">${t.time}</div></div></div>`;
+  }).join('');
+}
+
+/* ---------- create ---------- */
+function pick(id){ return document.querySelector('#'+id+' .opt.on').textContent; }
+
+function createTable(){
+  const game = pick('oGame');
+  const seatsWanted = parseInt(pick('oSeat'));
+  const t = {
+    id: Date.now(),
+    game, place: document.getElementById('iPlace').value || 'Belirtilmedi',
+    area:'Sizin konumunuz', dist:'0.1 km', time: pick('oTime'), lvl: pick('oLvl'),
+    seats: seatsWanted+1, taken:1,
+    x: 44+Math.round(Math.random()*14), y: 52+Math.round(Math.random()*10),
+    note: document.getElementById('iNote').value, own:true,
+    amber: game==='Bilardo'||game==='Tavla'
+  };
+  tables.push(t); mine.push(t.id);
+  renderPins(); renderMine();
+  document.getElementById('sJoin').textContent = mine.length;
+  goTo('v-map');
+  setTimeout(()=>openSheet(t.id), 260);
+  setTimeout(()=>firePush('Masanız yayında', `${t.place} · ${t.time} — yakındaki ${8+Math.floor(Math.random()*9)} oyuncuya bildirildi.`), 900);
+}
+
+/* ---------- nav / push ---------- */
+function goTo(v){
+  document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on', e.id===v));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on', e.dataset.v===v));
+  if(v!=='v-map') closeSheet();
+}
+document.querySelectorAll('.tab').forEach(t=> t.onclick = ()=>goTo(t.dataset.v));
+
+document.querySelectorAll('#chips .chip').forEach(c=>{
+  c.onclick = ()=>{
+    document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on'); filter = c.dataset.f; closeSheet(); renderPins();
+  };
+});
+
+['oGame','oTime','oSeat','oLvl'].forEach(id=>{
+  document.querySelectorAll('#'+id+' .opt').forEach(o=>{
+    o.onclick = ()=>{
+      document.querySelectorAll('#'+id+' .opt').forEach(x=>x.classList.remove('on'));
+      o.classList.add('on');
+    };
+  });
+});
+
+let pushTimer;
+function firePush(title, body){
+  const p = document.getElementById('push');
+  document.getElementById('pushT').textContent = title;
+  document.getElementById('pushS').textContent = body;
+  p.classList.add('on');
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(()=>p.classList.remove('on'), 3800);
+}
+
+function resetDemo(){
+  tables = clone(); mine = []; filter='all'; selected=null;
+  document.querySelectorAll('#chips .chip').forEach((x,i)=>x.classList.toggle('on', i===0));
+  closeSheet(); renderPins(); renderMine();
+  document.getElementById('sJoin').textContent = 0;
+  goTo('v-map');
+}
+
+function tick(){
+  const d = new Date();
+  document.getElementById('clock').textContent =
+    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+
+resetDemo(); tick(); setInterval(tick, 20000);
+setTimeout(()=>firePush('Yakınında 5 açık masa var','Kadıköy çevresinde bu akşam oyun arayanlar.'), 1400);
+</script>
+</body>
+</html>
