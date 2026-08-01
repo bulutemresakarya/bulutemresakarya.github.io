@@ -1,644 +1,1047 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quadly — Etkileşimli Demo · Karaarslan Digital</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quadmate — Ürün Demosu</title>
+<meta name="description" content="Quadmate: konum bazlı 'eksik oyuncu bulma' mobil uygulaması. İnteraktif ürün demosu ve mimari özeti." />
 <style>
-:root{
-  --ink:#08071A;
-  --ink-2:#0F0D28;
-  --panel:#17143A;
-  --panel-2:#1E1A49;
-  --violet:#7B4DFF;
-  --violet-2:#9B78FF;
-  --amber:#E8A317;
-  --white:#FFFFFF;
-  --dim:#A49CD0;
-  --dim-2:#6F6899;
-  --line:rgba(255,255,255,.10);
-  --ok:#3DDC97;
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
-body{
-  background:
-    radial-gradient(1100px 620px at 78% -8%, rgba(123,77,255,.30), transparent 60%),
-    radial-gradient(760px 500px at 8% 104%, rgba(232,163,23,.14), transparent 62%),
-    var(--ink);
-  color:var(--white);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-}
+  :root{
+    --brand-50:#F4F0FF; --brand-100:#E8DEFF; --brand-200:#CFBBFF; --brand-300:#AD8DFF;
+    --brand-400:#8B5CF6; --brand-500:#7C3AED; --brand-600:#6D28D9; --brand-700:#5B21B6;
+    --brand-800:#4C1D95; --brand-900:#3B1678; --brand-950:#20103F;
+    --ink-950:#0A0714; --ink-900:#120B24; --ink-800:#1B1233; --ink-700:#251A44; --ink-600:#332358;
+    --gold-400:#FBBF57; --gold-500:#F2A93C; --gold-600:#D98F1F;
+    --success:#22C55E; --danger:#EF4444; --text-muted:#9B93B0;
+    --radius-lg:20px; --radius-full:999px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 20% -10%, #2a1a4d 0%, var(--ink-950) 55%), var(--ink-950);
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
 
-/* ---------- page chrome ---------- */
-.wrap{max-width:1180px;margin:0 auto;padding:34px 24px 70px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;
-  border-bottom:1px solid var(--line);padding-bottom:18px;flex-wrap:wrap}
-.brand{font-weight:800;font-size:14px;letter-spacing:.06em}
-.brand span{color:var(--amber)}
-.tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2)}
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,7,20,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .brandmark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-0.01em;}
+  .brandmark .dots{display:inline-grid;grid-template-columns:repeat(2,7px);grid-template-rows:repeat(2,7px);gap:3px;}
+  .brandmark .dots span{border-radius:50%;display:block;width:7px;height:7px;}
+  .brandmark .dots span:nth-child(1){background:var(--brand-400);}
+  .brandmark .dots span:nth-child(2){background:#F26D6D;}
+  .brandmark .dots span:nth-child(3){background:#4EA1FF;}
+  .brandmark .dots span:nth-child(4){background:var(--gold-400);}
+  .header-pill{
+    font-size:12px;font-weight:600;color:var(--brand-200);
+    background:rgba(124,58,237,0.16);border:1px solid rgba(124,58,237,0.35);
+    padding:6px 12px;border-radius:var(--radius-full);
+  }
 
-.hero{display:flex;gap:56px;align-items:flex-start;margin-top:52px;flex-wrap:wrap}
-.hero-copy{flex:1 1 380px;min-width:300px;max-width:520px}
-.eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);font-weight:600}
-h1{font-size:clamp(38px,5.4vw,60px);line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;font-weight:800}
-h1 em{font-style:normal;color:var(--violet-2)}
-.hero-copy p{color:var(--dim);font-size:15.5px;line-height:1.65;margin:20px 0 0;max-width:44ch}
-.hint{margin-top:30px;border-left:2px solid var(--amber);padding:2px 0 2px 16px;
-  font-size:13px;color:var(--dim);line-height:1.6}
-.hint b{color:#fff;font-weight:600}
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 40px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+    color:var(--gold-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-400);}
+  .hero h1{
+    font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 18px;
+    background:linear-gradient(135deg,#fff 30%,var(--brand-200) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{font-size:18px;line-height:1.6;color:var(--text-muted);max-width:640px;margin:0 0 28px;}
+  .stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px;}
+  .stat-chip{
+    background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;
+    padding:14px 18px;min-width:140px;
+  }
+  .stat-chip b{display:block;font-size:20px;color:#fff;margin-bottom:2px;}
+  .stat-chip span{font-size:12.5px;color:var(--text-muted);}
+  .tech-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tech-badge{
+    font-size:12.5px;font-weight:600;color:var(--text-muted);
+    background:var(--ink-800);border:1px solid var(--ink-600);
+    padding:7px 13px;border-radius:var(--radius-full);
+  }
 
-.legend{margin-top:34px;display:grid;gap:10px}
-.leg{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--dim);line-height:1.5}
-.leg i{flex:none;width:22px;height:22px;border-radius:7px;background:rgba(123,77,255,.18);
-  display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;color:var(--violet-2)}
+  /* ---------- section shell ---------- */
+  section{padding:56px 0;}
+  .section-head{max-width:640px;margin:0 0 36px;}
+  .section-kicker{font-size:12px;font-weight:700;color:var(--brand-300);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(24px,3vw,32px);margin:0 0 12px;letter-spacing:-0.01em;}
+  .section-head p{color:var(--text-muted);font-size:15.5px;line-height:1.6;margin:0;}
 
-/* ---------- phone ---------- */
-.phone-col{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
-.phone{
-  width:342px;height:718px;border-radius:44px;background:#05040F;
-  padding:11px;position:relative;
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 40px 90px rgba(0,0,0,.66), 0 0 0 1px rgba(123,77,255,.16), 0 0 70px rgba(123,77,255,.18);
-}
-.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;
-  background:var(--ink-2);display:flex;flex-direction:column}
-.notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);
-  width:112px;height:26px;background:#05040F;border-radius:0 0 16px 16px;z-index:60}
-.statusbar{height:42px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;
-  padding:0 20px 5px;font-size:11.5px;font-weight:600;color:#fff;z-index:50}
-.statusbar .r{display:flex;gap:5px;align-items:center;opacity:.85;font-size:10px;letter-spacing:.04em}
+  /* ---------- demo layout ---------- */
+  .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start;}
+  @media (max-width:980px){.demo-grid{grid-template-columns:1fr;}}
 
-.view{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;display:none}
-.view.on{display:block}
-.view::-webkit-scrollbar{width:0}
+  .feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
+  .feature-item{
+    display:flex;gap:14px;align-items:flex-start;
+    background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;padding:16px 18px;
+  }
+  .feature-item .ico{
+    width:38px;height:38px;flex:none;border-radius:11px;background:rgba(124,58,237,0.18);
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+  }
+  .feature-item h3{margin:0 0 4px;font-size:14.5px;}
+  .feature-item p{margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.5;}
 
-/* ---------- map ---------- */
-.map{position:absolute;inset:0;background:#0C0A24}
-.map svg{position:absolute;inset:0;width:100%;height:100%}
-.mapfade{position:absolute;inset:0;background:
-  linear-gradient(180deg, rgba(8,7,26,.85) 0%, rgba(8,7,26,0) 22%, rgba(8,7,26,0) 52%, rgba(8,7,26,.92) 100%)}
+  .howto{
+    background:linear-gradient(135deg,rgba(124,58,237,0.14),rgba(242,169,60,0.08));
+    border:1px solid rgba(124,58,237,0.3);border-radius:16px;padding:16px 18px;font-size:13.5px;color:var(--brand-200);line-height:1.6;
+  }
+  .howto b{color:#fff;}
 
-.searchbar{position:absolute;top:12px;left:14px;right:14px;z-index:20;
-  background:rgba(23,20,58,.94);border:1px solid var(--line);border-radius:15px;
-  padding:11px 13px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px)}
-.searchbar .t{font-size:13.5px;font-weight:600;flex:1}
-.searchbar .ic{width:26px;height:26px;border-radius:8px;background:rgba(123,77,255,.2);
-  display:grid;place-items:center;font-size:12px}
+  /* ---------- phone ---------- */
+  .phone-stage{position:sticky;top:96px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .phone{
+    width:375px;height:780px;border-radius:52px;padding:14px;
+    background:linear-gradient(160deg,#2a1f42,#0d0818 70%);
+    box-shadow:0 30px 80px -20px rgba(90,40,200,0.55), inset 0 0 0 2px rgba(255,255,255,0.04);
+    position:relative;
+  }
+  .phone-screen{
+    position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;
+    background:var(--ink-950);
+    display:flex;flex-direction:column;
+  }
+  .notch{
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:120px;height:26px;background:#0d0818;border-radius:0 0 16px 16px;z-index:40;
+  }
+  .status-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px 4px;font-size:13px;font-weight:600;color:#fff;flex:none;}
+  .status-bar .icons{display:flex;gap:5px;align-items:center;opacity:0.9;}
 
-.chips{position:absolute;top:62px;left:0;right:0;z-index:20;display:flex;gap:7px;
-  padding:0 14px;overflow-x:auto;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;font-size:11.5px;font-weight:600;padding:6.5px 12px;border-radius:999px;
-  background:rgba(23,20,58,.92);border:1px solid var(--line);color:var(--dim);cursor:pointer;
-  transition:.16s;white-space:nowrap;backdrop-filter:blur(10px)}
-.chip.on{background:var(--violet);border-color:var(--violet);color:#fff}
-.chip:active{transform:scale(.95)}
+  .app-header{padding:6px 18px 12px;flex:none;}
+  .app-header .row{display:flex;align-items:center;justify-content:space-between;}
+  .app-header h1{font-size:22px;margin:0;font-weight:700;}
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;background:var(--ink-800);border:1px solid var(--ink-700);
+    display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#fff;
+  }
+  .icon-btn:active{background:var(--ink-700);}
+  .btn-row{display:flex;gap:8px;}
 
-.pin{position:absolute;z-index:15;cursor:pointer;transform:translate(-50%,-100%);
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1);animation:drop .5s cubic-bezier(.34,1.4,.64,1) backwards}
-.pin:hover{transform:translate(-50%,-100%) scale(1.07)}
-.pin.sel{transform:translate(-50%,-100%) scale(1.13);z-index:18}
-@keyframes drop{from{opacity:0;transform:translate(-50%,-140%) scale(.7)}}
-.pin-b{background:var(--violet);border-radius:999px;padding:4px 11px 4px 4px;display:flex;
-  align-items:center;gap:7px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
-.pin.amber .pin-b{background:var(--amber)}
-.pin.amber .pin-t b{color:#2A1A00}
-.pin.amber .pin-t s{color:rgba(42,26,0,.7)}
-.pin-a{width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;
-  font-size:12px;background:rgba(255,255,255,.22)}
-.pin-t{line-height:1.15;padding-right:2px}
-.pin-t b{display:block;font-size:11.5px;font-weight:700;color:#fff}
-.pin-t s{display:block;font-size:9.5px;text-decoration:none;color:rgba(255,255,255,.78);font-weight:500}
-.pin-tip{width:0;height:0;margin:-1px auto 0;border-left:6px solid transparent;
-  border-right:6px solid transparent;border-top:8px solid var(--violet)}
-.pin.amber .pin-tip{border-top-color:var(--amber)}
+  .chip-scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 18px 14px;flex:none;scrollbar-width:none;}
+  .chip-scroll::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);
+    border:1px solid var(--ink-600);background:var(--ink-800);color:var(--text-muted);
+    font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;white-space:nowrap;user-select:none;
+    transition:all .15s ease;
+  }
+  .chip.selected{border-color:var(--brand-400);background:rgba(124,58,237,0.2);color:var(--brand-200);}
+  .chip:active{transform:scale(0.96);}
 
-.me{position:absolute;left:47%;top:56%;z-index:14;transform:translate(-50%,-50%)}
-.me i{display:block;width:15px;height:15px;border-radius:50%;background:#2F7BFF;
-  border:2.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
-.me::after{content:'';position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;
-  border-radius:50%;background:rgba(47,123,255,.45);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(5);opacity:0}100%{opacity:0}}
+  .screen-body{flex:1;overflow-y:auto;padding:0 18px 90px;scrollbar-width:none;}
+  .screen-body::-webkit-scrollbar{display:none;}
 
-/* ---------- bottom sheet ---------- */
-.sheet{position:absolute;left:0;right:0;bottom:0;z-index:30;
-  background:linear-gradient(180deg,var(--panel) 0%,var(--ink-2) 100%);
-  border-top:1px solid rgba(155,120,255,.30);
-  border-radius:24px 24px 0 0;padding:9px 18px 20px;
-  transform:translateY(calc(100% + 4px));transition:transform .34s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 -18px 44px rgba(0,0,0,.55)}
-.sheet.up{transform:translateY(0)}
-.grab{width:38px;height:4px;border-radius:2px;background:rgba(255,255,255,.22);margin:0 auto 14px}
+  .card{
+    border-radius:18px;border:1px solid var(--ink-700);background:var(--ink-800);padding:16px;
+    margin-bottom:12px;cursor:pointer;transition:transform .12s ease, border-color .12s ease;
+  }
+  .card:active{transform:scale(0.98);}
+  .card:hover{border-color:var(--ink-600);}
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .card-title-row{display:flex;gap:10px;align-items:flex-start;min-width:0;}
+  .card-title-row .emoji{font-size:22px;line-height:1;}
+  .card-title-row .txt{min-width:0;}
+  .card-title-row .txt .t{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .card-title-row .txt .v{font-size:13px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .badge{font-size:11px;font-weight:700;border-radius:var(--radius-full);padding:5px 10px;white-space:nowrap;}
+  .badge.brand{background:rgba(124,58,237,0.2);color:var(--brand-200);}
+  .badge.gold{background:rgba(242,169,60,0.2);color:var(--gold-400);}
+  .badge.neutral{background:var(--ink-700);color:var(--text-muted);}
+  .badge.success{background:rgba(34,197,94,0.18);color:var(--success);}
+  .card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--text-muted);}
+  .card-host{display:flex;align-items:center;gap:8px;margin-top:12px;}
+  .avatar{
+    border-radius:50%;background:linear-gradient(135deg,var(--brand-400),var(--brand-700));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none;
+  }
+  .card-host .avatar{width:22px;height:22px;font-size:10px;}
+  .card-host .name{font-size:12px;color:var(--text-muted);}
 
-.sh-top{display:flex;gap:12px;align-items:flex-start}
-.sh-ic{width:44px;height:44px;border-radius:14px;background:rgba(123,77,255,.2);flex:none;
-  display:grid;place-items:center;font-size:20px}
-.sh-h{flex:1}
-.sh-h b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.01em}
-.sh-h s{display:block;text-decoration:none;font-size:12px;color:var(--dim);margin-top:3px}
-.sh-dist{font-size:11px;font-weight:700;color:var(--amber);background:rgba(232,163,23,.13);
-  padding:5px 9px;border-radius:8px;flex:none}
+  .empty-state{margin-top:60px;text-align:center;color:var(--text-muted);font-size:14px;padding:0 20px;line-height:1.6;}
 
-.sh-meta{display:flex;gap:8px;margin-top:15px}
-.mbox{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:9px 10px}
-.mbox .k{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim-2);font-weight:600}
-.mbox .v{font-size:13px;font-weight:700;margin-top:3px}
+  /* map view */
+  .map-wrap{
+    position:relative;margin:0 -18px;height:calc(100% + 0px);min-height:520px;overflow:hidden;
+    background:
+      repeating-linear-gradient(0deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 40px),
+      radial-gradient(600px 400px at 30% 20%, rgba(124,58,237,0.28), transparent 60%),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .me-dot{position:absolute;left:38%;top:46%;width:14px;height:14px;border-radius:50%;background:#4EA1FF;box-shadow:0 0 0 6px rgba(78,161,255,0.25);}
+  .me-dot::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(78,161,255,0.35);animation:pulse 2.2s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(0.4);opacity:0.8;}100%{transform:scale(2.2);opacity:0;}}
+  .pin{
+    position:absolute;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg) translate(-50%,-100%);
+    background:var(--brand-500);border:2px solid #fff;box-shadow:0 6px 14px rgba(0,0,0,0.4);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .pin span{transform:rotate(45deg);font-size:14px;}
+  .pin.active{background:var(--gold-500);}
+  .map-popup{
+    position:absolute;left:16px;right:16px;bottom:16px;
+    background:var(--ink-800);border:1px solid var(--ink-600);border-radius:16px;padding:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.5);
+    animation:slideUp .18s ease;
+  }
+  @keyframes slideUp{from{transform:translateY(16px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
-.seatrow{display:flex;align-items:center;gap:9px;margin-top:16px}
-.seat{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:16px;
-  background:rgba(123,77,255,.85);border:2px solid transparent;transition:.3s}
-.seat.free{background:transparent;border:2px dashed rgba(232,163,23,.85);color:var(--amber);font-size:19px;font-weight:300}
-.seat.pop{animation:pop .45s cubic-bezier(.34,1.6,.64,1)}
-@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
-.seattx{font-size:11.5px;color:var(--dim);line-height:1.35;margin-left:2px}
-.seattx b{display:block;color:#fff;font-size:12.5px;font-weight:700}
+  /* form controls (Masa Aç / Filtreler) */
+  .field-label{font-size:14px;font-weight:700;color:#fff;margin:20px 0 10px;}
+  .field-label:first-child{margin-top:4px;}
+  .chip-grid{display:flex;flex-wrap:wrap;gap:8px;}
+  .input{
+    width:100%;background:var(--ink-800);border:1px solid var(--ink-600);border-radius:14px;
+    padding:14px 16px;color:#fff;font-size:14px;margin-top:10px;outline:none;
+  }
+  .input::placeholder{color:var(--text-muted);}
+  .input:focus{border-color:var(--brand-400);}
+  .mini-map{height:140px;border-radius:16px;margin-top:10px;position:relative;overflow:hidden;
+    background:repeating-linear-gradient(0deg, rgba(139,92,246,0.1) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, rgba(139,92,246,0.1) 0 1px, transparent 1px 28px),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .mini-map .pin{left:50%;top:50%;}
 
-.note{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.55;
-  background:rgba(255,255,255,.04);border-left:2px solid var(--violet);padding:9px 12px;border-radius:0 10px 10px 0}
+  .btn{
+    height:52px;width:100%;border-radius:16px;border:none;font-size:15px;font-weight:700;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;
+  }
+  .btn.primary{background:var(--brand-500);}
+  .btn.primary:active{background:var(--brand-600);}
+  .btn.secondary{background:var(--ink-700);border:1px solid var(--ink-600);}
+  .btn.ghost{background:transparent;color:var(--brand-300);}
+  .btn:disabled{opacity:0.4;cursor:default;}
 
-.btn{display:block;width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;
-  background:var(--violet);color:#fff;font-size:15px;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:.18s;letter-spacing:.01em}
-.btn:hover{background:#8A5FFF}
-.btn:active{transform:scale(.98)}
-.btn.amber{background:var(--amber);color:#2A1A00}
-.btn.amber:hover{background:#F5B334}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim);margin-top:9px;
-  padding:11px;font-size:13.5px}
-.btn.done{background:rgba(61,220,151,.14);color:var(--ok);cursor:default}
-.btn.done:hover{background:rgba(61,220,151,.14)}
-.btn[disabled]{opacity:.45;cursor:not-allowed}
+  /* overlay (stack screens) */
+  .overlay{
+    position:absolute;inset:0;background:var(--ink-950);display:flex;flex-direction:column;z-index:30;
+    animation:slideInUp .22s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes slideInUp{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .overlay-header{
+    display:flex;align-items:center;gap:12px;padding:16px 16px 10px;flex:none;
+  }
+  .overlay-header h2{font-size:17px;margin:0;font-weight:700;flex:1;}
+  .overlay-body{flex:1;overflow-y:auto;padding:6px 18px 24px;scrollbar-width:none;}
+  .overlay-body::-webkit-scrollbar{display:none;}
+  .overlay-footer{padding:14px 18px 18px;flex:none;border-top:1px solid var(--ink-800);}
 
-/* ---------- generic screens ---------- */
-.pad{padding:6px 18px 100px}
-.vh{font-size:23px;font-weight:800;letter-spacing:-.02em;margin:12px 0 4px}
-.vs{font-size:12.5px;color:var(--dim);margin-bottom:18px;line-height:1.5}
+  .detail-map{height:170px;border-radius:18px;overflow:hidden;position:relative;margin-bottom:18px;
+    background:repeating-linear-gradient(0deg, rgba(139,92,246,0.1) 0 1px, transparent 1px 30px),
+      repeating-linear-gradient(90deg, rgba(139,92,246,0.1) 0 1px, transparent 1px 30px),
+      linear-gradient(160deg,#1a1230,#0c0818 80%);
+  }
+  .detail-map .pin{left:50%;top:50%;}
+  .detail-title{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .detail-title .emoji{font-size:30px;}
+  .detail-title h3{font-size:21px;margin:0;font-weight:700;}
+  .badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .detail-meta{font-size:14px;color:#fff;margin-bottom:4px;}
+  .detail-sub{font-size:13px;color:var(--text-muted);margin-bottom:4px;}
+  .detail-desc{font-size:14.5px;color:var(--text-muted);line-height:1.6;margin:16px 0;}
+  .host-row{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--ink-700);margin-top:6px;}
+  .host-row .avatar{width:44px;height:44px;font-size:16px;}
+  .host-row .name{font-size:15px;font-weight:600;color:#fff;}
+  .host-row .role{font-size:12px;color:var(--text-muted);}
 
-.field{margin-bottom:15px}
-.lbl{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim-2);
-  font-weight:700;margin-bottom:7px}
-.opts{display:flex;gap:7px;flex-wrap:wrap}
-.opt{font-size:12.5px;font-weight:600;padding:9px 13px;border-radius:11px;cursor:pointer;
-  background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--dim);transition:.16s}
-.opt.on{background:rgba(123,77,255,.2);border-color:var(--violet);color:#fff}
-.opt:active{transform:scale(.96)}
-.inp{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;
-  padding:12px 13px;color:#fff;font-size:13.5px;font-family:inherit;outline:none}
-.inp:focus{border-color:var(--violet)}
-.inp::placeholder{color:var(--dim-2)}
+  /* chat */
+  .chat-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ink-800);cursor:pointer;}
+  .chat-row .avatar{width:46px;height:46px;font-size:16px;}
+  .chat-row .body{flex:1;min-width:0;}
+  .chat-row .top{display:flex;justify-content:space-between;font-size:14px;}
+  .chat-row .top .name{font-weight:600;color:#fff;}
+  .chat-row .top .time{font-size:11.5px;color:var(--text-muted);}
+  .chat-row .preview{font-size:13px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px;}
+  .unread-dot{width:9px;height:9px;border-radius:50%;background:var(--gold-500);flex:none;}
 
-.card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:16px;
-  padding:14px;margin-bottom:11px;cursor:pointer;transition:.16s}
-.card:hover{border-color:rgba(155,120,255,.4);background:rgba(255,255,255,.07)}
-.card-t{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.card-t b{font-size:14.5px;font-weight:700}
-.card-t s{text-decoration:none;font-size:11.5px;color:var(--dim);display:block;margin-top:3px}
-.badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:7px;flex:none;letter-spacing:.03em}
-.badge.ok{background:rgba(61,220,151,.15);color:var(--ok)}
-.badge.wait{background:rgba(232,163,23,.15);color:var(--amber)}
-.badge.own{background:rgba(123,77,255,.2);color:var(--violet-2)}
-.card-b{display:flex;gap:6px;margin-top:12px;align-items:center}
-.mini{width:25px;height:25px;border-radius:50%;background:rgba(123,77,255,.8);display:grid;
-  place-items:center;font-size:11px}
-.mini.free{background:transparent;border:1.5px dashed rgba(232,163,23,.8);color:var(--amber)}
-.card-b .sp{flex:1}
-.card-b .tm{font-size:11.5px;color:var(--dim);font-weight:600}
+  .plan-card{
+    background:linear-gradient(135deg,rgba(124,58,237,0.18),rgba(124,58,237,0.06));
+    border:1px solid rgba(124,58,237,0.35);border-radius:16px;padding:14px;margin-bottom:16px;
+  }
+  .plan-card .k{font-size:11px;font-weight:700;color:var(--brand-300);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+  .plan-card .title{font-size:14.5px;font-weight:600;color:#fff;margin-bottom:2px;}
+  .plan-card .sub{font-size:12.5px;color:var(--text-muted);}
 
-.empty{text-align:center;padding:56px 20px;color:var(--dim-2)}
-.empty .e{font-size:36px;margin-bottom:12px;opacity:.5}
-.empty b{display:block;color:var(--dim);font-size:14px;font-weight:600;margin-bottom:6px}
-.empty p{font-size:12.5px;line-height:1.55;margin:0}
+  .bubble-row{display:flex;margin-bottom:10px;}
+  .bubble-row.me{justify-content:flex-end;}
+  .bubble{max-width:76%;padding:10px 14px;border-radius:16px;font-size:13.5px;line-height:1.45;}
+  .bubble-row.me .bubble{background:var(--brand-500);color:#fff;border-bottom-right-radius:4px;}
+  .bubble-row.them .bubble{background:var(--ink-800);color:#fff;border-bottom-left-radius:4px;}
+  .chat-input-row{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--ink-800);border:1px solid var(--ink-700);border-radius:999px;margin:6px 18px 14px;}
+  .chat-input-row input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:13.5px;}
+  .chat-input-row input::placeholder{color:var(--text-muted);}
+  .send-dot{width:32px;height:32px;border-radius:50%;background:var(--brand-500);display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;}
 
-.prof-top{display:flex;gap:14px;align-items:center;padding:14px 0 20px}
-.prof-av{width:64px;height:64px;border-radius:22px;background:linear-gradient(140deg,var(--violet),#4A2FB0);
-  display:grid;place-items:center;font-size:26px;font-weight:800}
-.prof-top b{font-size:19px;font-weight:800;display:block}
-.prof-top s{text-decoration:none;font-size:12.5px;color:var(--dim);display:block;margin-top:3px}
-.stats{display:flex;gap:8px;margin-bottom:18px}
-.stat{flex:1;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:14px;
-  padding:12px 10px;text-align:center}
-.stat b{display:block;font-size:19px;font-weight:800;color:var(--violet-2)}
-.stat s{display:block;text-decoration:none;font-size:10px;color:var(--dim-2);margin-top:3px;
-  letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-.row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;
-  border-bottom:1px solid var(--line);font-size:13.5px}
-.row s{text-decoration:none;color:var(--dim-2);font-size:12.5px}
+  /* requests */
+  .seg{display:flex;background:var(--ink-800);border-radius:14px;padding:4px;margin:4px 0 16px;}
+  .seg button{flex:1;border:none;background:transparent;color:var(--text-muted);font-size:13px;font-weight:700;padding:10px;border-radius:11px;cursor:pointer;}
+  .seg button.active{background:var(--brand-500);color:#fff;}
+  .req-card{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:16px;padding:14px;margin-bottom:12px;}
+  .req-card .txt{font-size:13.5px;color:#fff;line-height:1.5;margin-bottom:10px;}
+  .req-card .txt b{color:var(--brand-200);}
+  .req-actions{display:flex;gap:8px;}
+  .req-actions button{flex:1;height:38px;border-radius:11px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;}
+  .req-actions .accept{background:var(--success);color:#08210f;}
+  .req-actions .decline{background:var(--ink-700);color:#fff;border:1px solid var(--ink-600);}
 
-/* ---------- tabbar ---------- */
-.tabbar{flex:none;height:66px;display:flex;background:rgba(12,10,32,.97);
-  border-top:1px solid var(--line);backdrop-filter:blur(16px);z-index:40}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-  cursor:pointer;color:var(--dim-2);font-size:9.5px;font-weight:700;letter-spacing:.03em;
-  padding-bottom:6px;transition:.16s}
-.tab .g{font-size:19px;line-height:1;filter:grayscale(1) opacity(.55);transition:.16s}
-.tab.on{color:var(--violet-2)}
-.tab.on .g{filter:none;transform:translateY(-1px)}
+  /* profile */
+  .profile-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 0 20px;}
+  .profile-head .avatar{width:76px;height:76px;font-size:26px;margin-bottom:12px;}
+  .profile-head h2{margin:0 0 3px;font-size:19px;}
+  .profile-head .sub{font-size:12.5px;color:var(--text-muted);}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0;}
+  .stat-box{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:14px;padding:12px 6px;text-align:center;}
+  .stat-box b{display:block;font-size:16px;color:#fff;}
+  .stat-box span{font-size:10.5px;color:var(--text-muted);}
+  .list-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--ink-800);font-size:14px;color:#fff;cursor:pointer;}
+  .list-row .ico{width:32px;text-align:center;font-size:16px;}
+  .list-row .chev{margin-left:auto;color:var(--text-muted);}
 
-/* ---------- toast / push ---------- */
-.push{position:absolute;top:48px;left:12px;right:12px;z-index:80;
-  background:rgba(28,24,64,.98);border:1px solid rgba(155,120,255,.35);border-radius:17px;
-  padding:12px 14px;display:flex;gap:11px;align-items:flex-start;
-  box-shadow:0 16px 40px rgba(0,0,0,.6);backdrop-filter:blur(16px);
-  transform:translateY(-160%);transition:transform .42s cubic-bezier(.34,1.4,.64,1)}
-.push.on{transform:translateY(0)}
-.push .ic{width:30px;height:30px;border-radius:9px;background:var(--violet);flex:none;
-  display:grid;place-items:center;font-size:14px}
-.push .tx b{display:block;font-size:12.5px;font-weight:700}
-.push .tx s{display:block;text-decoration:none;font-size:11.5px;color:var(--dim);margin-top:2px;line-height:1.4}
+  /* tab bar */
+  .tab-bar{
+    position:absolute;left:0;right:0;bottom:0;height:78px;background:rgba(18,11,36,0.92);backdrop-filter:blur(10px);
+    border-top:1px solid var(--ink-700);display:flex;z-index:20;padding-bottom:14px;
+  }
+  .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text-muted);}
+  .tab-btn .ic{font-size:19px;opacity:0.55;}
+  .tab-btn .lb{font-size:10.5px;font-weight:600;}
+  .tab-btn.active{color:var(--brand-300);}
+  .tab-btn.active .ic{opacity:1;}
+  .fab{
+    position:absolute;right:18px;bottom:92px;width:58px;height:58px;border-radius:50%;
+    background:linear-gradient(135deg,var(--brand-400),var(--brand-600));
+    display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;
+    box-shadow:0 12px 24px rgba(124,58,237,0.55);cursor:pointer;z-index:25;border:none;line-height:0;
+  }
+  .fab:active{transform:scale(0.94);}
 
-.ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.ctl button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--dim);
-  font-family:inherit;font-size:11.5px;font-weight:600;padding:8px 13px;border-radius:10px;cursor:pointer;
-  transition:.16s}
-.ctl button:hover{border-color:rgba(155,120,255,.45);color:#fff}
-.caption{font-size:11px;color:var(--dim-2);text-align:center;max-width:330px;line-height:1.5}
+  .toast{
+    position:absolute;left:50%;bottom:100px;transform:translateX(-50%);
+    background:#fff;color:#160c2c;font-size:13px;font-weight:700;padding:11px 18px;border-radius:999px;
+    box-shadow:0 10px 26px rgba(0,0,0,0.4);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
 
-footer{margin-top:70px;border-top:1px solid var(--line);padding-top:20px;
-  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim-2)}
+  .demo-caption{font-size:12.5px;color:var(--text-muted);text-align:center;max-width:320px;}
 
-@media (max-width:900px){
-  .wrap{padding:24px 16px 50px}
-  .hero{gap:38px;margin-top:34px;justify-content:center}
-  .phone{width:min(342px,92vw);height:min(718px,182vw)}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* ---------- architecture ---------- */
+  .arch-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;margin-bottom:40px;}
+  @media (max-width:900px){.arch-flow{grid-template-columns:1fr;}.arch-arrow{display:none;}}
+  .arch-col{background:var(--ink-800);border:1px solid var(--ink-700);border-radius:18px;padding:20px;}
+  .arch-col h4{margin:0 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-300);}
+  .arch-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .arch-col li{font-size:13.5px;color:#e9e4f5;background:var(--ink-900);border:1px solid var(--ink-700);border-radius:10px;padding:9px 12px;}
+  .arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--brand-400);font-size:22px;}
+
+  .stack-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .stack-table th{text-align:left;color:var(--text-muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;padding:0 12px 10px;}
+  .stack-table td{background:var(--ink-800);border-top:1px solid var(--ink-700);padding:12px;}
+  .stack-table tr td:first-child{border-radius:12px 0 0 12px;color:#fff;font-weight:600;}
+  .stack-table tr td:last-child{border-radius:0 12px 12px 0;color:var(--text-muted);}
+  .stack-table-wrap{overflow-x:auto;}
+
+  .roadmap{display:flex;flex-direction:column;gap:10px;margin-top:40px;}
+  .phase{display:flex;gap:14px;align-items:flex-start;background:var(--ink-800);border:1px solid var(--ink-700);border-radius:14px;padding:14px 16px;}
+  .phase.done{opacity:0.6;}
+  .phase.current{border-color:var(--brand-400);background:rgba(124,58,237,0.1);}
+  .phase .dot{width:10px;height:10px;border-radius:50%;background:var(--ink-600);margin-top:5px;flex:none;}
+  .phase.done .dot{background:var(--success);}
+  .phase.current .dot{background:var(--gold-500);box-shadow:0 0 0 4px rgba(242,169,60,0.25);}
+  .phase b{font-size:13.5px;color:#fff;}
+  .phase p{margin:3px 0 0;font-size:12.5px;color:var(--text-muted);line-height:1.5;}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--ink-800);margin-top:20px;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;}
+  footer .credit{font-size:13px;color:var(--text-muted);}
+  footer .credit b{color:#fff;}
+
+  @media (max-width:420px){
+    .phone{width:100%;max-width:375px;height:74vh;min-height:640px;border-radius:36px;padding:10px;}
+    .phone-screen{border-radius:26px;}
+    .phone-stage{position:static;}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="topbar">
-    <div class="brand">KARAARSLAN <span>DIGITAL</span></div>
-    <div class="tag">Etkileşimli Demo · KD-2026-07-QDL</div>
-  </div>
-
-  <div class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow">Faz 1 — MVP akışı</div>
-      <h1>Quadly<br><em>çalışırken</em><br>böyle görünür.</h1>
-      <p>Bu, tasarım görseli değil; sağdaki telefonda gerçekten tıklanabilen bir prototip. Faz 1 kapsamındaki ana akışı baştan sona deneyebilirsiniz.</p>
-
-      <div class="hint"><b>Nasıl denenir:</b> Haritadaki bir masaya dokunun, detayı açın ve “Masaya katıl”a basın. Ardından alt menüden yeni bir masa açmayı deneyin.</div>
-
-      <div class="legend">
-        <div class="leg"><i>1</i><div><b style="color:#fff">Keşfet</b> — konumunuza göre yakındaki açık masalar haritada. Oyun türüne göre filtrelenir.</div></div>
-        <div class="leg"><i>2</i><div><b style="color:#fff">Masa detayı</b> — kaç kişi var, kim eksik, nerede ve saat kaçta. Katılım tek dokunuş.</div></div>
-        <div class="leg"><i>3</i><div><b style="color:#fff">Masa aç</b> — oyun, konum, saat ve kişi sayısını seçin; masanız haritada yayınlansın.</div></div>
-        <div class="leg"><i>4</i><div><b style="color:#fff">Bildirim</b> — masanız dolduğunda push bildirimi düşer.</div></div>
-      </div>
+<header class="site-header">
+  <div class="wrap">
+    <div class="brandmark">
+      <span class="dots"><span></span><span></span><span></span><span></span></span>
+      Quadmate
     </div>
+    <span class="header-pill">Ürün Demosu · Faz 2</span>
+  </div>
+</header>
 
-    <div class="phone-col">
-      <div class="phone">
-        <div class="notch"></div>
-        <div class="screen">
-          <div class="statusbar"><span id="clock">20:15</span><span class="r">◉ ▮▮▮ 87%</span></div>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Konum bazlı sosyal oyun uygulaması</div>
+    <h1>Eksik oyuncuyu bulmanın<br/>en hızlı yolu.</h1>
+    <p class="lead">
+      Quadmate; Okey, Bilardo, Kağıt/101, Satranç, Dart gibi oyunlar için etrafındaki
+      oyuncularla seni buluşturan, konum tabanlı bir "masa/etkinlik" eşleştirme uygulaması.
+      Bir masa aç ya da yakınındaki bir masaya istek gönder — gerisini uygulama halleder.
+    </p>
+    <div class="stat-row">
+      <div class="stat-chip"><b>8</b><span>oyun türü</span></div>
+      <div class="stat-chip"><b>Host / Guest</b><span>masa modeli</span></div>
+      <div class="stat-chip"><b>Realtime</b><span>sohbet & bildirim</span></div>
+      <div class="stat-chip"><b>PostGIS</b><span>konum gizliliği</span></div>
+    </div>
+    <div class="tech-row">
+      <span class="tech-badge">React Native · Expo</span>
+      <span class="tech-badge">TypeScript</span>
+      <span class="tech-badge">NativeWind (Tailwind)</span>
+      <span class="tech-badge">React Navigation</span>
+      <span class="tech-badge">Zustand</span>
+      <span class="tech-badge">TanStack Query</span>
+      <span class="tech-badge">Supabase (Postgres + PostGIS)</span>
+      <span class="tech-badge">Supabase Realtime</span>
+      <span class="tech-badge">Edge Functions (Deno)</span>
+      <span class="tech-badge">RevenueCat</span>
+    </div>
+  </div>
+</section>
 
-          <div class="push" id="push">
-            <div class="ic">◆</div>
-            <div class="tx"><b id="pushT">Quadly</b><s id="pushS">Masanız tamamlandı.</s></div>
+<section id="demo">
+  <div class="wrap demo-grid">
+    <div>
+      <div class="section-kicker">İnteraktif Demo</div>
+      <h2 style="font-size:28px;margin:0 0 14px;letter-spacing:-0.01em;">Uygulamanın içinde gez</h2>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.65;margin:0 0 26px;">
+        Sağdaki telefon, gerçek uygulamanın tasarım sistemiyle (mor + koyu zemin + altın vurgu)
+        birebir üretildi. Alt sekmelere, kartlara, harita/liste geçişine ve
+        <b style="color:#fff;"> + </b> butonuyla masa açma akışına tıklayarak deneyebilirsin.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="ico">🧭</div>
+          <div>
+            <h3>Keşfet — Harita &amp; Liste</h3>
+            <p>Yakınındaki açık masaları listede ya da haritada gör; mesafe, oyun türü ve seviyeye göre filtrele.</p>
           </div>
-
-          <!-- ===== KEŞFET ===== -->
-          <section class="view on" id="v-map">
-            <div class="map">
-              <svg viewBox="0 0 340 640" preserveAspectRatio="xMidYMid slice">
-                <rect width="340" height="640" fill="#0C0A24"/>
-                <path d="M-20 210 L360 168" stroke="#1A1740" stroke-width="15"/>
-                <path d="M-20 400 L360 372" stroke="#1A1740" stroke-width="19"/>
-                <path d="M-20 545 L360 528" stroke="#1A1740" stroke-width="12"/>
-                <path d="M78 -20 L96 660" stroke="#1A1740" stroke-width="16"/>
-                <path d="M228 -20 L212 660" stroke="#1A1740" stroke-width="13"/>
-                <path d="M300 -20 L316 660" stroke="#161334" stroke-width="9"/>
-                <path d="M-20 300 L360 292" stroke="#161334" stroke-width="7"/>
-                <path d="M-20 470 L360 456" stroke="#161334" stroke-width="6"/>
-                <rect x="102" y="222" width="98" height="60" rx="6" fill="#131031"/>
-                <rect x="240" y="196" width="52" height="82" rx="6" fill="#131031"/>
-                <rect x="14" y="418" width="62" height="70" rx="6" fill="#131031"/>
-                <rect x="118" y="418" width="80" height="54" rx="6" fill="#131031"/>
-                <rect x="236" y="404" width="58" height="72" rx="6" fill="#131031"/>
-                <rect x="18" y="222" width="46" height="58" rx="6" fill="#131031"/>
-                <path d="M118 300 h84 v66 h-84 z" fill="#0F2A22" opacity=".85"/>
-                <circle cx="160" cy="333" r="20" fill="#12362A" opacity=".8"/>
-                <path d="M-20 588 L360 574 L360 660 L-20 660 Z" fill="#0A1730"/>
-              </svg>
-              <div class="mapfade"></div>
-
-              <div class="searchbar">
-                <div class="ic">⌕</div>
-                <div class="t">Kadıköy, İstanbul</div>
-                <div class="ic" style="background:rgba(255,255,255,.07)">⚙</div>
-              </div>
-              <div class="chips" id="chips">
-                <div class="chip on" data-f="all">Tümü</div>
-                <div class="chip" data-f="Okey">Okey</div>
-                <div class="chip" data-f="Bilardo">Bilardo</div>
-                <div class="chip" data-f="Kağıt">Kağıt</div>
-                <div class="chip" data-f="Tavla">Tavla</div>
-              </div>
-
-              <div class="me"><i></i></div>
-              <div id="pins"></div>
-            </div>
-
-            <div class="sheet" id="sheet">
-              <div class="grab"></div>
-              <div id="sheetBody"></div>
-            </div>
-          </section>
-
-          <!-- ===== MASA AÇ ===== -->
-          <section class="view" id="v-new">
-            <div class="pad">
-              <div class="vh">Masa aç</div>
-              <div class="vs">Masanız yayınlandığında yakındaki oyunculara bildirim gider.</div>
-
-              <div class="field">
-                <div class="lbl">Oyun</div>
-                <div class="opts" id="oGame">
-                  <div class="opt on">Okey</div><div class="opt">Bilardo</div>
-                  <div class="opt">Kağıt</div><div class="opt">Tavla</div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="lbl">Buluşma yeri</div>
-                <input class="inp" id="iPlace" value="Merkez Kıraathanesi" placeholder="Mekan adı">
-              </div>
-              <div class="field">
-                <div class="lbl">Saat</div>
-                <div class="opts" id="oTime">
-                  <div class="opt">18:00</div><div class="opt on">19:30</div>
-                  <div class="opt">21:00</div><div class="opt">Yarın 20:00</div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="lbl">Kaç kişi aranıyor</div>
-                <div class="opts" id="oSeat">
-                  <div class="opt on">1 kişi</div><div class="opt">2 kişi</div><div class="opt">3 kişi</div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="lbl">Seviye</div>
-                <div class="opts" id="oLvl">
-                  <div class="opt">Yeni başlayan</div><div class="opt on">Orta</div><div class="opt">İleri</div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="lbl">Not (isteğe bağlı)</div>
-                <input class="inp" id="iNote" placeholder="Örn. Çay bizden, keyifli oynayalım.">
-              </div>
-
-              <button class="btn amber" onclick="createTable()">Masayı yayınla</button>
-              <div class="caption" style="margin-top:12px;text-align:left">Tam konumunuz kimseyle paylaşılmaz — yalnızca buluşma noktası ve yaklaşık mesafe görünür.</div>
-            </div>
-          </section>
-
-          <!-- ===== MASALARIM ===== -->
-          <section class="view" id="v-mine">
-            <div class="pad">
-              <div class="vh">Masalarım</div>
-              <div class="vs">Katıldığınız ve açtığınız masalar.</div>
-              <div id="mineList"></div>
-            </div>
-          </section>
-
-          <!-- ===== PROFİL ===== -->
-          <section class="view" id="v-prof">
-            <div class="pad">
-              <div class="prof-top">
-                <div class="prof-av">B</div>
-                <div><b>Bulut E.</b><s>Kadıköy · Okey, Tavla · Orta seviye</s></div>
-              </div>
-              <div class="stats">
-                <div class="stat"><b id="sJoin">0</b><s>Masa</s></div>
-                <div class="stat"><b>4.8</b><s>Puan</s></div>
-                <div class="stat"><b>12</b><s>Oyuncu</s></div>
-              </div>
-              <div class="row"><span>Oynadığım oyunlar</span><s>Okey, Tavla ›</s></div>
-              <div class="row"><span>Konum izni</span><s>Açık ›</s></div>
-              <div class="row"><span>Bildirimler</span><s>Açık ›</s></div>
-              <div class="row"><span>Engellenen kullanıcılar</span><s>0 ›</s></div>
-              <div class="row"><span>Gizlilik ve KVKK</span><s>›</s></div>
-              <div class="row" style="border:0"><span>Yardım ve şikayet</span><s>›</s></div>
-            </div>
-          </section>
-
-          <div class="tabbar">
-            <div class="tab on" data-v="v-map"><span class="g">🗺️</span>Keşfet</div>
-            <div class="tab" data-v="v-new"><span class="g">➕</span>Masa aç</div>
-            <div class="tab" data-v="v-mine"><span class="g">🎲</span>Masalarım</div>
-            <div class="tab" data-v="v-prof"><span class="g">👤</span>Profil</div>
+        </div>
+        <div class="feature-item">
+          <div class="ico">➕</div>
+          <div>
+            <h3>Masa Aç</h3>
+            <p>Oyun seç, haritadan mekân işaretle, tarih/saat/süre/kişi sayısı belirle ve yayınla.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico">📨</div>
+          <div>
+            <h3>İstek Gönder &amp; Onayla</h3>
+            <p>Gelen/giden istekleri yönet; host kabul edince masa planı ve grup sohbeti otomatik açılır.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="ico">💬</div>
+          <div>
+            <h3>Realtime Sohbet</h3>
+            <p>Her masaya bağlı grup sohbeti, üstte gömülü masa planı kartıyla birlikte gelir.</p>
           </div>
         </div>
       </div>
 
-      <div class="ctl">
-        <button onclick="resetDemo()">Demoyu sıfırla</button>
-        <button onclick="firePush('Yakınında yeni masa','Kadıköy · Okey · 4. oyuncu aranıyor')">Bildirim örneği</button>
+      <div class="howto">
+        💡 <b>Nasıl kullanılır:</b> Alttaki sekmelerden birine dokun, bir masa kartına tıkla,
+        sağ üstteki 🗺️ ikonuyla harita görünümüne geç, ya da mor <b>+</b> butonuyla yeni masa aç.
+        Tüm veriler örnek (mock) veridir.
       </div>
-      <div class="caption">Prototip amaçlıdır; harita ve kullanıcılar temsilidir. Gerçek uygulamada canlı harita servisi ve doğrulanmış kullanıcı hesapları kullanılır.</div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="phone-screen" id="phoneScreen">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span>09:41</span>
+            <span class="icons">📶 🛜 🔋</span>
+          </div>
+          <div id="appRoot" style="flex:1;display:flex;flex-direction:column;min-height:0;position:relative;"></div>
+          <div class="toast" id="toast"></div>
+        </div>
+      </div>
+      <div class="demo-caption">Etkileşimli prototip — gerçek Quadmate uygulamasının (Expo / React Native) tasarım sistemiyle birebir üretildi.</div>
     </div>
   </div>
+</section>
 
-  <footer>
-    <div>Karaarslan Digital</div>
-    <div>Quadly · Faz 1 Prototip</div>
-    <div>26.07.2026</div>
-  </footer>
-</div>
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Mimari</div>
+      <h2>Tek platformda ilişkisel veri + coğrafi sorgu + realtime</h2>
+      <p>
+        Supabase; masalar/katılımcılar gibi ilişkisel veriyi, PostGIS ile konum sorgularını,
+        Realtime ile sohbeti, Auth ve Storage'ı tek bir platformda sağladığı için ayrı bir
+        custom backend'e gerek kalmıyor. Kota/bildirim/webhook gibi özel iş mantığı Edge Functions'ta yazılıyor.
+      </p>
+    </div>
+
+    <div class="arch-flow">
+      <div class="arch-col">
+        <h4>Mobil İstemci</h4>
+        <ul>
+          <li>Ekranlar / React Navigation</li>
+          <li>Zustand (client state)</li>
+          <li>TanStack Query (server cache)</li>
+          <li>Supabase JS SDK</li>
+        </ul>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-col">
+        <h4>Supabase Platformu</h4>
+        <ul>
+          <li>Auth</li>
+          <li>Postgres + PostGIS (konum sorguları)</li>
+          <li>Realtime (sohbet, masa durumu)</li>
+          <li>Storage (avatar, doğrulama belgesi)</li>
+          <li>Edge Functions (Deno) — kota, webhook, bildirim tetikleme</li>
+        </ul>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-col">
+        <h4>3. Parti Servisler</h4>
+        <ul>
+          <li>Google Maps / Places API</li>
+          <li>Expo Push → FCM / APNs</li>
+          <li>RevenueCat → App Store / Play Billing</li>
+          <li>Sentry · PostHog</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack-table-wrap">
+      <table class="stack-table">
+        <tr><th>Katman</th><th>Seçim &amp; not</th></tr>
+        <tr><td>Konum sorguları</td><td>PostgreSQL + PostGIS (ST_DWithin, geography(Point,4326)) — tam koordinat client'a hiç dönmez, sadece mesafe / jitter'lı yaklaşık nokta döner.</td></tr>
+        <tr><td>Veri modeli</td><td>profiles · activities · tables · join_requests · table_participants · conversations/messages · notifications · ratings · subscriptions · usage_quota — RLS ile satır seviyesi izolasyon.</td></tr>
+        <tr><td>Monetizasyon</td><td>Aylık 3 ücretsiz "İstek Gönder" + 3 ücretsiz "Masa Aç" hakkı (bağımsız iki kota); limit dolunca Quadmate Premium paywall'ı.</td></tr>
+        <tr><td>Tasarım sistemi</td><td>NativeWind (Tailwind for RN) üzerinde özel mor (#7C3AED) + koyu zemin (ink) + altın (#F2A93C) vurgu paleti — tek kaynak <code>theme/colors.ts</code>.</td></tr>
+      </table>
+    </div>
+
+    <div class="roadmap">
+      <div class="phase done"><div class="dot"></div><div><b>Faz 0 — Tamamlandı</b><p>Proje iskeleti, tasarım sistemi, navigasyon şeması, Supabase şema taslağı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Auth, onboarding, konum izni, oyun seçimi, temel profil; canlı Supabase projesi bağlandı.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Faz 2 — Şu an burada</b><p>Masa Aç, Keşfet (harita/liste), Masa Detay, Filtreler ekranları.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 3</b><p>İstek Gönder/Kabul, Masa Planı, Realtime sohbet.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 4</b><p>Bildirimler, puanlama, doğrulama, şikayet/engelleme.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 5</b><p>Monetizasyon: usage_quota, RevenueCat, paywall.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 6</b><p>Cilalama, test, Sentry/PostHog, App Store &amp; Google Play submission.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="credit">Designed &amp; developed by <b>Karaarslan Digital</b></div>
+    <div class="credit">Bu sayfa örnek (mock) verilerle çalışan bağımsız bir ürün demosudur.</div>
+  </div>
+</footer>
 
 <script>
-const G = {Okey:'🀄', Bilardo:'🎱', 'Kağıt':'🃏', Tavla:'⚅'};
+(function(){
+  "use strict";
 
-const SEED = [
-  {id:1, game:'Okey',    place:'Merkez Kıraathanesi', area:'Moda',       dist:'0.3 km', time:'Bugün 19:00', lvl:'Orta',          seats:4, taken:3, x:52, y:30, note:'Üç kişiyiz, dördüncüyü bekliyoruz. Çay bizden.'},
-  {id:2, game:'Kağıt',   place:'Kadife Sokak Kafe',   area:'Kadife Sk.', dist:'0.7 km', time:'Bugün 20:30', lvl:'Yeni başlayan', seats:4, taken:2, x:80, y:44, note:'Batak oynuyoruz, öğrenmek isteyen de gelebilir.'},
-  {id:3, game:'Bilardo', place:'Rıhtım Bilardo Salonu',area:'Rıhtım',    dist:'0.5 km', time:'Bugün 21:00', lvl:'İleri',         seats:2, taken:1, x:22, y:47, amber:true, note:'Amerikan bilardo, masa ayırttım.'},
-  {id:4, game:'Okey',    place:'Yeldeğirmeni Çay Evi',area:'Yeldeğirmeni',dist:'1.2 km',time:'Yarın 18:00', lvl:'Orta',          seats:4, taken:2, x:70, y:71, note:'Haftalık okey grubumuz, yeni oyuncu arıyoruz.'},
-  {id:5, game:'Tavla',   place:'Bahariye Kahve',      area:'Bahariye',   dist:'0.9 km', time:'Bugün 19:30', lvl:'İleri',         seats:2, taken:1, x:33, y:22, amber:true, note:'Beşli maç, kaybeden çayları ısmarlar.'}
-];
+  var ACTIVITIES = [
+    {id:'okey', name:'Okey', icon:'🀄'},
+    {id:'bilardo', name:'Bilardo', icon:'🎱'},
+    {id:'kagit_101', name:'Kağıt / 101', icon:'🃏'},
+    {id:'satranc', name:'Satranç', icon:'♟️'},
+    {id:'dart', name:'Dart', icon:'🎯'},
+    {id:'masa_tenisi', name:'Masa Tenisi', icon:'🏓'},
+    {id:'langirt', name:'Langırt', icon:'⚽'},
+    {id:'tavla', name:'Tavla', icon:'🎲'}
+  ];
+  var SKILL_LEVELS = [
+    {id:'fark_etmez', label:'Fark Etmez'},
+    {id:'baslangic', label:'Başlangıç'},
+    {id:'orta', label:'Orta'},
+    {id:'ileri', label:'İleri'}
+  ];
+  var DISTANCES = [1,3,5,10,20];
+  var DATE_OPTIONS = ['Bugün','Yarın','Cumartesi'];
+  var TIME_OPTIONS = ['18:00','19:00','19:30','20:00','20:30','21:00'];
+  var DURATION_OPTIONS = [60,90,120];
+  var SEATS_OPTIONS = [1,2,3,4];
 
-let tables = [];
-let filter = 'all';
-let selected = null;
-let mine = [];
+  var TABLES = [
+    {id:'t1', activityId:'bilardo', icon:'🎱', activityName:'Bilardo', title:'Bilardo Gecesi', venue:'Cue Club Bilardo, Kadıköy', distance:'0.4 km', time:'Bugün 20:00', duration:90, seatsFilled:2, seatsTotal:4, skill:'orta', host:'Emre K.', hostInitials:'EK', desc:'Haftalık bilardo buluşmamıza katıl, rakip aranıyor. Tecrübe şart değil 🎱', x:'34%', y:'30%'},
+    {id:'t2', activityId:'okey', icon:'🀄', activityName:'Okey', title:'Okey Masası Açık', venue:'Sahil Kıraathanesi, Moda', distance:'0.8 km', time:'Bugün 19:30', duration:120, seatsFilled:3, seatsTotal:4, skill:'fark_etmez', host:'Ayşe T.', hostInitials:'AT', desc:'3 kişiyiz, 1 kişi daha arıyoruz. Çay ocak bizden ☕', x:'58%', y:'22%'},
+    {id:'t3', activityId:'satranc', icon:'♟️', activityName:'Satranç', title:'Satranç Rakibi Aranıyor', venue:'Caddebostan Sahil Kafe', distance:'1.2 km', time:'Yarın 17:00', duration:60, seatsFilled:1, seatsTotal:2, skill:'ileri', host:'Deniz Y.', hostInitials:'DY', desc:'1200+ elo civarı rakip arıyorum, sahilde açık havada oynayalım.', x:'22%', y:'58%'},
+    {id:'t4', activityId:'kagit_101', icon:'🃏', activityName:'Kağıt / 101', title:'101 Oynayalım', venue:'Moda Kültür Kahvesi', distance:'1.5 km', time:'Bugün 21:00', duration:90, seatsFilled:2, seatsTotal:4, skill:'baslangic', host:'Buğra S.', hostInitials:'BS', desc:'Yeni öğrenenler dahil, keyifli bir masa kuruyoruz.', x:'70%', y:'55%'},
+    {id:'t5', activityId:'dart', icon:'🎯', activityName:'Dart', title:'Dart İdmanı', venue:'Barbaros Dart Bar', distance:'2.1 km', time:'Yarın 20:30', duration:60, seatsFilled:3, seatsTotal:4, skill:'orta', host:'Selin A.', hostInitials:'SA', desc:'Turnuva öncesi son idman, gelip form tutalım.', x:'48%', y:'72%'}
+  ];
 
-function clone(){ return SEED.map(t=>Object.assign({},t)); }
+  var CHATS = [
+    {id:'c1', name:'Emre K.', initials:'EK', time:'20:14', unread:true, tableTitle:'Bilardo Gecesi', planStatus:'Onaylandı', planVenue:'Cue Club Bilardo, Kadıköy', planTime:'Bugün 20:00',
+      messages:[
+        {me:false, text:'Merhaba! Bilardo masasına bekliyoruz 🎱'},
+        {me:true, text:'Harika, 20:00 gibi orada oluruz.'},
+        {me:false, text:'Süper, masayı ayırttım. Görüşürüz!'}
+      ]},
+    {id:'c2', name:'Ayşe T.', initials:'AT', time:'Dün', unread:false, tableTitle:'Okey Masası Açık', planStatus:'Onay Bekliyor', planVenue:'Sahil Kıraathanesi, Moda', planTime:'Bugün 19:30',
+      messages:[
+        {me:false, text:'İsteğini aldım, birazdan dönüş yaparım.'},
+        {me:true, text:'Tamamdır, bekliyorum 🙌'}
+      ]},
+    {id:'c3', name:'Deniz Y.', initials:'DY', time:'Salı', unread:false, tableTitle:'Satranç Rakibi Aranıyor', planStatus:'Tamamlandı', planVenue:'Caddebostan Sahil Kafe', planTime:'Geçen hafta',
+      messages:[
+        {me:false, text:'Çok iyi oynadın, tekrar oynayalım bir ara.'},
+        {me:true, text:'Kesinlikle, haber ver!'}
+      ]}
+  ];
 
-/* ---------- rendering ---------- */
-function renderPins(){
-  const box = document.getElementById('pins');
-  box.innerHTML = '';
-  tables.filter(t => filter==='all' || t.game===filter).forEach((t,i)=>{
-    const el = document.createElement('div');
-    el.className = 'pin' + (t.amber?' amber':'') + (selected===t.id?' sel':'');
-    el.style.left = t.x+'%';
-    el.style.top = t.y+'%';
-    el.style.animationDelay = (i*55)+'ms';
-    el.innerHTML = `<div class="pin-b"><div class="pin-a">${G[t.game]||'🎲'}</div>
-      <div class="pin-t"><b>${t.game}</b><s>${t.dist}</s></div></div><div class="pin-tip"></div>`;
-    el.onclick = ()=>openSheet(t.id);
-    box.appendChild(el);
-  });
-}
+  var REQUESTS_INCOMING = [
+    {id:'ri1', name:'Ayşe T.', table:'Okey Masası Açık', note:'"Bu akşam müsaitim, katılabilir miyim?"'},
+    {id:'ri2', name:'Buğra S.', table:'Bilardo Gecesi', note:'"Yeni başladım ama çok istekliyim :)"'}
+  ];
+  var REQUESTS_OUTGOING = [
+    {id:'ro1', table:'Dart İdmanı', status:'Onay bekliyor'},
+    {id:'ro2', table:'Satranç Rakibi Aranıyor', status:'Kabul edildi'}
+  ];
 
-function seatsHTML(t, popLast){
-  let h = '';
-  for(let i=0;i<t.seats;i++){
-    if(i < t.taken) h += `<div class="seat${(popLast && i===t.taken-1)?' pop':''}">👤</div>`;
-    else h += '<div class="seat free">+</div>';
-  }
-  const left = t.seats - t.taken;
-  h += `<div class="seattx"><b>${left===0?'Masa tamam':left+' kişi aranıyor'}</b>${t.taken}/${t.seats} oyuncu</div>`;
-  return h;
-}
-
-function openSheet(id, popLast){
-  selected = id;
-  const t = tables.find(x=>x.id===id);
-  const joined = mine.includes(id);
-  const full = t.taken >= t.seats;
-  let btn;
-  if(joined) btn = `<button class="btn done">✓ Katıldınız — Masalarım'da</button>`;
-  else if(full) btn = `<button class="btn" disabled>Masa dolu</button>`;
-  else btn = `<button class="btn" onclick="join(${id})">Masaya katıl</button>`;
-
-  document.getElementById('sheetBody').innerHTML = `
-    <div class="sh-top">
-      <div class="sh-ic">${G[t.game]||'🎲'}</div>
-      <div class="sh-h"><b>${t.game} Masası</b><s>${t.place} · ${t.area}</s></div>
-      <div class="sh-dist">${t.dist}</div>
-    </div>
-    <div class="sh-meta">
-      <div class="mbox"><div class="k">Saat</div><div class="v">${t.time}</div></div>
-      <div class="mbox"><div class="k">Seviye</div><div class="v">${t.lvl}</div></div>
-    </div>
-    <div class="seatrow">${seatsHTML(t, popLast)}</div>
-    ${t.note?`<div class="note">${t.note}</div>`:''}
-    ${btn}
-    <button class="btn ghost" onclick="closeSheet()">Kapat</button>`;
-  document.getElementById('sheet').classList.add('up');
-  renderPins();
-}
-
-function closeSheet(){
-  document.getElementById('sheet').classList.remove('up');
-  selected = null;
-  renderPins();
-}
-
-function join(id){
-  const t = tables.find(x=>x.id===id);
-  t.taken = Math.min(t.seats, t.taken+1);
-  mine.push(id);
-  openSheet(id, true);
-  renderMine();
-  document.getElementById('sJoin').textContent = mine.length;
-  if(t.taken >= t.seats){
-    setTimeout(()=>firePush('Masa tamamlandı 🎉', `${t.place} · ${t.time} — görüşmek üzere!`), 700);
-  } else {
-    setTimeout(()=>firePush('Katılımınız alındı', `${t.place} masasına eklendiniz.`), 500);
-  }
-}
-
-function renderMine(){
-  const box = document.getElementById('mineList');
-  if(!mine.length){
-    box.innerHTML = `<div class="empty"><div class="e">🎲</div><b>Henüz masanız yok</b>
-      <p>Keşfet sekmesinden yakındaki bir masaya katılın ya da kendi masanızı açın.</p></div>`;
-    return;
-  }
-  box.innerHTML = mine.map(id=>{
-    const t = tables.find(x=>x.id===id);
-    const full = t.taken>=t.seats;
-    const badge = t.own ? '<span class="badge own">Masa sahibi</span>'
-                : full ? '<span class="badge ok">Tamamlandı</span>'
-                : '<span class="badge wait">Oyuncu bekleniyor</span>';
-    let seats='';
-    for(let i=0;i<t.seats;i++) seats += i<t.taken?'<div class="mini">👤</div>':'<div class="mini free">+</div>';
-    return `<div class="card" onclick="goTo('v-map');openSheet(${t.id})">
-      <div class="card-t"><div><b>${G[t.game]||'🎲'} ${t.game} · ${t.place}</b><s>${t.area} · ${t.dist}</s></div>${badge}</div>
-      <div class="card-b">${seats}<div class="sp"></div><div class="tm">${t.time}</div></div></div>`;
-  }).join('');
-}
-
-/* ---------- create ---------- */
-function pick(id){ return document.querySelector('#'+id+' .opt.on').textContent; }
-
-function createTable(){
-  const game = pick('oGame');
-  const seatsWanted = parseInt(pick('oSeat'));
-  const t = {
-    id: Date.now(),
-    game, place: document.getElementById('iPlace').value || 'Belirtilmedi',
-    area:'Sizin konumunuz', dist:'0.1 km', time: pick('oTime'), lvl: pick('oLvl'),
-    seats: seatsWanted+1, taken:1,
-    x: 44+Math.round(Math.random()*14), y: 52+Math.round(Math.random()*10),
-    note: document.getElementById('iNote').value, own:true,
-    amber: game==='Bilardo'||game==='Tavla'
+  var state = {
+    tab: 'discover',
+    discoverView: 'list',
+    overlay: null,
+    overlayData: {},
+    activePinId: null,
+    filters: { activities: new Set(), radius: 5, skill: 'fark_etmez' },
+    requestsTab: 'gelen',
+    incoming: REQUESTS_INCOMING.slice(),
+    outgoing: REQUESTS_OUTGOING.slice(),
+    sentRequestIds: new Set(),
+    createForm: { activityId: null, venue:'', date:0, time:null, duration:90, seats:2, skill:'fark_etmez' }
   };
-  tables.push(t); mine.push(t.id);
-  renderPins(); renderMine();
-  document.getElementById('sJoin').textContent = mine.length;
-  goTo('v-map');
-  setTimeout(()=>openSheet(t.id), 260);
-  setTimeout(()=>firePush('Masanız yayında', `${t.place} · ${t.time} — yakındaki ${8+Math.floor(Math.random()*9)} oyuncuya bildirildi.`), 900);
-}
 
-/* ---------- nav / push ---------- */
-function goTo(v){
-  document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on', e.id===v));
-  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on', e.dataset.v===v));
-  if(v!=='v-map') closeSheet();
-}
-document.querySelectorAll('.tab').forEach(t=> t.onclick = ()=>goTo(t.dataset.v));
+  var root = document.getElementById('appRoot');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
 
-document.querySelectorAll('#chips .chip').forEach(c=>{
-  c.onclick = ()=>{
-    document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('on'));
-    c.classList.add('on'); filter = c.dataset.f; closeSheet(); renderPins();
-  };
-});
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800);
+  }
 
-['oGame','oTime','oSeat','oLvl'].forEach(id=>{
-  document.querySelectorAll('#'+id+' .opt').forEach(o=>{
-    o.onclick = ()=>{
-      document.querySelectorAll('#'+id+' .opt').forEach(x=>x.classList.remove('on'));
-      o.classList.add('on');
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function initialsAvatar(initials, size){ return '<div class="avatar" style="width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*0.38)+'px;">'+esc(initials)+'</div>'; }
+  function skillLabel(id){ var f = SKILL_LEVELS.filter(function(s){return s.id===id;})[0]; return f ? f.label : id; }
+
+  // ---------------- render dispatch ----------------
+  function render(){
+    var html = '<div style="display:flex;flex-direction:column;height:100%;min-height:0;">';
+    html += renderTabContent();
+    html += renderTabBar();
+    if (state.tab === 'discover') html += '<button class="fab" onclick="App.openCreate()">+</button>';
+    html += '</div>';
+    if (state.overlay) html += renderOverlay();
+    root.innerHTML = html;
+  }
+
+  function renderTabBar(){
+    var tabs = [
+      {id:'discover', ic:'🧭', lb:'Keşfet'},
+      {id:'requests', ic:'📨', lb:'İstekler'},
+      {id:'chats', ic:'💬', lb:'Sohbetler'},
+      {id:'profile', ic:'👤', lb:'Profil'}
+    ];
+    var html = '<div class="tab-bar">';
+    tabs.forEach(function(t){
+      html += '<button class="tab-btn '+(state.tab===t.id?'active':'')+'" onclick="App.setTab(\''+t.id+'\')">'+
+        '<span class="ic">'+t.ic+'</span><span class="lb">'+t.lb+'</span></button>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderTabContent(){
+    if (state.tab === 'discover') return renderDiscover();
+    if (state.tab === 'requests') return renderRequests();
+    if (state.tab === 'chats') return renderChatList();
+    if (state.tab === 'profile') return renderProfile();
+    return '';
+  }
+
+  // ---------------- discover ----------------
+  function filteredTables(){
+    return TABLES.filter(function(t){
+      if (state.filters.activities.size > 0 && !state.filters.activities.has(t.activityId)) return false;
+      if (state.filters.skill !== 'fark_etmez' && t.skill !== state.filters.skill) return false;
+      return true;
+    });
+  }
+
+  function renderDiscover(){
+    var html = '<div class="app-header"><div class="row"><h1>Keşfet</h1><div class="btn-row">'+
+      '<button class="icon-btn" onclick="App.toggleView()">'+(state.discoverView==='list'?'🗺️':'📋')+'</button>'+
+      '<button class="icon-btn" onclick="App.openFilters()">🎚️</button>'+
+      '</div></div></div>';
+
+    html += '<div class="chip-scroll">';
+    html += '<div class="chip '+(state.filters.activities.size===0?'selected':'')+'" onclick="App.clearActivities()">Tümü</div>';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(state.filters.activities.has(a.id)?'selected':'')+'" onclick="App.toggleActivity(\''+a.id+'\')">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
+
+    var tables = filteredTables();
+
+    if (state.discoverView === 'list'){
+      html += '<div class="screen-body">';
+      if (tables.length === 0){
+        html += '<div class="empty-state">Bu filtrelerle açık masa yok.<br/>Filtreleri genişletmeyi veya kendi masanı açmayı deneyebilirsin.</div>';
+      } else {
+        tables.forEach(function(t){ html += tableCardHtml(t); });
+      }
+      html += '</div>';
+    } else {
+      html += '<div class="map-wrap">';
+      html += '<div class="me-dot"></div>';
+      tables.forEach(function(t){
+        html += '<div class="pin '+(state.activePinId===t.id?'active':'')+'" style="left:'+t.x+';top:'+t.y+';" onclick="App.selectPin(\''+t.id+'\')"><span>'+t.icon+'</span></div>';
+      });
+      if (state.activePinId){
+        var pt = tables.filter(function(t){return t.id===state.activePinId;})[0];
+        if (pt){
+          html += '<div class="map-popup">'+
+            '<div class="card-title-row" style="margin-bottom:10px;">'+
+              '<span class="emoji">'+pt.icon+'</span>'+
+              '<div class="txt"><div class="t">'+esc(pt.title)+'</div><div class="v">'+esc(pt.venue)+' · '+pt.distance+'</div></div>'+
+            '</div>'+
+            '<button class="btn primary" style="height:42px;" onclick="App.openDetail(\''+pt.id+'\')">Detayları Gör</button>'+
+          '</div>';
+        }
+      } else if (tables.length === 0){
+        html += '<div class="map-popup" style="text-align:center;color:var(--text-muted);font-size:13px;">Bu filtrelerle masa yok.</div>';
+      }
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function tableCardHtml(t){
+    return '<div class="card" onclick="App.openDetail(\''+t.id+'\')">'+
+      '<div class="card-top">'+
+        '<div class="card-title-row">'+
+          '<span class="emoji">'+t.icon+'</span>'+
+          '<div class="txt"><div class="t">'+esc(t.title)+'</div><div class="v">'+esc(t.venue)+'</div></div>'+
+        '</div>'+
+        '<span class="badge brand">'+t.distance+'</span>'+
+      '</div>'+
+      '<div class="card-meta"><span>'+t.time+'</span><span>'+t.seatsFilled+'/'+t.seatsTotal+' kişi</span></div>'+
+      '<div class="card-host">'+initialsAvatar(t.hostInitials,22)+'<span class="name">'+esc(t.host)+'</span></div>'+
+    '</div>';
+  }
+
+  // ---------------- table detail (overlay) ----------------
+  function renderDetail(t){
+    var isFull = t.seatsFilled >= t.seatsTotal;
+    var alreadySent = state.sentRequestIds.has(t.id);
+    var html = '';
+    html += '<div class="detail-map"><div class="pin"><span>'+t.icon+'</span></div></div>';
+    html += '<div class="detail-title"><span class="emoji">'+t.icon+'</span><h3>'+esc(t.title)+'</h3></div>';
+    html += '<div class="badge-row">'+
+      '<span class="badge brand">'+t.activityName+'</span>'+
+      '<span class="badge neutral">'+skillLabel(t.skill)+'</span>'+
+      (isFull ? '<span class="badge gold">Dolu</span>' : '')+
+    '</div>';
+    html += '<div class="detail-meta">'+esc(t.venue)+'</div>';
+    html += '<div class="detail-sub">'+t.time+'</div>';
+    html += '<div class="detail-sub">'+t.duration+' dakika · '+t.seatsFilled+'/'+t.seatsTotal+' kişi</div>';
+    html += '<div class="detail-desc">'+esc(t.desc)+'</div>';
+    html += '<div class="host-row">'+initialsAvatar(t.hostInitials,44)+
+      '<div><div class="name">'+esc(t.host)+'</div><div class="role">Host</div></div></div>';
+
+    var footer = '';
+    if (isFull){
+      footer = '<button class="btn secondary" disabled>Masa Dolu</button>';
+    } else if (alreadySent){
+      footer = '<button class="btn secondary" disabled>İstek Gönderildi ✓</button>';
+    } else {
+      footer = '<button class="btn primary" onclick="App.sendRequest(\''+t.id+'\')">İstek Gönder</button>';
+    }
+    return { body: html, footer: footer, title: 'Masa Detay' };
+  }
+
+  // ---------------- filters (overlay) ----------------
+  function renderFiltersOverlay(){
+    var html = '<div class="field-label">Oyun Türü</div><div class="chip-grid">';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(state.filters.activities.has(a.id)?'selected':'')+'" onclick="App.toggleActivity(\''+a.id+'\', true)">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Mesafe</div><div class="chip-grid">';
+    DISTANCES.forEach(function(km){
+      html += '<div class="chip '+(state.filters.radius===km?'selected':'')+'" onclick="App.setRadius('+km+')">'+km+' km</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Seviye</div><div class="chip-grid">';
+    SKILL_LEVELS.forEach(function(s){
+      html += '<div class="chip '+(state.filters.skill===s.id?'selected':'')+'" onclick="App.setSkillFilter(\''+s.id+'\')">'+s.label+'</div>';
+    });
+    html += '</div>';
+
+    return {
+      body: html,
+      title: 'Filtreler',
+      footer: '<button class="btn primary" style="margin-bottom:10px;" onclick="App.closeOverlay()">Uygula</button>'+
+              '<button class="btn ghost" onclick="App.resetFilters()">Sıfırla</button>'
     };
-  });
-});
+  }
 
-let pushTimer;
-function firePush(title, body){
-  const p = document.getElementById('push');
-  document.getElementById('pushT').textContent = title;
-  document.getElementById('pushS').textContent = body;
-  p.classList.add('on');
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(()=>p.classList.remove('on'), 3800);
-}
+  // ---------------- create table (overlay) ----------------
+  function renderCreateOverlay(){
+    var f = state.createForm;
+    var html = '<div class="field-label" style="margin-top:6px;">Oyun</div><div class="chip-grid">';
+    ACTIVITIES.forEach(function(a){
+      html += '<div class="chip '+(f.activityId===a.id?'selected':'')+'" onclick="App.setCreateField(\'activityId\',\''+a.id+'\')">'+a.icon+' '+a.name+'</div>';
+    });
+    html += '</div>';
 
-function resetDemo(){
-  tables = clone(); mine = []; filter='all'; selected=null;
-  document.querySelectorAll('#chips .chip').forEach((x,i)=>x.classList.toggle('on', i===0));
-  closeSheet(); renderPins(); renderMine();
-  document.getElementById('sJoin').textContent = 0;
-  goTo('v-map');
-}
+    html += '<div class="field-label">Mekan</div>';
+    html += '<div class="mini-map"><div class="pin"><span>📍</span></div></div>';
+    html += '<input class="input" placeholder="Mekan adı (örn. Cue Club Bilardo)" value="'+esc(f.venue)+'" oninput="App.setCreateField(\'venue\', this.value)" />';
 
-function tick(){
-  const d = new Date();
-  document.getElementById('clock').textContent =
-    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-}
+    html += '<div class="field-label">Ne Zaman</div><div class="chip-grid">';
+    DATE_OPTIONS.forEach(function(d,i){
+      html += '<div class="chip '+(f.date===i?'selected':'')+'" onclick="App.setCreateField(\'date\','+i+')">'+d+'</div>';
+    });
+    html += '</div>';
+    html += '<div class="chip-grid" style="margin-top:8px;">';
+    TIME_OPTIONS.forEach(function(t){
+      html += '<div class="chip '+(f.time===t?'selected':'')+'" onclick="App.setCreateField(\'time\',\''+t+'\')">'+t+'</div>';
+    });
+    html += '</div>';
 
-resetDemo(); tick(); setInterval(tick, 20000);
-setTimeout(()=>firePush('Yakınında 5 açık masa var','Kadıköy çevresinde bu akşam oyun arayanlar.'), 1400);
+    html += '<div class="field-label">Süre</div><div class="chip-grid">';
+    DURATION_OPTIONS.forEach(function(m){
+      html += '<div class="chip '+(f.duration===m?'selected':'')+'" onclick="App.setCreateField(\'duration\','+m+')">'+m+' dk</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Kaç Kişi Aranıyor</div><div class="chip-grid">';
+    SEATS_OPTIONS.forEach(function(s){
+      html += '<div class="chip '+(f.seats===s?'selected':'')+'" onclick="App.setCreateField(\'seats\','+s+')">'+s+' kişi</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="field-label">Seviye</div><div class="chip-grid">';
+    SKILL_LEVELS.forEach(function(s){
+      html += '<div class="chip '+(f.skill===s.id?'selected':'')+'" onclick="App.setCreateField(\'skill\',\''+s.id+'\')">'+s.label+'</div>';
+    });
+    html += '</div>';
+    html += '<div style="height:8px;"></div>';
+
+    return {
+      body: html,
+      title: 'Masa Aç',
+      footer: '<button class="btn primary" onclick="App.publishTable()">Yayınla</button>'
+    };
+  }
+
+  // ---------------- requests ----------------
+  function renderRequests(){
+    var html = '<div class="app-header"><h1>İstekler</h1></div>';
+    html += '<div class="screen-body">';
+    html += '<div class="seg">'+
+      '<button class="'+(state.requestsTab==='gelen'?'active':'')+'" onclick="App.setRequestsTab(\'gelen\')">Gelen</button>'+
+      '<button class="'+(state.requestsTab==='giden'?'active':'')+'" onclick="App.setRequestsTab(\'giden\')">Giden</button>'+
+    '</div>';
+
+    if (state.requestsTab === 'gelen'){
+      if (state.incoming.length === 0){
+        html += '<div class="empty-state">Bekleyen istek yok.</div>';
+      } else {
+        state.incoming.forEach(function(r){
+          html += '<div class="req-card">'+
+            '<div class="txt"><b>'+esc(r.name)+'</b> "'+esc(r.table)+'" masana istek gönderdi.<br/><span style="color:var(--text-muted);">'+esc(r.note)+'</span></div>'+
+            '<div class="req-actions">'+
+              '<button class="accept" onclick="App.resolveIncoming(\''+r.id+'\',true)">Kabul Et</button>'+
+              '<button class="decline" onclick="App.resolveIncoming(\''+r.id+'\',false)">Reddet</button>'+
+            '</div>'+
+          '</div>';
+        });
+      }
+    } else {
+      if (state.outgoing.length === 0){
+        html += '<div class="empty-state">Gönderilmiş isteğin yok.</div>';
+      } else {
+        state.outgoing.forEach(function(r){
+          var tone = r.status === 'Kabul edildi' ? 'success' : 'gold';
+          html += '<div class="req-card">'+
+            '<div class="txt" style="margin-bottom:0;"><b>'+esc(r.table)+'</b></div>'+
+            '<div style="margin-top:8px;"><span class="badge '+tone+'">'+esc(r.status)+'</span></div>'+
+          '</div>';
+        });
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- chats ----------------
+  function renderChatList(){
+    var html = '<div class="app-header"><h1>Sohbetler</h1></div>';
+    html += '<div class="screen-body">';
+    CHATS.forEach(function(c){
+      var last = c.messages[c.messages.length-1];
+      html += '<div class="chat-row" onclick="App.openChat(\''+c.id+'\')">'+
+        initialsAvatar(c.initials,46)+
+        '<div class="body">'+
+          '<div class="top"><span class="name">'+esc(c.name)+'</span><span class="time">'+c.time+'</span></div>'+
+          '<div style="display:flex;align-items:center;gap:6px;">'+
+            '<span class="preview">'+esc(last.text)+'</span>'+
+            (c.unread ? '<span class="unread-dot"></span>' : '')+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderChatOverlay(chat){
+    var html = '<div class="plan-card">'+
+      '<div class="k">Masa Planı · '+esc(chat.planStatus)+'</div>'+
+      '<div class="title">'+esc(chat.tableTitle)+'</div>'+
+      '<div class="sub">'+esc(chat.planVenue)+' · '+esc(chat.planTime)+'</div>'+
+    '</div>';
+    chat.messages.forEach(function(m){
+      html += '<div class="bubble-row '+(m.me?'me':'them')+'"><div class="bubble">'+esc(m.text)+'</div></div>';
+    });
+    return { body: html, title: chat.name, isChat:true };
+  }
+
+  // ---------------- profile ----------------
+  function renderProfile(){
+    var html = '<div class="app-header"><div class="row"><h1>Profil</h1><button class="icon-btn" onclick="App.toast(\'Ayarlar (demo)\')">⚙️</button></div></div>';
+    html += '<div class="screen-body">';
+    html += '<div class="profile-head">'+initialsAvatar('BE',76)+
+      '<h2>Bulut Emre</h2><div class="sub">📍 Kadıköy, İstanbul · Üye: 2025</div></div>';
+
+    html += '<div class="stat-grid">'+
+      '<div class="stat-box"><b>%96</b><span>Yanıt oranı</span></div>'+
+      '<div class="stat-box"><b>24</b><span>Katıldığı masa</span></div>'+
+      '<div class="stat-box"><b>4.9★</b><span>Puan</span></div>'+
+    '</div>';
+
+    html += '<div class="field-label" style="margin-top:6px;">Favori Oyunlar</div><div class="chip-grid">'+
+      '<div class="chip selected">🎱 Bilardo</div><div class="chip selected">🀄 Okey</div><div class="chip selected">♟️ Satranç</div>'+
+    '</div>';
+
+    html += '<div class="field-label">Hesap</div>';
+    ['✅ Doğrulama rozetleri','🔔 Bildirim tercihleri','👑 Quadmate Premium','🔒 Gizlilik & Güvenlik','🌐 Dil'].forEach(function(row){
+      html += '<div class="list-row" onclick="App.toast(\'Demo ekranı\')"><span class="ico">'+row.split(' ')[0]+'</span><span>'+row.substring(row.indexOf(' ')+1)+'</span><span class="chev">›</span></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- overlay shell ----------------
+  function renderOverlay(){
+    var payload;
+    if (state.overlay === 'detail') payload = renderDetail(state.overlayData.table);
+    else if (state.overlay === 'filters') payload = renderFiltersOverlay();
+    else if (state.overlay === 'create') payload = renderCreateOverlay();
+    else if (state.overlay === 'chat') payload = renderChatOverlay(state.overlayData.chat);
+    else return '';
+
+    var html = '<div class="overlay">';
+    html += '<div class="overlay-header"><button class="icon-btn" onclick="App.closeOverlay()">←</button><h2>'+esc(payload.title)+'</h2></div>';
+    html += '<div class="overlay-body">'+payload.body+'</div>';
+    if (payload.isChat){
+      html += '<div class="chat-input-row"><input placeholder="Mesaj yaz..." onkeydown="if(event.key===\'Enter\'){App.toast(\'Mesaj gönderildi (demo)\'); this.value=\'\';}"/><div class="send-dot" onclick="App.toast(\'Mesaj gönderildi (demo)\')">➤</div></div>';
+    } else if (payload.footer){
+      html += '<div class="overlay-footer">'+payload.footer+'</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------- actions ----------------
+  var App = {
+    setTab: function(t){ state.tab = t; state.overlay = null; render(); },
+    toggleView: function(){ state.discoverView = state.discoverView==='list' ? 'map' : 'list'; state.activePinId=null; render(); },
+    clearActivities: function(){ state.filters.activities.clear(); render(); },
+    toggleActivity: function(id){
+      if (state.filters.activities.has(id)) state.filters.activities.delete(id);
+      else state.filters.activities.add(id);
+      render();
+    },
+    setRadius: function(km){ state.filters.radius = km; render(); },
+    setSkillFilter: function(id){ state.filters.skill = id; render(); },
+    resetFilters: function(){ state.filters = {activities:new Set(), radius:5, skill:'fark_etmez'}; render(); },
+    selectPin: function(id){ state.activePinId = state.activePinId===id ? null : id; render(); },
+    openFilters: function(){ state.overlay='filters'; render(); },
+    openDetail: function(id){
+      var t = TABLES.filter(function(x){return x.id===id;})[0];
+      state.overlay = 'detail'; state.overlayData = {table:t}; render();
+    },
+    openCreate: function(){ state.overlay='create'; render(); },
+    setCreateField: function(k,v){ state.createForm[k]=v; render(); },
+    publishTable: function(){
+      var f = state.createForm;
+      if (!f.activityId){ toast('Bir oyun türü seç.'); return; }
+      if (!f.venue || !f.venue.trim()){ toast('Mekan adını gir.'); return; }
+      if (!f.time){ toast('Bir saat seç.'); return; }
+      state.overlay = null;
+      render();
+      toast('Masa yayınlandı 🎉');
+      state.createForm = { activityId: null, venue:'', date:0, time:null, duration:90, seats:2, skill:'fark_etmez' };
+    },
+    sendRequest: function(id){
+      state.sentRequestIds.add(id);
+      render();
+      toast('İstek gönderildi ✅');
+    },
+    openChat: function(id){
+      var c = CHATS.filter(function(x){return x.id===id;})[0];
+      c.unread = false;
+      state.overlay = 'chat'; state.overlayData = {chat:c}; render();
+    },
+    setRequestsTab: function(t){ state.requestsTab = t; render(); },
+    resolveIncoming: function(id, accepted){
+      state.incoming = state.incoming.filter(function(r){return r.id!==id;});
+      render();
+      toast(accepted ? 'İstek kabul edildi ✅' : 'İstek reddedildi');
+    },
+    closeOverlay: function(){ state.overlay = null; render(); },
+    toast: toast
+  };
+  window.App = App;
+
+  render();
+})();
 </script>
+
 </body>
 </html>
