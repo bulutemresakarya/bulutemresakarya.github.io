@@ -389,7 +389,7 @@
       <span class="dots"><span></span><span></span><span></span><span></span></span>
       Quadmate
     </div>
-    <span class="header-pill">Ürün Demosu · Faz 2</span>
+    <span class="header-pill">Ürün Demosu · Faz 4</span>
   </div>
 </header>
 
@@ -463,6 +463,13 @@
             <p>Her masaya bağlı grup sohbeti, üstte gömülü masa planı kartıyla birlikte gelir.</p>
           </div>
         </div>
+        <div class="feature-item">
+          <div class="ico">🔔</div>
+          <div>
+            <h3>Anlık Bildirimler</h3>
+            <p>Yeni istek, kabul/red ve mesajlar telefona push bildirimi olarak düşer — uygulamayı açmaya gerek yok.</p>
+          </div>
+        </div>
       </div>
 
       <div class="howto">
@@ -519,7 +526,8 @@
           <li>Postgres + PostGIS (konum sorguları)</li>
           <li>Realtime (sohbet, masa durumu)</li>
           <li>Storage (avatar, doğrulama belgesi)</li>
-          <li>Edge Functions (Deno) — kota, webhook, bildirim tetikleme</li>
+          <li>Postgres trigger + pg_net — push bildirimi tetikleme</li>
+          <li>Edge Functions (Deno) — kota/webhook (Faz 5, planlanan)</li>
         </ul>
       </div>
       <div class="arch-arrow">⇄</div>
@@ -547,9 +555,9 @@
     <div class="roadmap">
       <div class="phase done"><div class="dot"></div><div><b>Faz 0 — Tamamlandı</b><p>Proje iskeleti, tasarım sistemi, navigasyon şeması, Supabase şema taslağı.</p></div></div>
       <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Auth, onboarding, konum izni, oyun seçimi, temel profil; canlı Supabase projesi bağlandı.</p></div></div>
-      <div class="phase current"><div class="dot"></div><div><b>Faz 2 — Şu an burada</b><p>Masa Aç, Keşfet (harita/liste), Masa Detay, Filtreler ekranları.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 3</b><p>İstek Gönder/Kabul, Masa Planı, Realtime sohbet.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 4</b><p>Bildirimler, puanlama, doğrulama, şikayet/engelleme.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 2 — Tamamlandı</b><p>Masa Aç (Google Places arama dahil), Keşfet (harita/liste), Masa Detay, Filtreler ekranları canlıda.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 3 — Tamamlandı</b><p>İstek Gönder/Kabul, Masa Planı, gerçek zamanlı (Realtime) grup sohbeti canlıda.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Faz 4 — Şu an burada</b><p>Gerçek push bildirimleri ve masa yönetimi (iptal/ayrılma) tamamlandı; puanlama, kimlik doğrulama ve şikayet/engelleme devam ediyor.</p></div></div>
       <div class="phase"><div class="dot"></div><div><b>Faz 5</b><p>Monetizasyon: usage_quota, RevenueCat, paywall.</p></div></div>
       <div class="phase"><div class="dot"></div><div><b>Faz 6</b><p>Cilalama, test, Sentry/PostHog, App Store &amp; Google Play submission.</p></div></div>
     </div>
