@@ -436,35 +436,35 @@
 
       <div class="feature-list">
         <div class="feature-item">
-          <div class="ico">🧭</div>
+          <div class="ico"><ion-icon name="compass-outline"></ion-icon></div>
           <div>
             <h3>Keşfet — Harita &amp; Liste</h3>
             <p>Yakınındaki açık masaları listede ya da haritada gör; mesafe, oyun türü ve seviyeye göre filtrele.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="ico">➕</div>
+          <div class="ico"><ion-icon name="add-circle-outline"></ion-icon></div>
           <div>
             <h3>Masa Aç</h3>
             <p>Oyun seç, haritadan mekân işaretle, tarih/saat/süre/kişi sayısı belirle ve yayınla.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="ico">📨</div>
+          <div class="ico"><ion-icon name="paper-plane-outline"></ion-icon></div>
           <div>
             <h3>İstek Gönder &amp; Onayla</h3>
             <p>Gelen/giden istekleri yönet; host kabul edince masa planı ve grup sohbeti otomatik açılır.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="ico">💬</div>
+          <div class="ico"><ion-icon name="chatbubbles-outline"></ion-icon></div>
           <div>
             <h3>Realtime Sohbet</h3>
             <p>Her masaya bağlı grup sohbeti, üstte gömülü masa planı kartıyla birlikte gelir.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="ico">🔔</div>
+          <div class="ico"><ion-icon name="notifications-outline"></ion-icon></div>
           <div>
             <h3>Anlık Bildirimler</h3>
             <p>Yeni istek, kabul/red ve mesajlar telefona push bildirimi olarak düşer — uygulamayı açmaya gerek yok.</p>
@@ -474,7 +474,7 @@
 
       <div class="howto">
         💡 <b>Nasıl kullanılır:</b> Alttaki sekmelerden birine dokun, bir masa kartına tıkla,
-        sağ üstteki 🗺️ ikonuyla harita görünümüne geç, ya da mor <b>+</b> butonuyla yeni masa aç.
+        sağ üstteki <ion-icon name="map-outline" style="vertical-align:-3px;"></ion-icon> ikonuyla harita görünümüne geç, ya da mor <b>+</b> butonuyla yeni masa aç.
         Tüm veriler örnek (mock) veridir.
       </div>
     </div>
@@ -675,10 +675,10 @@
 
   function renderTabBar(){
     var tabs = [
-      {id:'discover', ic:'🧭', lb:'Keşfet'},
-      {id:'requests', ic:'📨', lb:'İstekler'},
-      {id:'chats', ic:'💬', lb:'Sohbetler'},
-      {id:'profile', ic:'👤', lb:'Profil'}
+      {id:'discover', ic:'<ion-icon name="compass-outline"></ion-icon>', lb:'Keşfet'},
+      {id:'requests', ic:'<ion-icon name="paper-plane-outline"></ion-icon>', lb:'İstekler'},
+      {id:'chats', ic:'<ion-icon name="chatbubbles-outline"></ion-icon>', lb:'Sohbetler'},
+      {id:'profile', ic:'<ion-icon name="person-circle-outline"></ion-icon>', lb:'Profil'}
     ];
     var html = '<div class="tab-bar">';
     tabs.forEach(function(t){
@@ -708,8 +708,9 @@
 
   function renderDiscover(){
     var html = '<div class="app-header"><div class="row"><h1>Keşfet</h1><div class="btn-row">'+
-      '<button class="icon-btn" onclick="App.toggleView()">'+(state.discoverView==='list'?'🗺️':'📋')+'</button>'+
-      '<button class="icon-btn" onclick="App.openFilters()">🎚️</button>'+
+      '<button class="icon-btn" onclick="App.toast(\'Bildirimler (demo)\')"><ion-icon name="notifications-outline"></ion-icon></button>'+
+      '<button class="icon-btn" onclick="App.toggleView()"><ion-icon name="'+(state.discoverView==='list'?'map-outline':'list-outline')+'"></ion-icon></button>'+
+      '<button class="icon-btn" onclick="App.openFilters()"><ion-icon name="options-outline"></ion-icon></button>'+
       '</div></div></div>';
 
     html += '<div class="chip-scroll">';
@@ -951,7 +952,7 @@
 
   // ---------------- profile ----------------
   function renderProfile(){
-    var html = '<div class="app-header"><div class="row"><h1>Profil</h1><button class="icon-btn" onclick="App.toast(\'Ayarlar (demo)\')">⚙️</button></div></div>';
+    var html = '<div class="app-header"><div class="row"><h1>Profil</h1><button class="icon-btn" onclick="App.toast(\'Ayarlar (demo)\')"><ion-icon name="settings-outline"></ion-icon></button></div></div>';
     html += '<div class="screen-body">';
     html += '<div class="profile-head">'+initialsAvatar('BE',76)+
       '<h2>Bulut Emre</h2><div class="sub">📍 Kadıköy, İstanbul · Üye: 2025</div></div>';
@@ -967,8 +968,14 @@
     '</div>';
 
     html += '<div class="field-label">Hesap</div>';
-    ['✅ Doğrulama rozetleri','🔔 Bildirim tercihleri','👑 Quadmate Premium','🔒 Gizlilik & Güvenlik','🌐 Dil'].forEach(function(row){
-      html += '<div class="list-row" onclick="App.toast(\'Demo ekranı\')"><span class="ico">'+row.split(' ')[0]+'</span><span>'+row.substring(row.indexOf(' ')+1)+'</span><span class="chev">›</span></div>';
+    [
+      {icon:'checkmark-circle-outline', label:'Doğrulama rozetleri'},
+      {icon:'notifications-outline', label:'Bildirim tercihleri'},
+      {icon:'sparkles-outline', label:'Quadmate Premium'},
+      {icon:'lock-closed-outline', label:'Gizlilik & Güvenlik'},
+      {icon:'globe-outline', label:'Dil'}
+    ].forEach(function(row){
+      html += '<div class="list-row" onclick="App.toast(\'Demo ekranı\')"><span class="ico"><ion-icon name="'+row.icon+'"></ion-icon></span><span>'+row.label+'</span><span class="chev">›</span></div>';
     });
     html += '</div>';
     return html;
@@ -987,7 +994,7 @@
     html += '<div class="overlay-header"><button class="icon-btn" onclick="App.closeOverlay()">←</button><h2>'+esc(payload.title)+'</h2></div>';
     html += '<div class="overlay-body">'+payload.body+'</div>';
     if (payload.isChat){
-      html += '<div class="chat-input-row"><input placeholder="Mesaj yaz..." onkeydown="if(event.key===\'Enter\'){App.toast(\'Mesaj gönderildi (demo)\'); this.value=\'\';}"/><div class="send-dot" onclick="App.toast(\'Mesaj gönderildi (demo)\')">➤</div></div>';
+      html += '<div class="chat-input-row"><input placeholder="Mesaj yaz..." onkeydown="if(event.key===\'Enter\'){App.toast(\'Mesaj gönderildi (demo)\'); this.value=\'\';}"/><div class="send-dot" onclick="App.toast(\'Mesaj gönderildi (demo)\')"><ion-icon name="send" style="font-size:15px;"></ion-icon></div></div>';
     } else if (payload.footer){
       html += '<div class="overlay-footer">'+payload.footer+'</div>';
     }
@@ -1050,6 +1057,9 @@
   render();
 })();
 </script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>
