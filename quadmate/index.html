@@ -211,7 +211,7 @@
   .pin span{transform:rotate(45deg);font-size:14px;}
   .pin.active{background:var(--gold-500);}
   .map-popup{
-    position:absolute;left:16px;right:16px;bottom:16px;
+    position:absolute;left:16px;right:16px;bottom:16px;z-index:26;
     background:var(--ink-800);border:1px solid var(--ink-600);border-radius:16px;padding:14px;
     box-shadow:0 12px 30px rgba(0,0,0,0.5);
     animation:slideUp .18s ease;
@@ -687,7 +687,8 @@
     var html = '<div style="display:flex;flex-direction:column;height:100%;min-height:0;">';
     html += renderTabContent();
     html += renderTabBar();
-    if (state.tab === 'discover') html += '<button class="fab" onclick="App.openCreate()">+</button>';
+    var showFab = state.tab === 'discover' && !(state.discoverView === 'map' && state.activePinId);
+    if (showFab) html += '<button class="fab" onclick="App.openCreate()">+</button>';
     html += '</div>';
     if (state.overlay) html += renderOverlay();
     root.innerHTML = html;
