@@ -493,7 +493,6 @@
         </div>
       </div>
       <div class="demo-caption">Etkileşimli prototip — gerçek Quadmate uygulamasının (Expo / React Native) tasarım sistemiyle birebir üretildi.</div>
-      <button onclick="App.replayIntro()" style="background:none;border:1px solid var(--ink-600);color:var(--brand-300);font-size:12.5px;font-weight:600;padding:8px 16px;border-radius:999px;cursor:pointer;">↺ Giriş akışını tekrar oynat</button>
     </div>
   </div>
 </section>
@@ -636,8 +635,6 @@
   ];
 
   var state = {
-    authStep: 'onboarding',
-    loggingIn: false,
     tab: 'discover',
     discoverView: 'list',
     overlay: null,
@@ -668,10 +665,6 @@
 
   // ---------------- render dispatch ----------------
   function render(){
-    if (state.authStep){
-      root.innerHTML = renderAuthStep();
-      return;
-    }
     var html = '<div style="display:flex;flex-direction:column;height:100%;min-height:0;">';
     html += renderTabContent();
     html += renderTabBar();
@@ -679,67 +672,6 @@
     html += '</div>';
     if (state.overlay) html += renderOverlay();
     root.innerHTML = html;
-  }
-
-  // ---------------- auth akışı (onboarding / giriş / konum izni) ----------------
-  function renderAuthStep(){
-    if (state.authStep === 'onboarding') return renderOnboarding();
-    if (state.authStep === 'login') return renderLogin();
-    if (state.authStep === 'location') return renderLocationPermission();
-    return '';
-  }
-
-  function renderOnboarding(){
-    return ''+
-    '<div style="display:flex;flex-direction:column;height:100%;">'+
-      '<div style="height:44%;flex:none;position:relative;background:linear-gradient(160deg,var(--brand-600),var(--ink-950) 85%);display:flex;align-items:center;justify-content:center;">'+
-        '<div style="font-size:56px;letter-spacing:6px;">🎱🀄🎯</div>'+
-        '<div style="position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(180deg,transparent,var(--ink-950));"></div>'+
-      '</div>'+
-      '<div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:22px 20px 20px;">'+
-        '<div>'+
-          '<h1 style="font-size:26px;line-height:1.15;margin:0 0 12px;letter-spacing:-0.01em;">Oyun sadece ekranda değil,<br/>gerçek hayatta!</h1>'+
-          '<p style="font-size:14.5px;line-height:1.55;color:var(--text-muted);margin:0;">Quadmate, Okey\'den bilardoya, kağıt oyunlarından dart\'a kadar masanda eksik olan oyuncuyu yakınındaki gerçek insanlarla buluşturur.</p>'+
-        '</div>'+
-        '<div style="display:flex;flex-direction:column;gap:10px;">'+
-          '<button class="btn primary" onclick="App.goLogin()">Başla</button>'+
-          '<button class="btn ghost" onclick="App.goLogin()">Zaten hesabım var</button>'+
-        '</div>'+
-      '</div>'+
-    '</div>';
-  }
-
-  function renderLogin(){
-    return ''+
-    '<div style="padding:28px 20px 20px;height:100%;display:flex;flex-direction:column;">'+
-      '<div style="margin-bottom:24px;">'+
-        '<h1 style="font-size:23px;margin:0 0 6px;">Giriş Yap</h1>'+
-        '<p style="font-size:14px;color:var(--text-muted);margin:0;">Quadmate hesabınla devam et.</p>'+
-      '</div>'+
-      '<div class="field-label" style="margin-top:0;">E-posta</div>'+
-      '<input class="input" value="demo@quadmate.app" readonly />'+
-      '<div class="field-label">Şifre</div>'+
-      '<input class="input" type="password" value="••••••••" readonly />'+
-      '<div style="flex:1;"></div>'+
-      '<button class="btn primary" onclick="App.doLogin()" '+(state.loggingIn?'disabled':'')+'>'+(state.loggingIn?'Giriş yapılıyor…':'Giriş Yap')+'</button>'+
-    '</div>';
-  }
-
-  function renderLocationPermission(){
-    return ''+
-    '<div style="padding:24px 20px 20px;height:100%;display:flex;flex-direction:column;">'+
-      '<div style="aspect-ratio:1;width:100%;border-radius:24px;overflow:hidden;background:linear-gradient(160deg,var(--brand-700),var(--ink-900));display:flex;align-items:center;justify-content:center;font-size:64px;flex:none;">🗺️</div>'+
-      '<div style="margin-top:24px;">'+
-        '<h1 style="font-size:24px;margin:0 0 10px;">Çevrendeki masaları keşfet</h1>'+
-        '<p style="font-size:14px;line-height:1.55;color:var(--text-muted);margin:0 0 14px;">Quadmate, yakınındaki oyun masalarını gösterebilmek için konumunu kullanır.</p>'+
-        '<div style="align-self:center;display:inline-flex;background:var(--ink-800);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--text-muted);">🔒 Tam konum asla paylaşılmaz</div>'+
-      '</div>'+
-      '<div style="flex:1;"></div>'+
-      '<div style="display:flex;flex-direction:column;gap:10px;">'+
-        '<button class="btn primary" onclick="App.finishAuth(true)">Konuma İzin Ver</button>'+
-        '<button class="btn ghost" onclick="App.finishAuth(false)">Şimdi değil</button>'+
-      '</div>'+
-    '</div>';
   }
 
   function renderTabBar(){
@@ -1119,24 +1051,6 @@
       toast(accepted ? 'İstek kabul edildi ✅' : 'İstek reddedildi');
     },
     closeOverlay: function(){ state.overlay = null; render(); },
-    goLogin: function(){ state.authStep = 'login'; render(); },
-    doLogin: function(){
-      if (state.loggingIn) return;
-      state.loggingIn = true;
-      render();
-      setTimeout(function(){
-        state.loggingIn = false;
-        state.authStep = 'location';
-        render();
-        toast('Hoş geldin, Demo Kullanıcı 👋');
-      }, 650);
-    },
-    finishAuth: function(granted){
-      state.authStep = null;
-      render();
-      toast(granted ? 'Konum izni verildi ✅' : 'Konum ayarlardan sonra verilebilir');
-    },
-    replayIntro: function(){ state.authStep = 'onboarding'; state.tab = 'discover'; state.overlay = null; render(); },
     toast: toast
   };
   window.App = App;
