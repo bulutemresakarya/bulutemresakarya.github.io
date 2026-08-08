@@ -171,6 +171,38 @@
     display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);
   }
   .next b{font-family:var(--mono);color:var(--gold);font-weight:600}
+  .pos-sym .side.short{background:var(--red-dim);color:var(--red)}
+
+  /* KASA */
+  .kasa-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  .kasa-val{font-family:var(--mono);font-size:27px;font-weight:700;color:var(--teal);line-height:1.05}
+  .kasa-val.neg{color:var(--red)}
+  .kasa-note{font-size:11px;color:var(--muted);margin-top:3px}
+  .kasa-eq{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+  .kasa-eq b{display:block;color:var(--text);font-size:15px;font-weight:600}
+  .wr-bar{height:6px;border-radius:3px;background:var(--red);overflow:hidden;margin:13px 0 0}
+  .wr-bar i{display:block;height:100%;background:var(--teal);border-radius:3px;transition:width .4s}
+  .kasa-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:11px}
+  .kasa-stats .lbl{font-size:10.5px;color:var(--muted);margin-bottom:2px}
+  .kasa-stats .val{font-family:var(--mono);font-size:13px}
+
+  /* ISLEM AKSIYONLARI */
+  .act{display:flex;gap:10px;margin-top:14px}
+  .act button{
+    flex:1;border:none;border-radius:8px;padding:12px 8px;
+    font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .act .long{background:var(--teal);color:#04110e}
+  .act .short{background:var(--red);color:#fff}
+  .act .close{background:#2a3140;color:var(--text)}
+  .act button:active{opacity:.85}
+  .act button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .empty{text-align:center;color:var(--muted);font-size:13px;padding:16px 0 4px}
+  .empty b{display:block;color:var(--text);font-weight:600;margin-bottom:3px}
+  .warnline{
+    margin-top:10px;background:var(--red-dim);border:1px solid rgba(245,69,92,.35);
+    color:var(--red);border-radius:8px;padding:9px 11px;font-size:12px;
+  }
 
   /* TABLE */
   table{width:100%;border-collapse:collapse;font-size:12px}
@@ -214,16 +246,38 @@
     <div class="balance">
       <div>
         <div class="lbl">Bakiye (USDT)</div>
-        <div class="val">2.418,60</div>
+        <div class="val" id="balTotal">2.418,60</div>
       </div>
       <div>
         <div class="lbl">Kullanılabilir</div>
-        <div class="val">1.918,60</div>
+        <div class="val" id="balFree">1.918,60</div>
       </div>
       <div>
         <div class="lbl">Açık PNL</div>
         <div class="val green" id="balPnl">+42,75</div>
       </div>
+    </div>
+  </div>
+
+  <!-- KASA -->
+  <div class="card">
+    <h2>Kasa <span class="tag">BİRİKEN KÂR</span></h2>
+    <div class="kasa-top">
+      <div>
+        <div class="kasa-val" id="kasaVal">+289,16</div>
+        <div class="kasa-note">kapatılan işlemlerden gerçekleşen toplam</div>
+      </div>
+      <div class="kasa-eq">
+        <b id="kasaEq">%13,58</b>
+        sermaye getirisi
+      </div>
+    </div>
+    <div class="wr-bar" title="Başarı oranı"><i id="wrBar" style="width:75%"></i></div>
+    <div class="kasa-stats">
+      <div><div class="lbl">İşlem</div><div class="val" id="stTrades">4</div></div>
+      <div><div class="lbl">Kazanan</div><div class="val" style="color:var(--teal)" id="stWins">3</div></div>
+      <div><div class="lbl">Kaybeden</div><div class="val" style="color:var(--red)" id="stLoss">1</div></div>
+      <div><div class="lbl">Başarı</div><div class="val" id="stWr">%75</div></div>
     </div>
   </div>
 
@@ -319,20 +373,11 @@
   <!-- AÇIK POZİSYON -->
   <div class="card">
     <h2>Açık Pozisyon</h2>
-    <div class="pos-head">
-      <div class="pos-sym">BTC_USDT <span class="side">LONG</span><span class="levtag">10x izole</span></div>
-      <div class="pnl" id="posPnl">+42,75 USDT<small>+%8,55</small></div>
-    </div>
-    <div class="pos-grid">
-      <div><div class="lbl">Giriş Fiyatı</div><div class="val">67.412,5</div></div>
-      <div><div class="lbl">Mark Fiyatı</div><div class="val" id="markPrice">67.988,1</div></div>
-      <div><div class="lbl">Likidasyon</div><div class="val" style="color:var(--red)">61.230,4</div></div>
-      <div><div class="lbl">Marjin</div><div class="val">500,00</div></div>
-      <div><div class="lbl">Boyut</div><div class="val">0,0742 BTC</div></div>
-      <div><div class="lbl">Açılış</div><div class="val">09.07 10:00</div></div>
-    </div>
+    <div id="posBox"></div>
+    <div class="act" id="actBox"></div>
+    <div id="tradeWarn"></div>
     <div class="next">
-      <span>Sonraki işlem</span>
+      <span>Sonraki otomatik işlem</span>
       <b id="nextTrade">10 Tem 10:00 · 14 sa 07 dk</b>
     </div>
   </div>
@@ -344,7 +389,7 @@
       <thead>
         <tr><th>Tarih</th><th>Yön</th><th>Giriş</th><th>Çıkış</th><th>PNL</th></tr>
       </thead>
-      <tbody>
+      <tbody id="tradeRows">
         <tr><td>08.07 10:00</td><td><span class="side-l">LONG</span></td><td>66.104</td><td>67.412</td><td class="green">+98,90</td></tr>
         <tr><td>07.07 10:00</td><td><span class="side-s">SHORT</span></td><td>67.850</td><td>66.104</td><td class="green">+128,63</td></tr>
         <tr><td>06.07 10:00</td><td><span class="side-l">LONG</span></td><td>68.212</td><td>67.850</td><td class="red">−26,54</td></tr>
@@ -376,43 +421,219 @@ function setSide(btn, side){
   seg.querySelectorAll('button').forEach(b=>b.className='');
   btn.className = side === 'long' ? 'on-long' : 'on-short';
 }
-/* === Canlı simülasyon (demo) === */
-const ENTRY=67412.5, SIZE=0.0742;
-let mark=67988.1, secsLeft=14*3600+7*60;
-const fmt=(v,d=1)=>v.toLocaleString("tr-TR",{minimumFractionDigits:d,maximumFractionDigits:d});
-function tickPrice(){
-  mark=Math.max(60000, mark+(Math.random()-0.485)*42);
-  const pnl=(mark-ENTRY)*SIZE, pct=pnl/500*100;
-  const up=pnl>=0, col=up?"var(--teal)":"var(--red)", sign=up?"+":"−";
-  document.getElementById("markPrice").textContent=fmt(mark);
-  const pp=document.getElementById("posPnl");
-  pp.style.color=col;
-  pp.innerHTML=`${sign}${fmt(Math.abs(pnl),2)} USDT<small style="color:${col}">${sign}%${fmt(Math.abs(pct),2)}</small>`;
-  const bp=document.getElementById("balPnl");
-  bp.textContent=`${sign}${fmt(Math.abs(pnl),2)}`;
-  bp.style.color=col;
-}
-function tickClock(){
-  secsLeft=Math.max(0,secsLeft-1);
-  const h=Math.floor(secsLeft/3600), m=Math.floor(secsLeft%3600/60);
-  document.getElementById("nextTrade").textContent=`10 Tem 10:00 · ${h} sa ${String(m).padStart(2,"0")} dk`;
-}
-function addLog(){
-  const t=new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
-  const ms=140+Math.floor(Math.random()*80);
-  const d=document.createElement("div");
-  d.innerHTML=`<span class="t">${t}</span> Bağlantı kontrolü · MEXC API <span class="ok">OK</span> (${ms} ms)`;
-  const log=document.getElementById("botLog");
-  log.appendChild(d); while(log.children.length>8) log.removeChild(log.firstChild);
-}
-setInterval(tickPrice,2200); setInterval(tickClock,1000); setInterval(addLog,18000);
-tickPrice();
-
 function setType(btn){
   const seg = btn.parentElement;
   seg.querySelectorAll('button').forEach(b=>b.className='');
   btn.className = 'on-neutral';
 }
+
+/* ===================================================================
+   Kripto bot demosu — durum yonetimli simulasyon
+   Gercek para veya gercek borsa baglantisi yoktur; fiyatlar rastgele
+   yuruyus, tum bakiyeler tarayicida tutulur ve yenilemede sifirlanir.
+   =================================================================== */
+
+const BASE_EQUITY = 2129.44;   // kasa haric ana sermaye
+const PRICES  = { BTC_USDT:67988.1, ETH_USDT:3542.7, SOL_USDT:172.4, XRP_USDT:0.6218 };
+const PX_DEC  = { BTC_USDT:1, ETH_USDT:2, SOL_USDT:2, XRP_USDT:4 };
+const QTY_DEC = { BTC_USDT:4, ETH_USDT:3, SOL_USDT:2, XRP_USDT:0 };
+
+const state = {
+  kasa: 289.16,          // asagidaki 4 baslangic isleminin toplami
+  wins: 3, losses: 1,
+  secsLeft: 14*3600 + 7*60,
+  pos: {                 // sayfa canli gorunsun diye acik baslayan pozisyon
+    sym:"BTC_USDT", side:"long", entry:67412.5, size:0.0742,
+    margin:500, lev:10, opened:"09.07 10:00"
+  }
+};
+
+const $ = id => document.getElementById(id);
+const fmt = (v,d=1) => v.toLocaleString("tr-TR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const signed = (v,d=2) => (v>=0?"+":"−") + fmt(Math.abs(v),d);
+const pctStr = (v,d=2) => (v>=0?"+":"−") + "%" + fmt(Math.abs(v),d);
+const symOf = () => $("pair").value.split(" ")[0];
+
+function log(html){
+  const t = new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  const d = document.createElement("div");
+  d.innerHTML = `<span class="t">${t}</span> ${html}`;
+  const box = $("botLog");
+  box.appendChild(d);
+  while (box.children.length > 9) box.removeChild(box.firstChild);
+}
+
+function warn(msg){
+  $("tradeWarn").innerHTML = msg ? `<div class="warnline">${msg}</div>` : "";
+  if (msg) setTimeout(()=>{ $("tradeWarn").innerHTML=""; }, 4200);
+}
+
+/* --- turev hesaplar --- */
+const equity    = () => BASE_EQUITY + state.kasa;
+const freeMargin= () => equity() - (state.pos ? state.pos.margin : 0);
+function unrealised(){
+  const p = state.pos;
+  if (!p) return 0;
+  const diff = PRICES[p.sym] - p.entry;
+  return (p.side === "long" ? diff : -diff) * p.size;
+}
+function liqPrice(p){
+  // izole marjin, ~%95 bakim esigi yaklasimi
+  const d = p.entry * (0.95 / p.lev);
+  return p.side === "long" ? p.entry - d : p.entry + d;
+}
+
+/* --- pozisyon ac / kapat --- */
+function openPos(side){
+  const sym = symOf();
+  const lev = +$("lev").value;
+  const pct = $("sizetype").selectedIndex === 1;
+  const raw = parseFloat($("sizeval").value);
+
+  if (!raw || raw <= 0) return warn("Pozisyon boyutu için geçerli bir değer girin.");
+
+  const flip = $("flip").checked;
+  if (state.pos && !flip)
+    return warn("Açık pozisyon var. Kapatma kuralı kapalı olduğu için yeni pozisyon açılamaz.");
+
+  // Marjin kontrolu, pozisyon kapatmadan ONCE yapilir: aksi halde reddedilen
+  // bir emir mevcut pozisyonu kapatip yerine yenisini acmadan birakiyordu.
+  // Ters islemde mevcut marjin serbest kalacagi ve PNL gerceklesecegi icin
+  // kullanilabilir tutar buna gore hesaplanir.
+  const avail = state.pos ? equity() + unrealised() : freeMargin();
+  const margin = pct ? avail * raw / 100 : raw;
+
+  if (margin > avail + 0.001)
+    return warn(`Yetersiz marjin. Kullanılabilir: ${fmt(avail,2)} USDT, istenen: ${fmt(margin,2)} USDT.`);
+  if (margin < 5) return warn("Minimum marjin 5 USDT.");
+
+  if (state.pos) closePos("ters işlem");
+
+  const entry = PRICES[sym];
+  state.pos = {
+    sym, side, entry, lev, margin,
+    size: margin * lev / entry,
+    opened: new Date().toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).replace(",","")
+  };
+
+  const q = fmt(state.pos.size, QTY_DEC[sym]);
+  log(`<span class="ok">✓</span> ${$("otype").querySelector("button.on-neutral")?.textContent||"Market"} emri doldu: ` +
+      `<b style="color:${side==="long"?"var(--teal)":"var(--red)"}">${side.toUpperCase()}</b> ${q} ${sym.split("_")[0]} @ ${fmt(entry,PX_DEC[sym])} · ${lev}x`);
+  render();
+}
+
+function closePos(reason){
+  const p = state.pos;
+  if (!p) return;
+  const pnl = unrealised();
+  const exit = PRICES[p.sym];
+
+  state.kasa += pnl;
+  if (pnl >= 0) state.wins++; else state.losses++;
+  state.pos = null;
+
+  addTradeRow(p, exit, pnl);
+  log(`<span class="${pnl>=0?"ok":"warn"}">${pnl>=0?"✓":"!"}</span> Pozisyon kapatıldı (${reason}) · ` +
+      `${p.side.toUpperCase()} ${p.sym.split("_")[0]} → <b style="color:${pnl>=0?"var(--teal)":"var(--red)"}">${signed(pnl)} USDT</b> · kasa ${signed(state.kasa)}`);
+  render();
+}
+
+function addTradeRow(p, exit, pnl){
+  const tr = document.createElement("tr");
+  const d = PX_DEC[p.sym];
+  tr.innerHTML =
+    `<td>${new Date().toLocaleString("tr-TR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}).replace(",","")}</td>` +
+    `<td><span class="side-${p.side==="long"?"l":"s"}">${p.side.toUpperCase()}</span></td>` +
+    `<td>${fmt(p.entry,d)}</td><td>${fmt(exit,d)}</td>` +
+    `<td class="${pnl>=0?"green":"red"}">${signed(pnl)}</td>`;
+  const body = $("tradeRows");
+  body.insertBefore(tr, body.firstChild);
+  while (body.children.length > 8) body.removeChild(body.lastChild);
+}
+
+/* --- ekran --- */
+function render(){
+  const p = state.pos, pnl = unrealised();
+
+  // pozisyon kutusu
+  if (p) {
+    const d = PX_DEC[p.sym], col = pnl>=0 ? "var(--teal)" : "var(--red)";
+    const pct = pnl / p.margin * 100;
+    $("posBox").innerHTML = `
+      <div class="pos-head">
+        <div class="pos-sym">${p.sym} <span class="side ${p.side}">${p.side.toUpperCase()}</span><span class="levtag">${p.lev}x izole</span></div>
+        <div class="pnl" style="color:${col}">${signed(pnl)} USDT<small style="color:${col}">${pctStr(pct)}</small></div>
+      </div>
+      <div class="pos-grid">
+        <div><div class="lbl">Giriş Fiyatı</div><div class="val">${fmt(p.entry,d)}</div></div>
+        <div><div class="lbl">Mark Fiyatı</div><div class="val">${fmt(PRICES[p.sym],d)}</div></div>
+        <div><div class="lbl">Likidasyon</div><div class="val" style="color:var(--red)">${fmt(liqPrice(p),d)}</div></div>
+        <div><div class="lbl">Marjin</div><div class="val">${fmt(p.margin,2)}</div></div>
+        <div><div class="lbl">Boyut</div><div class="val">${fmt(p.size,QTY_DEC[p.sym])} ${p.sym.split("_")[0]}</div></div>
+        <div><div class="lbl">Açılış</div><div class="val">${p.opened}</div></div>
+      </div>`;
+    $("actBox").innerHTML = `<button class="close" onclick="closePos('manuel')">Pozisyonu Kapat</button>`;
+  } else {
+    $("posBox").innerHTML = `<div class="empty"><b>Açık pozisyon yok</b>${symOf()} · ${fmt(PRICES[symOf()],PX_DEC[symOf()])} USDT</div>`;
+    $("actBox").innerHTML =
+      `<button class="long" onclick="openPos('long')">LONG Aç</button>` +
+      `<button class="short" onclick="openPos('short')">SHORT Aç</button>`;
+  }
+
+  // bakiye seridi
+  $("balTotal").textContent = fmt(equity(), 2);   // gerceklesen cuzdan bakiyesi; acik PNL ayri gosteriliyor
+  $("balFree").textContent  = fmt(freeMargin(), 2);
+  const bp = $("balPnl");
+  bp.textContent = signed(pnl);
+  bp.style.color = pnl>=0 ? "var(--teal)" : "var(--red)";
+
+  // kasa
+  const kv = $("kasaVal");
+  kv.textContent = signed(state.kasa);
+  kv.classList.toggle("neg", state.kasa < 0);
+  $("kasaEq").textContent = pctStr(state.kasa / BASE_EQUITY * 100);
+  const total = state.wins + state.losses;
+  const wr = total ? Math.round(state.wins / total * 100) : 0;
+  $("stTrades").textContent = total;
+  $("stWins").textContent   = state.wins;
+  $("stLoss").textContent   = state.losses;
+  $("stWr").textContent     = "%" + wr;
+  $("wrBar").style.width    = wr + "%";
+}
+
+/* --- zamanlayicilar --- */
+function tickPrice(){
+  for (const k in PRICES) PRICES[k] = Math.max(PRICES[k]*0.5, PRICES[k] * (1 + (Math.random()-0.4985) * 0.0016));
+
+  const p = state.pos;
+  if (p) {
+    const pct = unrealised() / p.margin * 100;
+    const tp = parseFloat($("tp").value), sl = parseFloat($("sl").value);
+    if (pct <= -100)            return closePos("likidasyon");
+    if (tp > 0 && pct >= tp)    return closePos(`take-profit %${tp}`);
+    if (sl > 0 && pct <= -sl)   return closePos(`stop-loss %${sl}`);
+  }
+  render();
+}
+function tickClock(){
+  state.secsLeft = Math.max(0, state.secsLeft - 1);
+  const h = Math.floor(state.secsLeft/3600), m = Math.floor(state.secsLeft%3600/60);
+  $("nextTrade").textContent = `10 Tem 10:00 · ${h} sa ${String(m).padStart(2,"0")} dk`;
+}
+function tickHeartbeat(){
+  log(`Bağlantı kontrolü · borsa API <span class="ok">OK</span> (${140+Math.floor(Math.random()*80)} ms)`);
+}
+
+$("pair").addEventListener("change", render);
+$("sizetype").addEventListener("change", ()=>{
+  const pct = $("sizetype").selectedIndex === 1;
+  $("sizeval").value = pct ? 25 : 500;
+});
+
+setInterval(tickPrice, 2200);
+setInterval(tickClock, 1000);
+setInterval(tickHeartbeat, 18000);
+render();
 </script>
 </body>
 </html>
