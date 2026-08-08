@@ -51,6 +51,18 @@
   .hs:last-child{border-right:none}
   .hs .n{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;color:var(--orange)}
   .hs .l{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB0C2;margin-top:2px;letter-spacing:.04em}
+  .store-btns{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .store-btn{
+    display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:#fff;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);
+    border-radius:10px;padding:11px 18px;
+    transition:background .15s,border-color .15s,transform .15s;
+  }
+  .store-btn:hover{background:var(--orange);border-color:var(--orange);transform:translateY(-2px)}
+  .store-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+  .store-btn svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+  @media(max-width:560px){.store-btns{flex-direction:column}.store-btn{justify-content:center}}
 
   .stage{padding:38px 0 8px}
   h2.sec{font-family:'Archivo',sans-serif;font-weight:800;font-variation-settings:'wdth' 110;font-size:24px;margin-bottom:6px}
@@ -180,6 +192,16 @@
       <div class="hs"><div class="n">Hibrit</div><div class="l">baileys (dinleme) + meta cloud api (dm)</div></div>
       <div class="hs"><div class="n">Freemium</div><div class="l">maskeli numara → vip abonelik</div></div>
       <div class="hs"><div class="n">7 gün</div><div class="l">otomatik ücretsiz vip deneme</div></div>
+    </div>
+    <div class="store-btns">
+      <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.61 1.8 13.79 12 3.61 22.2a1.7 1.7 0 0 1-.5-1.2V3a1.7 1.7 0 0 1 .5-1.2zm11.4 11.4 2.6 2.6-9.9 5.7zm2.6-5 -2.6 2.6-7.3-8.3zm1.44 1.42 2.62 1.5a1.5 1.5 0 0 1 0 2.6l-2.62 1.5L16.4 12z"/></svg>
+        Google Play'den indir
+      </a>
+      <a class="store-btn" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.15 6.9c-.95 0-2.41-1.08-3.96-1.04-2.04.03-3.91 1.18-4.96 3.01-2.12 3.68-.55 9.1 1.52 12.09 1.01 1.45 2.21 3.09 3.79 3.04 1.52-.07 2.09-.99 3.93-.99 1.83 0 2.35.99 3.96.95 1.64-.03 2.68-1.48 3.68-2.95 1.16-1.69 1.64-3.32 1.66-3.41-.04-.02-3.23-1.25-3.26-4.95-.03-3.09 2.52-4.57 2.64-4.65-1.46-2.13-3.7-2.36-4.47-2.41-1.83-.16-3.15.93-3.87.93zM15.53 3.83C16.37 2.82 16.93 1.4 16.78 0c-1.21.05-2.68.8-3.58 1.79-.78.87-1.4 2.31-1.25 3.67 1.35.11 2.74-.68 3.58-1.63z"/></svg>
+        App Store'dan indir
+      </a>
     </div>
   </div>
 </header>
