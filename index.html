@@ -65,17 +65,59 @@
   .sec-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
 
   .manifest{border:1px solid var(--line);background:var(--card)}
-  .row{display:grid;grid-template-columns:110px 1fr auto;gap:20px;padding:22px;border-bottom:1px solid var(--line);align-items:start}
-  .row:last-child{border-bottom:none}
-  .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px}
+  .status{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
   .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
   .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
   .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
   .proj-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
-  .proj-desc{color:var(--ink-soft);font-size:15px;margin-top:6px;max-width:58ch}
+  .proj-desc{color:var(--ink-soft);font-size:15px;max-width:58ch}
   .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
   .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);padding:2px 8px;color:var(--ink-soft);background:var(--paper)}
   .price-tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--live);margin-top:10px;font-weight:500}
+
+  /* --- akordeon proje listesi --- */
+  .acc-item{border-bottom:1px solid var(--line)}
+  .acc-item:last-child{border-bottom:none}
+  .acc-head{
+    width:100%;display:grid;grid-template-columns:38px 1fr auto auto;gap:14px;align-items:center;
+    padding:15px 20px;background:transparent;border:none;cursor:pointer;text-align:left;
+    font-family:inherit;color:inherit;transition:background .15s;
+  }
+  .acc-head:hover{background:rgba(23,70,209,.04)}
+  .acc-head:focus-visible{outline:2px solid var(--cobalt);outline-offset:-2px}
+  .acc-item.open .acc-head{background:rgba(23,70,209,.05)}
+  .logo{
+    width:38px;height:38px;border-radius:9px;overflow:hidden;flex-shrink:0;
+    display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);
+  }
+  .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  .logo .mono{font-family:'Archivo',sans-serif;font-weight:850;font-size:16px;font-variation-settings:'wdth' 112;color:#fff;line-height:1}
+  .acc-head .proj-name{font-size:16.5px}
+  .acc-head .status{font-size:11.5px}
+  .chev{width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s ease;flex-shrink:0}
+  .acc-item.open .chev{transform:rotate(180deg);stroke:var(--cobalt)}
+  .acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+  .acc-item.open .acc-panel{grid-template-rows:1fr}
+  .acc-inner{overflow:hidden;visibility:hidden;transition:visibility 0s linear .28s}
+  .acc-item.open .acc-inner{visibility:visible;transition-delay:0s}
+  .acc-body{padding:2px 20px 20px 72px}
+  .acc-body .row-link{margin-top:16px}
+  @media(max-width:720px){
+    /* Mobilde durum etiketi proje adinin altina iner */
+    .acc-head{
+      grid-template-columns:32px 1fr auto;
+      grid-template-areas:"logo name chev" "logo status chev";
+      gap:0 11px;row-gap:5px;padding:13px 15px;
+    }
+    .acc-head .logo{grid-area:logo;align-self:center;width:32px;height:32px}
+    .acc-head .proj-name{grid-area:name;font-size:15.5px}
+    .acc-head .status{grid-area:status}
+    .acc-head .chev{grid-area:chev;align-self:center}
+    .acc-body{padding:2px 15px 18px 15px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .acc-panel,.chev,.acc-inner{transition:none}
+  }
   /* --- cozumler vitrini --- */
   #cozumler{background:linear-gradient(180deg,var(--card),var(--paper))}
   .sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -101,13 +143,10 @@
   .btn-wa{border-color:#0E8A4A;color:#0E8A4A}
   .btn-wa:hover{background:#0E8A4A;color:#fff}
   .row-link {
-    justify-self: end;
-    align-self: center;
     display: flex;
-    flex-direction: column; /* Butonları alt alta dizer */
-    align-items: stretch; /* Hepsini en geniş butonla aynı boyuta getirir */
+    flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
+    align-items: center; /* Butonlar (38px) ile rozetler (40px) ayni satirda hizali */
     gap: 10px;
-    min-width: 180px; /* Görsel denge için minimum genişlik */
   }
 
   /* Buton içindeki metinlerin tam ortalanması için */
@@ -126,15 +165,21 @@
   .btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
   .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
   .btn-primary:hover{background:var(--cobalt);color:#fff}
+  /* --- resmi magaza rozetleri (butonlarla ayni satirda) --- */
+  .badge{display:inline-block;transition:opacity .15s,transform .15s}
+  .badge:hover{opacity:.82;transform:translateY(-2px)}
+  .badge:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px;border-radius:8px}
+  .badge img{display:block;width:auto}
+  .badge-apple{height:40px}
+  /* Google'in resmi PNG'sinde %23.2 seffaf dikey dolgu var (olculdu: 250px'in
+     192px'i opak). Gorunur yuksekligi Apple rozetiyle esitlemek icin 52px
+     verip dolguyu negatif margin ile geri aliyoruz. */
+  .badge-google{height:52px;margin:-6px 0}
   @media(max-width:720px){
-    .row{grid-template-columns:1fr;gap:10px;padding:18px}
-    .row-link{
-      justify-self: stretch; /* Konteyneri tam genişliğe yayar */
-      margin-top: 12px;
-      flex-direction: column; /* Mobilde de alt alta dizer */
-      align-items: stretch; /* Tüm butonları ekran genişliğine eşitler */
-      width: 100%;
-    }
+    /* Mobilde butonlar tam genislige yayilir, alt alta dizilir */
+    .row-link{flex-direction:column;align-items:stretch;width:100%}
+    /* Rozetler gerilmemeli, kendi boyutlarinda ortalanir */
+    .row-link .badge{align-self:center}
   }
   .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .stack-cell{background:var(--card);padding:20px 22px}
@@ -187,7 +232,7 @@
     WhatsApp botları, agentic sistemler, dashboard'lar ve özel otomasyonlar kuruyorum; hepsi kendi
     sunucularında 7/24 canlı çalışıyor. Aşağıdaki demoların tamamı gerçek, sahada çalışmış sistemlerin canlandırmasıdır.</p>
     <div class="hero-strip" role="list" aria-label="Özet istatistikler">
-      <div class="stat" role="listitem"><div class="num">6</div><div class="lbl">ürün · canlı + demo</div></div>
+      <div class="stat" role="listitem"><div class="num">7</div><div class="lbl">ürün · canlı + demo</div></div>
       <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
       <div class="stat" role="listitem"><div class="num">AWS</div><div class="lbl">certified cloud practitioner</div></div>
       <div class="stat" role="listitem"><div class="num">%1</div><div class="lbl">replit agent global sıralama</div></div>
@@ -199,95 +244,138 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>İnteraktif Demolar</h2>
-      <span class="sec-note">gerçek sistemler — canlı siteler ve örnek verili demolar</span>
+      <span class="sec-note">başlığa dokun, detaylar açılır</span>
     </div>
     <div class="manifest">
 
-      <div class="row">
-        <span class="status st-demo"><span class="dot"></span>DEMO</span>
-        <div>
-          <div class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</div>
-          <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması. 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli.</p>
-          <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
-        </div>
-        <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a></div>
-      </div>
-
-      <div class="row">
-        <span class="status st-demo"><span class="dot"></span>DEMO</span>
-        <div>
-          <div class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</div>
-          <p class="proj-desc">Aynı motorun RedPartners kurulumu, kanıtlanmış saha sonuçlarıyla. Demo sayfasında yanıt dağılımı analizi ve tam sunum PDF'i de var.</p>
-          <div class="tags"><span class="tag">ai niyet analizi</span><span class="tag">whatsapp</span><span class="tag">lead-gen</span></div>
-        </div>
-        <div class="row-link"><a class="btn btn-primary" href="red-i/">Demoyu dene →</a></div>
-      </div>
-
-      <div class="row">
-        <span class="status st-live"><span class="dot"></span>CANLI</span>
-        <div>
-          <div class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</div>
-          <p class="proj-desc">Yük–araç pazaryeri: WhatsApp gruplarındaki serbest metin ilanları AI ile yapılandırıp botta ve mobil uygulamada aynı havuzda sunar. Mobil uygulama Play Store ve App Store'da yayında. Demoda iki telefon yan yana — bota kendin yaz, uygulamada sekmeleri gez.</p>
-          <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
-        </div>
-        <div class="row-link">
-          <a class="btn btn-primary" href="tirdas/">Demoyu dene →</a>
-          <a class="btn" href="https://wa.me/905064113311" target="_blank" rel="noopener">WhatsApp Botu ↗</a>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">Play Store ↗</a>
-          <a class="btn" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">App Store ↗</a>
+      <div class="acc-item open">
+        <button class="acc-head" id="h-tirdas" aria-expanded="true" aria-controls="p-tirdas">
+          <span class="logo"><img src="assets/logo/tirdas.jpg" alt="" width="80" height="80"></span>
+          <span class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</span>
+          <span class="status st-live"><span class="dot"></span>CANLI</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-tirdas" role="region" aria-labelledby="h-tirdas">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Yük–araç pazaryeri: WhatsApp gruplarındaki serbest metin ilanları AI ile yapılandırıp botta ve mobil uygulamada aynı havuzda sunar. Mobil uygulama Play Store ve App Store'da yayında. Demoda iki telefon yan yana — bota kendin yaz, uygulamada sekmeleri gez.</p>
+            <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="tirdas/">Demoyu dene →</a>
+              <a class="btn" href="https://wa.me/905064113311" target="_blank" rel="noopener">WhatsApp Botu ↗</a>
+              <a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
+                <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
+              </a>
+              <a class="badge" href="https://play.google.com/store/apps/details?id=com.tirdas.app" target="_blank" rel="noopener">
+                <img class="badge-google" src="assets/badge/google-play-tr.png" alt="Google Play'den alın" width="646" height="250">
+              </a>
+            </div>
+          </div></div>
         </div>
       </div>
 
-      <div class="row">
-        <span class="status st-demo"><span class="dot"></span>DEMO</span>
-        <div>
-          <div class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</div>
-          <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Etkileşimli demoda harita üzerinden yakındaki açık masaları görebilir, ilanlara katılabilir veya kendi oyun masanızı açarak bildirim akışını deneyimleyebilirsiniz.</p>
-          <div class="tags">
-            <span class="tag">react native</span>
-            <span class="tag">expo</span>
-            <span class="tag">supabase</span>
-            <span class="tag">postgis</span>
-          </div>
-        </div>
-        <div class="row-link">
-          <a class="btn btn-primary" href="quadmate/">Demoyu dene →</a>
-          <a class="btn btn-soon" href="#">Play Store (Yakında)</a>
-          <a class="btn btn-soon" href="#">App Store (Yakında)</a>
+      <div class="acc-item">
+        <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
+          <span class="logo" style="background:#0F766E;border-color:#0F766E"><span class="mono">TM</span></span>
+          <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
+          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-truemax" role="region" aria-labelledby="h-truemax">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması. 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli.</p>
+            <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a></div>
+          </div></div>
         </div>
       </div>
 
-      <div class="row">
-        <span class="status st-demo"><span class="dot"></span>DEMO</span>
-        <div>
-          <div class="proj-name">Danışman Performans Dashboard'u</div>
-          <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
-          <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
-        </div>
-        <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a></div>
-      </div>
-
-      <div class="row">
-        <span class="status st-demo"><span class="dot"></span>DEMO</span>
-        <div>
-          <div class="proj-name">Kripto Trader Bot</div>
-          <p class="proj-desc">Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları; açık pozisyon takibi ve canlı PnL akışı. Orijinali yalnızca Python stdlib ile yazıldı, paper-trading modunda müşteriye canlı sunuldu.</p>
-          <div class="tags"><span class="tag">python</span><span class="tag">mexc api</span><span class="tag">canlı dashboard</span></div>
-        </div>
-        <div class="row-link">
-          <a class="btn btn-primary" href="mexc/">Demoyu dene →</a>
+      <div class="acc-item">
+        <button class="acc-head" id="h-redi" aria-expanded="false" aria-controls="p-redi">
+          <span class="logo"><img src="assets/logo/red-i.png" alt="" width="80" height="80" loading="lazy"></span>
+          <span class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</span>
+          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-redi" role="region" aria-labelledby="h-redi">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Aynı motorun RedPartners kurulumu, kanıtlanmış saha sonuçlarıyla. Demo sayfasında yanıt dağılımı analizi ve tam sunum PDF'i de var.</p>
+            <div class="tags"><span class="tag">ai niyet analizi</span><span class="tag">whatsapp</span><span class="tag">lead-gen</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="red-i/">Demoyu dene →</a></div>
+          </div></div>
         </div>
       </div>
 
-    
-      <div class="row">
-        <span class="status st-live"><span class="dot"></span>CANLI</span>
-        <div>
-          <div class="proj-name">CleanHome</div>
-          <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri - teslimden beri kesintisiz yayında.</p>
-          <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
+      <div class="acc-item">
+        <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
+          <span class="logo" style="background:#1E3A8A;border-color:#1E3A8A"><span class="mono">Q</span></span>
+          <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
+          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-quadmate" role="region" aria-labelledby="h-quadmate">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Etkileşimli demoda harita üzerinden yakındaki açık masaları görebilir, ilanlara katılabilir veya kendi oyun masanızı açarak bildirim akışını deneyimleyebilirsiniz.</p>
+            <div class="tags">
+              <span class="tag">react native</span>
+              <span class="tag">expo</span>
+              <span class="tag">supabase</span>
+              <span class="tag">postgis</span>
+            </div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="quadmate/">Demoyu dene →</a>
+              <a class="btn btn-soon" href="#">Play Store (Yakında)</a>
+              <a class="btn btn-soon" href="#">App Store (Yakında)</a>
+            </div>
+          </div></div>
         </div>
-        <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
+          <span class="logo" style="background:#92400E;border-color:#92400E"><span class="mono">DP</span></span>
+          <span class="proj-name">Danışman Performans Dashboard'u</span>
+          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-dashboard" role="region" aria-labelledby="h-dashboard">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
+            <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" id="h-mexc" aria-expanded="false" aria-controls="p-mexc">
+          <span class="logo" style="background:#4C1D95;border-color:#4C1D95"><span class="mono">₿</span></span>
+          <span class="proj-name">Kripto Trader Bot</span>
+          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-mexc" role="region" aria-labelledby="h-mexc">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Zamanlanmış strateji botu kontrol paneli: kaldıraç, TP/SL, pozisyon boyutu ayarları; açık pozisyon takibi ve canlı PnL akışı. Orijinali yalnızca Python stdlib ile yazıldı, paper-trading modunda müşteriye canlı sunuldu.</p>
+            <div class="tags"><span class="tag">python</span><span class="tag">mexc api</span><span class="tag">canlı dashboard</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="mexc/">Demoyu dene →</a></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
+          <span class="logo" style="background:#0B6B3A;border-color:#0B6B3A"><span class="mono">CH</span></span>
+          <span class="proj-name">CleanHome</span>
+          <span class="status st-live"><span class="dot"></span>CANLI</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-cleanhome" role="region" aria-labelledby="h-cleanhome">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Kocaeli merkezli temizlik şirketi için kurumsal site. Teklif formu, SSL, SEO temelleri - teslimden beri kesintisiz yayında.</p>
+            <div class="tags"><span class="tag">web</span><span class="tag">kurumsal</span><span class="tag">form entegrasyonu</span></div>
+            <div class="row-link"><a class="btn btn-primary" href="https://cleanhome.com.tr" target="_blank" rel="noopener">Siteyi aç ↗</a></div>
+          </div></div>
+        </div>
       </div>
 
     </div>
@@ -418,6 +506,24 @@
     <span>kartepe / kocaeli · uzaktan çalışmaya açık</span>
   </div>
 </footer>
+
+<script>
+/* Akordeon: tek seferde bir proje acik kalir, boylece liste kompakt kalir */
+document.querySelectorAll(".acc-head").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var item=btn.closest(".acc-item");
+    var wasOpen=item.classList.contains("open");
+    document.querySelectorAll(".acc-item.open").forEach(function(open){
+      open.classList.remove("open");
+      open.querySelector(".acc-head").setAttribute("aria-expanded","false");
+    });
+    if(!wasOpen){
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+    }
+  });
+});
+</script>
 
 </body>
 </html>
