@@ -91,7 +91,11 @@
     display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);
   }
   .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Cizgisel SVG logolar kirpilmasin, nefes alsin */
+  .logo-contain{padding:5px;background:#fff}
+  .logo-contain img{object-fit:contain}
   .logo .mono{font-family:'Archivo',sans-serif;font-weight:850;font-size:16px;font-variation-settings:'wdth' 112;color:#fff;line-height:1}
+  .logo .mono.dark{color:#04110E}
   .acc-head .proj-name{font-size:16.5px}
   .acc-head .status{font-size:11.5px}
   .chev{width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s ease;flex-shrink:0}
@@ -275,7 +279,7 @@
 
       <div class="acc-item">
         <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
-          <span class="logo" style="background:#0F766E;border-color:#0F766E"><span class="mono">TM</span></span>
+          <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
           <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
           <span class="status st-demo"><span class="dot"></span>DEMO</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -307,7 +311,7 @@
 
       <div class="acc-item">
         <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
-          <span class="logo" style="background:#1E3A8A;border-color:#1E3A8A"><span class="mono">Q</span></span>
+          <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
           <span class="status st-demo"><span class="dot"></span>DEMO</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -332,7 +336,7 @@
 
       <div class="acc-item">
         <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
-          <span class="logo" style="background:#92400E;border-color:#92400E"><span class="mono">DP</span></span>
+          <span class="logo" style="background:#2E6BE6;border-color:#2E6BE6"><span class="mono">▦</span></span>
           <span class="proj-name">Danışman Performans Dashboard'u</span>
           <span class="status st-demo"><span class="dot"></span>DEMO</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -348,7 +352,7 @@
 
       <div class="acc-item">
         <button class="acc-head" id="h-mexc" aria-expanded="false" aria-controls="p-mexc">
-          <span class="logo" style="background:#4C1D95;border-color:#4C1D95"><span class="mono">₿</span></span>
+          <span class="logo" style="background:linear-gradient(135deg,#00B897,#007A67);border-color:#007A67"><span class="mono dark">M</span></span>
           <span class="proj-name">Kripto Trader Bot</span>
           <span class="status st-demo"><span class="dot"></span>DEMO</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -364,7 +368,7 @@
 
       <div class="acc-item">
         <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
-          <span class="logo" style="background:#0B6B3A;border-color:#0B6B3A"><span class="mono">CH</span></span>
+          <span class="logo logo-contain"><img src="assets/logo/cleanhome.svg" alt="" width="48" height="48" loading="lazy"></span>
           <span class="proj-name">CleanHome</span>
           <span class="status st-live"><span class="dot"></span>CANLI</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
