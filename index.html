@@ -148,9 +148,14 @@
   .row-link {
     display: flex;
     flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
-    align-items: center; /* Butonlar (38px) ile rozetler (40px) ayni satirda hizali */
+    align-items: stretch; /* Tum ogeler en uzun ogenin yuksekligine esitlenir */
     gap: 10px;
   }
+  /* Her oge kendi dogal genisliginde durur; sabit genislik vermek butonlari
+     sisman, rozetleri de bosluk icinde yuzer gosteriyordu. Ortak olan tek
+     sey yukseklik: butonlar stretch ile 40px'e cikip rozetlerin ust ve alt
+     kenariyla tam hizalanir, metinleri de ortada kalir. */
+  .row-link .btn{display:flex;align-items:center;justify-content:center}
 
   /* Buton içindeki metinlerin tam ortalanması için */
   .row-link .btn {
@@ -169,7 +174,7 @@
   .btn-primary{border-color:var(--cobalt);color:var(--cobalt)}
   .btn-primary:hover{background:var(--cobalt);color:#fff}
   /* --- resmi magaza rozetleri (butonlarla ayni satirda) --- */
-  .badge{display:inline-block;transition:opacity .15s,transform .15s}
+  .badge{display:flex;align-items:center;justify-content:center;transition:opacity .15s,transform .15s}
   .badge:hover{opacity:.82;transform:translateY(-2px)}
   .badge:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px;border-radius:8px}
   .badge img{display:block;width:auto}
