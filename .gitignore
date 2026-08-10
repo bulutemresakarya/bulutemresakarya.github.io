@@ -1,0 +1,17 @@
+# İşletim sistemi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör
+.vscode/
+.idea/
+*.swp
+
+# Bağımlılıklar (ileride araç eklenirse)
+node_modules/
+
+# Ortam değişkenleri
+.env
+.env.*
+!.env.example
