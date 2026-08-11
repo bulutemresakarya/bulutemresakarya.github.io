@@ -145,6 +145,20 @@
   .sol-btns .btn{flex:1;text-align:center;padding:10px 12px;font-size:12.5px;border-radius:9px}
   .btn-wa{border-color:#0E8A4A;color:#0E8A4A}
   .btn-wa:hover{background:#0E8A4A;color:#fff}
+
+  /* teknik vaka analizleri */
+  .vaka-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:720px){.vaka-grid{grid-template-columns:1fr}}
+  .vaka{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;
+    transition:transform .15s,border-color .15s;
+  }
+  .vaka:hover{transform:translateY(-3px);border-color:var(--cobalt)}
+  .vaka:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .vaka h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:16.5px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
+  .vaka p{color:var(--ink-soft);font-size:13.5px;margin-top:7px;flex:1}
+  .vaka-go{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);margin-top:14px}
   .row-link {
     display: flex;
     flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
@@ -226,6 +240,7 @@
     <nav class="topnav" aria-label="Sayfa içi gezinme">
       <a href="#demolar">demolar</a>
       <a href="#cozumler">çözümler</a>
+      <a href="/vaka-analizi/">vaka analizi</a>
       <a href="#sertifikalar">sertifikalar</a>
       <a href="#iletisim">iletişim</a>
     </nav>
@@ -269,6 +284,7 @@
             <div class="tags"><span class="tag">react native</span><span class="tag">meta cloud api</span><span class="tag">openai</span><span class="tag">postgresql</span></div>
             <div class="row-link">
               <a class="btn btn-primary" href="tirdas/">Demoyu dene →</a>
+              <a class="btn" href="vaka-analizi/tirdas/">Teknik analiz →</a>
               <a class="btn" href="https://wa.me/905064113311" target="_blank" rel="noopener">WhatsApp Botu ↗</a>
               <a class="badge" href="https://apps.apple.com/tr/app/t%C4%B1rda%C5%9F/id6795145428?l=tr" target="_blank" rel="noopener">
                 <img class="badge-apple" src="assets/badge/app-store-tr.svg" alt="App Store'dan İndirin" width="151" height="40">
@@ -292,7 +308,7 @@
           <div class="acc-inner"><div class="acc-body">
             <p class="proj-desc">Uçtan uca FSBO lead üretim botu: günlük ilan taraması, AI ile insansı WhatsApp teması. 30.000+ ulaşılan mülk sahibi, 2.778 iş birliği onayı, ₺39,1 milyar toplam portföy bedeli.</p>
             <div class="tags"><span class="tag">node.js</span><span class="tag">whatsapp</span><span class="tag">llm</span><span class="tag">sqlite</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a></div>
+            <div class="row-link"><a class="btn btn-primary" href="truemax-ai/">Demoyu dene →</a><a class="btn" href="vaka-analizi/truemax/">Teknik analiz →</a></div>
           </div></div>
         </div>
       </div>
@@ -349,7 +365,7 @@
           <div class="acc-inner"><div class="acc-body">
             <p class="proj-desc">Gayrimenkul ofisleri için gerçek zamanlı performans panosu: liderlik tabloları, dönem bazlı analiz, regresyon tahmini, canlı piyasa göstergeleri ve TV sunum modu. Orijinali bir ofiste 215 gerçek işlem ve 40+ danışmanla canlı çalıştı.</p>
             <div class="tags"><span class="tag">react + express (orijinal)</span><span class="tag">google sheets api</span><span class="tag">veri görselleştirme</span></div>
-            <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a></div>
+            <div class="row-link"><a class="btn btn-primary" href="dashboard/">Demoyu dene →</a><a class="btn" href="vaka-analizi/dashboard/">Teknik analiz →</a></div>
           </div></div>
         </div>
       </div>
@@ -407,6 +423,15 @@
         </div>
       </div>
       <div class="sol">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 5.2h3"/><circle cx="12" cy="18.4" r=".7"/></svg></div>
+        <h3>Mobil Uygulama</h3>
+        <p>iOS ve Android'e tek kod tabanıyla çıkan uygulamalar: pazaryeri, eşleştirme, işletme takip, sadakat. Mağaza yayını ve güncellemeler dahil — Tırdaş ve Quadmate bu şekilde yayınlandı.</p>
+        <div class="sol-btns">
+          <a class="btn btn-primary" href="cozumler/mobil/">Dene →</a>
+          <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Mobil%20Uygulama%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
+        </div>
+      </div>
+      <div class="sol">
         <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h3v3h-3zM20.5 14v.5M17 20.5h.5M20.5 18v2.5"/></svg></div>
         <h3>QR Menü & Dijital Katalog</h3>
         <p>Masadaki QR'dan açılan menü: kategoriler, fotoğraflar, sepet, garson çağırma. Fiyat güncellemesi saniyeler sürer, baskı maliyeti biter.</p>
@@ -456,6 +481,37 @@
           <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20ve%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="vaka">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Teknik Vaka Analizleri</h2>
+      <span class="sec-note">demolar ne yaptığını gösterir, bunlar nasıl çalıştığını</span>
+    </div>
+    <div class="vaka-grid">
+      <a class="vaka" href="vaka-analizi/tirdas/">
+        <h3>Tırdaş — Lojistik AI asistanı</h3>
+        <p>Anti-ban rate limiting, 81 il / 973 ilçe doğrulama katmanı, panelde %300 hızlanma.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/truemax/">
+        <h3>TrueMax — Otonom satış hattı</h3>
+        <p>Portföyde %60+ artış, 120 dakikalık SLA tahkimi, token maliyetinde ~%70 tasarruf.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/dashboard/">
+        <h3>Danışman performans panosu</h3>
+        <p>8 saatlik haftalık rapor 5 saniyeye indi, hata oranı %15'ten %0,01'e düştü.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/">
+        <h3>Tümü →</h3>
+        <p>Beş üretim sisteminin mimarisi, karşılaşılan problemler ve uygulanan çözümler.</p>
+        <span class="vaka-go">Hepsini gör →</span>
+      </a>
     </div>
   </div>
 </section>
