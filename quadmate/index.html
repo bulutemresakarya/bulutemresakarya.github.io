@@ -31,7 +31,7 @@
     --radius-lg:20px; --radius-full:999px;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
   body{
     background:radial-gradient(1200px 600px at 20% -10%, #1a2050 0%, var(--ink-950) 55%), var(--ink-950);
     color:#fff;
@@ -100,7 +100,11 @@
 
   /* ---------- demo layout ---------- */
   .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start;}
-  @media (max-width:980px){.demo-grid{grid-template-columns:1fr;}}
+  /* grid item'larin otomatik min-size'i (min-width:auto) telefon maketinin 375px'ini
+     taban yapip .wrap padding'ini tasiriyordu; minmax(0,1fr) + min-width:0 ile
+     kolon gercekten esneyip tum bloklar ayni sag kenarda hizalaniyor. */
+  .demo-grid>*{min-width:0;}
+  @media (max-width:980px){.demo-grid{grid-template-columns:minmax(0,1fr);}}
 
   .feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
   .feature-item{
@@ -151,7 +155,18 @@
   .icon-btn:active{background:var(--ink-700);}
   .btn-row{display:flex;gap:8px;}
 
-  .chip-scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 18px 14px;flex:none;scrollbar-width:none;}
+  /* yatay kayan filtre seridi: kenarlarda maske ile fade -> "tasmis" degil
+     "kaydirilabilir" gorunur; basa/sona gelince ilgili fade kapanir. */
+  .chip-scroll{
+    display:flex;gap:8px;overflow-x:auto;padding:2px 18px 14px;flex:none;scrollbar-width:none;
+    overscroll-behavior-x:contain;
+    --fade-l:0px; --fade-r:26px;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+  }
+  .chip-scroll.is-scrolled{--fade-l:18px;}
+  .chip-scroll.is-end{--fade-r:0px;}
+  .chip-scroll::after{content:"";flex:none;width:4px;}
   .chip-scroll::-webkit-scrollbar{display:none;}
   .chip{
     flex:none;display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);
@@ -213,7 +228,11 @@
   .pin span{transform:rotate(45deg);font-size:14px;}
   .pin.active{background:var(--gold-500);}
   .map-popup{
-    position:absolute;left:16px;right:16px;bottom:16px;z-index:26;
+    /* .map-wrap ekran kenarindan 18px tasarak tam genislikte durdugu icin
+       popup'in yan bosluklari 18px + 16px olmali; aksi halde kartin kenarlari
+       telefonun yuvarlak kosesinde kirpiliyordu. Alt bosluk da tab bar'in
+       (78px) uzerine oturacak sekilde 94px. */
+    position:absolute;left:34px;right:34px;bottom:94px;z-index:26;
     background:var(--ink-800);border:1px solid var(--ink-600);border-radius:16px;padding:14px;
     box-shadow:0 12px 30px rgba(0,0,0,0.5);
     animation:slideUp .18s ease;
@@ -398,8 +417,9 @@
     .phone-screen{border-radius:26px;}
   }
   @media (max-width:420px){
+    .wrap{padding:0 18px;}
     .phone{height:74vh;min-height:640px;}
-    .phone-stage{position:static;}
+    .phone-stage{position:static;width:100%;}
   }
 </style>
 </head>
@@ -694,6 +714,22 @@
     html += '</div>';
     if (state.overlay) html += renderOverlay();
     root.innerHTML = html;
+    initEdgeFades();
+  }
+
+  // Yatay kayan seritlerde (filtre chip'leri) kenar fade'ini kaydirma
+  // konumuna gore ac/kapat: basta sol fade, sonda sag fade kapali.
+  function initEdgeFades(){
+    var scrollers = root.querySelectorAll('.chip-scroll');
+    Array.prototype.forEach.call(scrollers, function(el){
+      var update = function(){
+        var max = el.scrollWidth - el.clientWidth;
+        el.classList.toggle('is-scrolled', el.scrollLeft > 4);
+        el.classList.toggle('is-end', max <= 1 || el.scrollLeft >= max - 4);
+      };
+      el.addEventListener('scroll', update, {passive:true});
+      update();
+    });
   }
 
   function renderTabBar(){
@@ -1078,6 +1114,7 @@
   window.App = App;
 
   render();
+  window.addEventListener('resize', initEdgeFades);
 })();
 </script>
 
