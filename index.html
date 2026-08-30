@@ -31,6 +31,8 @@
     --cobalt:#1746D1;
     --live:#0E8A4A;
     --demo:#B45309;
+    --beta:#7A3E9D;
+    --wip:#6D28D9;
     --card:#F7F9FB;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -69,6 +71,9 @@
   .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
   .st-live{color:var(--live)} .st-live .dot{background:var(--live)}
   .st-demo{color:var(--demo)} .st-demo .dot{background:var(--demo)}
+  /* kapali test ve gelistirme asamasindaki urunler */
+  .st-beta{color:var(--beta)} .st-beta .dot{background:var(--beta)}
+  .st-wip{color:var(--wip)} .st-wip .dot{background:var(--wip);box-shadow:0 0 0 3px rgba(109,40,217,.14)}
   .proj-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
   .proj-desc{color:var(--ink-soft);font-size:15px;max-width:58ch}
   .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
@@ -256,7 +261,7 @@
     WhatsApp botları, agentic sistemler, dashboard'lar ve özel otomasyonlar kuruyorum; hepsi kendi
     sunucularında 7/24 canlı çalışıyor. Aşağıdaki demoların tamamı gerçek, sahada çalışmış sistemlerin canlandırmasıdır.</p>
     <div class="hero-strip" role="list" aria-label="Özet istatistikler">
-      <div class="stat" role="listitem"><div class="num">7</div><div class="lbl">ürün · canlı + demo</div></div>
+      <div class="stat" role="listitem"><div class="num">8</div><div class="lbl">ürün · canlı + demo</div></div>
       <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
       <div class="stat" role="listitem"><div class="num">AWS</div><div class="lbl">certified cloud practitioner</div></div>
       <div class="stat" role="listitem"><div class="num">%1</div><div class="lbl">replit agent global sıralama</div></div>
@@ -299,6 +304,30 @@
       </div>
 
       <div class="acc-item">
+        <button class="acc-head" id="h-bocu" aria-expanded="false" aria-controls="p-bocu">
+          <span class="logo"><img src="assets/logo/bocu.jpg" alt="" width="80" height="80" loading="lazy"></span>
+          <span class="proj-name">BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol</span>
+          <span class="status st-wip"><span class="dot"></span>GELİŞTİRİLİYOR</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="acc-panel" id="p-bocu" role="region" aria-labelledby="h-bocu">
+          <div class="acc-inner"><div class="acc-body">
+            <p class="proj-desc">Tarımsal sulamada kullanılan 3 fazlı pompaları uzaktan izleyen, koruyan ve kontrol eden IoT sistemi. Cihaz NB-IoT ile MQTT konuşuyor; sunucu tarafı (broker, ingest ve komut worker'ları, imzalı komut yolu) ve mobil uygulama bende, firmware harici ekipte. Koruma kararı cihazda: internet gitse de motor korunur. Demoda gerçek protokolle çalışan bir cihaz simüle ediliyor — aşırı akım, faz kaybı, ACK gelmemesi ve bağlantı kopması senaryolarını kendin tetikleyebilirsin.</p>
+            <div class="tags">
+              <span class="tag">python · fastapi</span>
+              <span class="tag">mqtt · emqx</span>
+              <span class="tag">supabase · rls</span>
+              <span class="tag">react native</span>
+              <span class="tag">nb-iot</span>
+            </div>
+            <div class="row-link">
+              <a class="btn btn-primary" href="bocu/">Demoyu dene →</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
         <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
           <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
           <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
@@ -334,12 +363,12 @@
         <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
           <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
-          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <span class="status st-beta"><span class="dot"></span>KAPALI TEST</span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-quadmate" role="region" aria-labelledby="h-quadmate">
           <div class="acc-inner"><div class="acc-body">
-            <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Etkileşimli demoda harita üzerinden yakındaki açık masaları görebilir, ilanlara katılabilir veya kendi oyun masanızı açarak bildirim akışını deneyimleyebilirsiniz.</p>
+            <p class="proj-desc">Oyuncuların bir masa veya etkinlik için eksik oyuncuyu konum bazlı bulmasını sağlayan mobil uygulamadır. Uygulama <b>Google Play kapalı test aşamasında</b>: gerçek Supabase projesi, kendi alan adı ve e-posta altyapısıyla canlı çalışıyor, mağazaya çıkış için 12 test kullanıcısı × 14 gün şartı bekleniyor. Etkileşimli demoda harita üzerinden yakındaki açık masaları görebilir, ilanlara katılabilir veya kendi oyun masanızı açarak bildirim akışını deneyimleyebilirsiniz.</p>
             <div class="tags">
               <span class="tag">react native</span>
               <span class="tag">expo</span>
@@ -348,8 +377,8 @@
             </div>
             <div class="row-link">
               <a class="btn btn-primary" href="quadmate/">Demoyu dene →</a>
-              <a class="btn btn-soon" href="#">Play Store (Yakında)</a>
-              <a class="btn btn-soon" href="#">App Store (Yakında)</a>
+              <a class="btn btn-soon" href="#">Play Store (kapalı test)</a>
+              <a class="btn btn-soon" href="#">App Store (yakında)</a>
             </div>
           </div></div>
         </div>
