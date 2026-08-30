@@ -119,6 +119,15 @@
   .feature-item h3{margin:0 0 4px;font-size:14.5px;}
   .feature-item p{margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.5;}
 
+  .status-note{
+    margin-top:26px;background:linear-gradient(135deg,rgba(242,169,60,0.12),rgba(74,84,200,0.10));
+    border:1px solid rgba(242,169,60,0.3);border-radius:16px;padding:16px 18px;
+    font-size:14px;color:var(--brand-100);line-height:1.65;max-width:64ch;
+  }
+  .status-note b{color:#fff;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;
+    color:var(--gold-400);background:rgba(242,169,60,0.10);padding:1px 5px;border-radius:5px;}
+
   .howto{
     background:linear-gradient(135deg,rgba(74,84,200,0.14),rgba(242,169,60,0.08));
     border:1px solid rgba(74,84,200,0.3);border-radius:16px;padding:16px 18px;font-size:13.5px;color:var(--brand-200);line-height:1.6;
@@ -431,7 +440,7 @@
       <span class="dots"><span></span><span></span><span></span><span></span></span>
       Quadmate
     </div>
-    <span class="header-pill">Ürün Demosu · Faz 4</span>
+    <span class="header-pill">Kapalı test · Google Play</span>
   </div>
 </header>
 
@@ -444,6 +453,13 @@
       oyuncularla seni buluşturan, konum tabanlı bir "masa/etkinlik" eşleştirme uygulaması.
       Bir masa aç ya da yakınındaki bir masaya istek gönder — gerisini uygulama halleder.
     </p>
+    <div class="status-note">
+      <b>Şu anki durum — 30 Ağustos 2026.</b> Uygulama <b>Google Play kapalı test</b> aşamasında.
+      Kendi Supabase projesi (Pro plan, günlük yedek), <b>quadmate.com.tr</b> alan adı, kendi SMTP'si ve
+      EAS ile alınan imzalı Android build'i ile canlı çalışıyor. Mağazaya çıkış Google'ın kişisel
+      geliştirici hesaplarına koyduğu <b>12 test kullanıcısı × kesintisiz 14 gün</b> şartına bağlı.
+      iOS tarafı Apple Developer hesabı alınana kadar başlamıyor — Windows'ta iOS build alınamıyor.
+    </div>
     <div class="stat-row">
       <div class="stat-chip"><b>8</b><span>oyun türü</span></div>
       <div class="stat-chip"><b>Host / Guest</b><span>masa modeli</span></div>
@@ -569,6 +585,7 @@
           <li>Realtime (sohbet, masa durumu)</li>
           <li>Storage (avatar, doğrulama belgesi)</li>
           <li>Postgres trigger + pg_net — push bildirimi tetikleme</li>
+          <li>Vault + <code>http</code> — mekân araması sunucuda (Google anahtarı pakette değil)</li>
           <li>Edge Functions (Deno) — kota/webhook (Faz 5, planlanan)</li>
         </ul>
       </div>
@@ -589,6 +606,8 @@
         <tr><th>Katman</th><th>Seçim &amp; not</th></tr>
         <tr><td>Konum sorguları</td><td>PostgreSQL + PostGIS (ST_DWithin, geography(Point,4326)) — tam koordinat client'a hiç dönmez, sadece mesafe / jitter'lı yaklaşık nokta döner.</td></tr>
         <tr><td>Veri modeli</td><td>profiles · activities · tables · join_requests · table_participants · conversations/messages · notifications · ratings · subscriptions · usage_quota — RLS ile satır seviyesi izolasyon.</td></tr>
+        <tr><td>Giriş yolları</td><td>E-posta + şifre, <b>Google ve Apple ile giriş</b> (tarayıcı akışı — <code>signInWithOAuth</code> + <code>quadmate://</code> derin bağlantı). Native SDK yerine tarayıcı seçildi: Play App Signing devredeyken native akışın istediği SHA-1 dağıtım anahtarına ait oluyor ve "kendi build'imde çalışıyor, mağazadan inince çalışmıyor" hatasına yol açıyor.</td></tr>
+        <tr><td>Mekân araması</td><td>Google Places çağrısı istemciden alınıp <code>search_places</code> RPC'sine taşındı; anahtar <b>Supabase Vault</b>'ta, kullanıcı başına saatlik 60 arama kotası var. Places web servisi Android paket kısıtlamasını tanımadığı için pakete gömülü anahtar korunamıyordu.</td></tr>
         <tr><td>Monetizasyon</td><td>Aylık 3 ücretsiz "İstek Gönder" + 3 ücretsiz "Masa Aç" hakkı (bağımsız iki kota); limit dolunca Quadmate Premium paywall'ı.</td></tr>
         <tr><td>Tasarım sistemi</td><td>NativeWind (Tailwind for RN) üzerinde logodan gelen lacivert (#202368) + koyu/açık zemin (ink) + altın (#F2A93C) vurgu paleti, açık/koyu tema desteğiyle — tek kaynak <code>theme/colors.ts</code>.</td></tr>
       </table>
@@ -599,10 +618,12 @@
       <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Auth, onboarding, konum izni, oyun seçimi, temel profil; canlı Supabase projesi bağlandı.</p></div></div>
       <div class="phase done"><div class="dot"></div><div><b>Faz 2 — Tamamlandı</b><p>Masa Aç (Google Places arama dahil), Keşfet (harita/liste), Masa Detay, Filtreler ekranları canlıda.</p></div></div>
       <div class="phase done"><div class="dot"></div><div><b>Faz 3 — Tamamlandı</b><p>İstek Gönder/Kabul, Masa Planı, gerçek zamanlı (Realtime) grup sohbeti canlıda.</p></div></div>
-      <div class="phase current"><div class="dot"></div><div><b>Faz 4 — Şu an burada</b><p>Gerçek push bildirimleri ve masa yönetimi (iptal/ayrılma) tamamlandı; puanlama, kimlik doğrulama ve şikayet/engelleme devam ediyor.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 5</b><p>Monetizasyon: usage_quota, RevenueCat, paywall.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 6</b><p>Cilalama, test, Sentry/PostHog, App Store &amp; Google Play submission.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 4 — Tamamlandı</b><p>Push bildirimleri ve bildirim tercihleri, masa yönetimi (iptal / ayrılma / düzenleme), puanlama, profil fotoğrafı yükleme, e-posta doğrulama, şikayet ve engelleme, hesap silme. Telefon doğrulaması SMS sağlayıcı kararına bağlı olarak açık kaldı.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Faz 5 — Beklemede</b><p>Monetizasyon: kota takibi, RevenueCat ve paywall. Paywall ekranı yazıldı ama satış açılmadı — kapalı test boyunca tüm özellikler ücretsiz.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Faz 6 — Şu an burada · yayına hazırlık</b><p>Açık/koyu tema, hesap silme ve gizlilik sayfaları yayında, e-posta markası kendi alan adında, build'ler EAS'te imzalı alınıyor, Google/Apple ile giriş yazıldı, mekân araması sunucuya taşındı. Play Console formları dolduruldu; sırada <b>kapalı test</b> (12 kişi × 14 gün) ve ardından üretime geçiş başvurusu var.</p></div></div>
+      <div class="phase"><div class="dot"></div><div><b>Sırada</b><p>Apple Developer hesabı → iOS build → TestFlight → App Store. Yayın sonrası Sentry/PostHog ve moderasyon arayüzü.</p></div></div>
     </div>
+
   </div>
 </section>
 
