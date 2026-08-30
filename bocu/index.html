@@ -95,17 +95,6 @@
   @keyframes flow{to{stroke-dashoffset:-24}}
   @media (prefers-reduced-motion:reduce){.led,.flow-dash{animation:none}}
 
-  /* mobil tasarim hedefi — gidisat bolumundeki kucuk figur */
-  .mock{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start;margin-top:26px}
-  @media(max-width:720px){.mock{grid-template-columns:1fr;gap:18px}}
-  .mock img{
-    width:100%;max-width:250px;height:330px;object-fit:cover;object-position:top center;
-    margin:0 auto;border-radius:18px;border:1px solid var(--line);
-    box-shadow:0 30px 70px -45px rgba(0,0,0,.9);
-  }
-  .mock p{margin:0;color:#B9C0C8;font-size:14px}
-  .mock .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--gold-500);text-transform:uppercase;margin-bottom:8px}
-
   /* ---------- genel bolum ---------- */
   section{padding:58px 0;border-bottom:1px solid var(--line)}
   .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
@@ -290,10 +279,6 @@
     font-family:var(--mono);font-size:12px;line-height:1.75;color:#C7CDD4;white-space:pre;
     overflow-x:auto;border:1px solid var(--line);background:var(--ink-900);border-radius:16px;padding:20px;margin:0;
   }
-  .figure{margin:22px 0 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--ink-900)}
-  .figure img{width:100%}
-  .figure figcaption{padding:12px 16px;font-family:var(--mono);font-size:10.5px;color:var(--muted-2);border-top:1px solid var(--line);line-height:1.6}
-
   .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
   table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
   th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line-2);vertical-align:top;color:#B9C0C8}
@@ -632,6 +617,7 @@ EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + 
           <li>Sunucu yalnızca kayıt, konfigürasyon ve arayüz</li>
           <li>Kesme sonrası röle kilitli kalır, <code>latch_reset</code> ister</li>
           <li>Kilitliyken gelen <code>relay:1</code> cihazda reddedilir</li>
+          <li>Röle geri beslemesi yok: "gerçekten çalıştı mı" sorusu akım ölçümüyle doğrulanır (<code>NOLOAD</code>)</li>
         </ul>
       </div>
       <div class="col">
@@ -645,11 +631,6 @@ EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + 
         </ul>
       </div>
     </div>
-
-    <figure class="figure">
-      <img src="assets/sistem-semasi.jpg" alt="Akıllı motor koruma sistemi şeması: 3 faz şebeke, akım-gerilim ölçümü, koruma lojiği, haberleşme, kontaktör A1 hattı ve pompa" width="1400" height="933" loading="lazy">
-      <figcaption>Ürünün saha kurulumu: ölçüm → koruma lojiği → kontaktör A1 bobini → pompa. Cihaz motoru doğrudan değil, kontaktörün kumanda ucundan sürer; röle geri beslemesi olmadığı için "gerçekten çalıştı mı" sorusu akım ölçümüyle doğrulanır (<code>NOLOAD</code> olayı).</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -702,20 +683,17 @@ EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + 
         <tr><td>Ingest worker</td><td>Tamam. <code>b/+/t</code>, <code>b/+/e</code>, <code>b/+/s</code>, <code>b/+/a</code> dinleniyor; bozuk telemetri kaydedilmeden loglanıyor, aynı <code>seq</code> iki kez gelirse tek kayıt oluyor.</td></tr>
         <tr><td>Commander worker</td><td>Yeni bitti. Komut imzalama, ACK takibi, 90 sn zaman aşımı, retained konfigürasyon yayını ve saat senkronu bu süreçte.</td></tr>
         <tr><td>Bildirim (notifier)</td><td>Sırada. Expo Push, cooldown ve normale dönüş bildirimleri Faz 5'te.</td></tr>
-        <tr><td>Mobil uygulama</td><td>İskelet. Expo + TypeScript projesi kurulu; ekranlar Faz 6'da yazılacak. Yukarıdaki tasarım hedefi budur.</td></tr>
+        <tr><td>Mobil uygulama</td><td>İskelet. Expo + TypeScript projesi kurulu; ekranlar Faz 6'da yazılacak.</td></tr>
         <tr><td>Test</td><td>120 test: protokol 36, commander 20, RLS 20, ingest 19, claim 9, provisioning 7, simülatör 7, sağlık 2. <code>ruff</code> + <code>mypy --strict</code> temiz.</td></tr>
       </table>
     </div>
 
-    <div class="mock">
-      <img src="assets/uygulama-tasarim.jpg" alt="BOCU mobil uygulamasının ana ekran tasarımı: anlık akım ve gerilim değerleri, motor durumu, alarm listesi" width="759" height="1600" loading="lazy">
-      <div>
-        <div class="kicker">Mobil · Faz 6</div>
-        <p>Uygulamanın hedef ekran tasarımı. Expo + TypeScript projesi kurulu ama ekranlar
-        henüz yazılmadı; yukarıdaki interaktif demo bu akışın tarayıcıdaki karşılığıdır.
-        Tasarımda gerilim kartlarının bulunması firmware'in gerilim ölçümü göndermesine bağlı —
-        gelmezse uygulama o kartları tahmini değerle doldurmak yerine gizleyecek.</p>
-      </div>
+    <div class="note">
+      <b>Mobil taraf neden sonda?</b> Ekranların yazılabilmesi için önce protokolün, komut yolunun ve
+      konfigürasyon senkronunun oturması gerekiyordu; aksi halde uygulama, cihazda karşılığı olmayan
+      düğmeler gösterirdi. Yukarıdaki interaktif demo, Faz 6'da kodlanacak akışın tarayıcıdaki
+      karşılığıdır. Gerilim kartlarının uygulamada yer alıp almayacağı da firmware'in gerilim ölçümü
+      göndermesine bağlı — gelmezse kartlar tahmini değerle doldurulmak yerine gizlenecek.
     </div>
 
     <div class="roadmap">
