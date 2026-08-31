@@ -102,6 +102,9 @@
   .logo .mono{font-family:'Archivo',sans-serif;font-weight:850;font-size:16px;font-variation-settings:'wdth' 112;color:#fff;line-height:1}
   .acc-head .proj-name{font-size:16.5px}
   .acc-head .status{font-size:11.5px}
+  /* yil + durum rozeti tek grup: masaustunde yan yana, mobilde ayni satirda */
+  .head-meta{display:flex;align-items:center;gap:12px}
+  .yr{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
   .chev{width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s ease;flex-shrink:0}
   .acc-item.open .chev{transform:rotate(180deg);stroke:var(--cobalt)}
   .acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
@@ -119,7 +122,8 @@
     }
     .acc-head .logo{grid-area:logo;align-self:center;width:32px;height:32px}
     .acc-head .proj-name{grid-area:name;font-size:15.5px}
-    .acc-head .status{grid-area:status}
+    .acc-head .head-meta{grid-area:status;gap:9px}
+    .yr{font-size:11px}
     .acc-head .chev{grid-area:chev;align-self:center}
     .acc-body{padding:2px 15px 18px 15px}
   }
@@ -281,7 +285,7 @@
         <button class="acc-head" id="h-tirdas" aria-expanded="true" aria-controls="p-tirdas">
           <span class="logo"><img src="assets/logo/tirdas.jpg" alt="" width="80" height="80"></span>
           <span class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</span>
-          <span class="status st-live"><span class="dot"></span>CANLI</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-tirdas" role="region" aria-labelledby="h-tirdas">
@@ -307,7 +311,7 @@
         <button class="acc-head" id="h-bocu" aria-expanded="false" aria-controls="p-bocu">
           <span class="logo"><img src="assets/logo/bocu.jpg" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol</span>
-          <span class="status st-wip"><span class="dot"></span>GELİŞTİRİLİYOR</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-wip"><span class="dot"></span>GELİŞTİRİLİYOR</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-bocu" role="region" aria-labelledby="h-bocu">
@@ -331,7 +335,7 @@
         <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
           <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
-          <span class="status st-beta"><span class="dot"></span>KAPALI TEST</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-beta"><span class="dot"></span>KAPALI TEST</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-quadmate" role="region" aria-labelledby="h-quadmate">
@@ -356,7 +360,7 @@
         <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
           <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
           <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
-          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-truemax" role="region" aria-labelledby="h-truemax">
@@ -372,7 +376,7 @@
         <button class="acc-head" id="h-redi" aria-expanded="false" aria-controls="p-redi">
           <span class="logo"><img src="assets/logo/red-i.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</span>
-          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-redi" role="region" aria-labelledby="h-redi">
@@ -388,7 +392,7 @@
         <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
           <span class="logo" style="background:#2E6BE6;border-color:#2E6BE6"><span class="mono">▦</span></span>
           <span class="proj-name">Danışman Performans Dashboard'u</span>
-          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <span class="head-meta"><span class="yr">2025</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-dashboard" role="region" aria-labelledby="h-dashboard">
@@ -404,7 +408,7 @@
         <button class="acc-head" id="h-kripto" aria-expanded="false" aria-controls="p-kripto">
           <span class="logo" style="background:#4C1D95;border-color:#4C1D95"><span class="mono">₿</span></span>
           <span class="proj-name">Kripto Trader Bot</span>
-          <span class="status st-demo"><span class="dot"></span>DEMO</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-demo"><span class="dot"></span>DEMO</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-kripto" role="region" aria-labelledby="h-kripto">
@@ -420,7 +424,7 @@
         <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
           <span class="logo logo-contain"><img src="assets/logo/cleanhome.svg" alt="" width="48" height="48" loading="lazy"></span>
           <span class="proj-name">CleanHome</span>
-          <span class="status st-live"><span class="dot"></span>CANLI</span>
+          <span class="head-meta"><span class="yr">2026</span><span class="status st-live"><span class="dot"></span>CANLI</span></span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="acc-panel" id="p-cleanhome" role="region" aria-labelledby="h-cleanhome">
