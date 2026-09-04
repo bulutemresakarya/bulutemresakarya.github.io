@@ -6,8 +6,12 @@
 <title>Danışman Performans Dashboard'u — Teknik Vaka Analizi</title>
 <meta name="description" content="40+ gayrimenkul danışmanının performansını Google Sheets verisinden gerçek zamanlı panoya çeviren dashboard: kiosk modu, oyunlaştırma ve lineer regresyon ile ciro tahmini.">
 <link rel="canonical" href="https://bulutemresakarya.github.io/vaka-analizi/dashboard/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B4DFF">
+<meta name="apple-mobile-web-app-title" content="bulutemre">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:url" content="https://bulutemresakarya.github.io/vaka-analizi/dashboard/">
@@ -37,6 +41,7 @@
   .topbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:10}
   .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1040px}
   .brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  .brandlogo{width:20px;height:20px;border-radius:4px;vertical-align:-5px;margin-right:8px}
   .brand b{color:var(--cobalt);font-weight:500}
   .topnav{display:flex;gap:20px}
   .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
@@ -114,7 +119,7 @@
 
 <div class="topbar">
   <div class="wrap">
-    <a class="brand" href="/"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· vaka analizi</span></a>
+    <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· vaka analizi</span></a>
     <nav class="topnav" aria-label="Sayfa içi gezinme">
       <a href="/vaka-analizi/">tüm analizler</a>
       <a href="/dashboard/">interaktif demo</a>
