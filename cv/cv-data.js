@@ -145,6 +145,7 @@ window.CV_DATA = {
     ],
 
     sertifikalar: [
+      "Python ile Yapay Zekâya Giriş — MEB Hayat Boyu Öğrenme (09/2026)",
       "JavaScript Eğitimi (30 saat) — Boğaziçi Enstitüsü (07/2026)",
       "Bilgi Sistemi Tasarımı Sertifika Programı — Anadolu Üniversitesi SEM (05/2026)",
       "Onur Belgesi, 2025-2026 Bahar Dönemi — Anadolu Üniversitesi (2026)",
@@ -310,6 +311,7 @@ window.CV_DATA = {
     ],
 
     sertifikalar: [
+      "Introduction to AI with Python — MoNE Lifelong Learning (09/2026)",
       "JavaScript Training (30 hours) — Boğaziçi Enstitüsü (07/2026)",
       "Information System Design Certificate Program — Anadolu University, Continuing Education Center (05/2026)",
       "Honour Certificate, 2025-2026 Spring Term — Anadolu University (2026)",
