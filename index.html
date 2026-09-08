@@ -173,6 +173,28 @@
   .vaka h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:16.5px;font-variation-settings:'wdth' 106;letter-spacing:-.005em}
   .vaka p{color:var(--ink-soft);font-size:13.5px;margin-top:7px;flex:1}
   .vaka-go{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);margin-top:14px}
+
+  /* Katalog: kartlar yatayda dizilir, kendi kendine akar, elle de kaydirilir */
+  .katalog{position:relative}
+  .kat-yol{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;padding:4px 0 8px}
+  .kat-yol::-webkit-scrollbar{display:none}
+  .kat-yol.tutuluyor{cursor:grabbing}
+  .kat-sira{display:flex;gap:14px;width:max-content}
+  .katalog .vaka{flex:0 0 clamp(250px,72vw,320px)}
+  .katalog::before,.katalog::after{content:"";position:absolute;top:0;bottom:0;width:46px;pointer-events:none;z-index:2}
+  .katalog::before{left:0;background:linear-gradient(90deg,#EDF0F4,rgba(237,240,244,0))}
+  .katalog::after{right:0;background:linear-gradient(270deg,#EDF0F4,rgba(237,240,244,0))}
+  .kat-ok{position:absolute;top:calc(50% - 4px);transform:translateY(-50%);z-index:3;
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);
+    color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;
+    display:grid;place-items:center;cursor:pointer;opacity:0;box-shadow:0 3px 12px rgba(20,31,42,.16);
+    transition:opacity .18s ease,border-color .15s,color .15s}
+  .katalog:hover .kat-ok{opacity:1}
+  .kat-ok:focus-visible{opacity:1;outline:2px solid var(--cobalt);outline-offset:2px}
+  .kat-ok:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .kat-ok.sol{left:-6px} .kat-ok.sag{right:-6px}
+  .kat-not{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px}
+  @media(hover:none){.kat-ok{display:none}.katalog::before,.katalog::after{width:22px}}
   .row-link {
     display: flex;
     flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
@@ -223,12 +245,31 @@
   .stack-cell p{font-size:14px;color:var(--ink-soft)}
   @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
 
-  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  @media(max-width:720px){.cert-grid{grid-template-columns:1fr}}
-  .cert{background:var(--card);padding:16px 20px;display:flex;justify-content:space-between;gap:14px;align-items:baseline}
-  .cert .c-name{font-weight:600;font-size:14.5px}
-  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px}
-  .cert .c-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);white-space:nowrap}
+  /* Pano: belgeler duvara raptiyeyle asilmis gibi, her biri biraz egik */
+  .pano{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));
+    gap:28px 20px;padding:32px 24px 36px;border:1px solid var(--line);border-radius:6px;
+    background:
+      linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),
+      repeating-linear-gradient(45deg,rgba(20,31,42,.05) 0 2px,transparent 2px 7px),
+      repeating-linear-gradient(-45deg,rgba(20,31,42,.05) 0 2px,transparent 2px 7px),
+      var(--card);
+    box-shadow:inset 0 3px 16px rgba(20,31,42,.07)}
+  .cert{position:relative;display:block;background:#FFFFFF;border:1px solid var(--line);border-radius:2px;
+    padding:24px 16px 16px;box-shadow:0 7px 16px rgba(20,31,42,.11);
+    transform:rotate(var(--egim,0deg));transition:transform .22s ease,box-shadow .22s ease}
+  .cert::before{content:"";position:absolute;top:-6px;left:50%;margin-left:-7px;width:14px;height:14px;
+    border-radius:50%;background:radial-gradient(circle at 34% 30%,#7f9dff,var(--cobalt) 58%,#123a9e);
+    box-shadow:0 3px 5px rgba(20,31,42,.32)}
+  .cert:nth-child(4n+1){--egim:-1.4deg}
+  .cert:nth-child(4n+2){--egim:1.1deg}
+  .cert:nth-child(4n+3){--egim:-.7deg}
+  .cert:nth-child(4n+4){--egim:1.7deg}
+  .cert:hover{transform:rotate(0deg) translateY(-5px);box-shadow:0 16px 26px rgba(20,31,42,.16);z-index:2}
+  .cert .c-name{font-weight:600;font-size:14.5px;line-height:1.35}
+  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:7px}
+  .cert .c-year{display:inline-block;margin-top:13px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--cobalt);border:1px solid var(--cobalt);border-radius:2px;padding:2px 7px;white-space:nowrap}
+  @media(max-width:520px){.pano{padding:26px 16px 30px;gap:24px 14px}}
 
   .contact{padding:64px 0 80px;border-bottom:none}
   .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -265,15 +306,14 @@
   .hero .wrap{will-change:transform}
   .hero-strip .num{font-variant-numeric:tabular-nums}
 
-  .cert{transition:background .18s ease,transform .18s ease}
-  .cert:hover{background:#fff;transform:translateY(-2px)}
-  .cert:hover .c-year{color:var(--cobalt)}
   .btn{transition:background .15s,color .15s,transform .15s}
   .btn:hover{transform:translateY(-1px)}
 
   @media (prefers-reduced-motion: reduce){
     html.anim .reveal{opacity:1;transform:none;transition:none}
-    .cert:hover,.btn:hover{transform:none}
+    .cert{transition:none}
+    .cert:hover{transform:rotate(var(--egim,0deg))}
+    .btn:hover{transform:none}
     .prog{display:none}
   }
 </style>
@@ -562,7 +602,11 @@
       <h2>Teknik Vaka Analizleri</h2>
       <span class="sec-note">demolar ne yaptığını gösterir, bunlar nasıl çalıştığını</span>
     </div>
-    <div class="vaka-grid">
+    <div class="katalog" data-katalog>
+      <button class="kat-ok sol" type="button" aria-label="Önceki vaka analizi">‹</button>
+      <button class="kat-ok sag" type="button" aria-label="Sonraki vaka analizi">›</button>
+      <div class="kat-yol" tabindex="0" role="region" aria-label="Vaka analizleri — yatay kaydırılabilir liste">
+        <div class="kat-sira">
       <a class="vaka" href="vaka-analizi/tirdas/">
         <h3>Tırdaş — Lojistik AI asistanı</h3>
         <p>Anti-ban rate limiting, 81 il / 973 ilçe doğrulama katmanı, panelde %300 hızlanma.</p>
@@ -578,12 +622,25 @@
         <p>8 saatlik haftalık rapor 5 saniyeye indi, hata oranı %15'ten %0,01'e düştü.</p>
         <span class="vaka-go">Analizi oku →</span>
       </a>
+      <a class="vaka" href="vaka-analizi/stardoll/">
+        <h3>Otomasyon & yönetim paneli</h3>
+        <p>Hibrit request/browser mimarisiyle kaynak tüketimini düşüren, sunucu yanıtına göre kendi hızını ayarlayan RPA paketi.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
+      <a class="vaka" href="vaka-analizi/rpa-bot/">
+        <h3>Masaüstü RPA otomasyonu</h3>
+        <p>Donmayan arayüz, thread içinde event loop yönetimi ve teknik olmayan kullanıcıya tek dosya EXE teslimi.</p>
+        <span class="vaka-go">Analizi oku →</span>
+      </a>
       <a class="vaka" href="vaka-analizi/">
         <h3>Tümü →</h3>
         <p>Beş üretim sisteminin mimarisi, karşılaşılan problemler ve uygulanan çözümler.</p>
         <span class="vaka-go">Hepsini gör →</span>
       </a>
+        </div>
+      </div>
     </div>
+    <p class="kat-not">kendi kendine akar · sürükleyerek veya kaydırarak gezinebilirsin</p>
   </div>
 </section>
 
@@ -607,7 +664,7 @@
       <h2>Sertifikalar & Eğitim</h2>
       <span class="sec-note">anadolu üniv. yönetim bilişim sistemleri, 2026</span>
     </div>
-    <div class="cert-grid">
+    <div class="pano">
       <div class="cert"><div><div class="c-name">Python ile Yapay Zekâya Giriş</div><div class="c-org">MEB · Hayat Boyu Öğrenme Genel Müdürlüğü</div></div><span class="c-year">2026</span></div>
       <div class="cert"><div><div class="c-name">JavaScript Eğitimi (30 saat)</div><div class="c-org">Boğaziçi Enstitüsü</div></div><span class="c-year">2026</span></div>
       <div class="cert"><div><div class="c-name">Bilgi Sistemi Tasarımı Sertifika Programı</div><div class="c-org">Anadolu Üniversitesi · SEM</div></div><span class="c-year">2026</span></div>
@@ -706,7 +763,7 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 
   /* bolumlerin belirmesi */
   var hedefler=[].slice.call(document.querySelectorAll(
-    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.vaka,.stack-cell,.cert,.manifest,.contact-inner"
+    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.katalog,.stack-cell,.pano,.manifest,.contact-inner"
   ));
   hedefler.forEach(function(el){ el.classList.add("reveal"); });
 
@@ -752,6 +809,112 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
       setTimeout(function(){ requestAnimationFrame(adim); },260);
     });
   }
+})();
+</script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Vaka analizi katalogu: kendi kendine akar, fare ile surukleyerek veya
+   parmakla kaydirarak gezilebilir. Kartlarin bir kopyasi eklenir; sondan basa
+   donus bu sayede goze carpmaz. Uzerine gelince, odaklanınca ya da
+   surukleyince akis durur. prefers-reduced-motion aciksa hic akmaz.
+   --------------------------------------------------------------------------- */
+(function(){
+  "use strict";
+  var kapsayici=document.querySelector("[data-katalog]");
+  if(!kapsayici) return;
+  var yol=kapsayici.querySelector(".kat-yol");
+  var sira=kapsayici.querySelector(".kat-sira");
+  if(!yol||!sira) return;
+
+  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
+  var asillar=[].slice.call(sira.children);
+  if(!asillar.length) return;
+
+  /* kopyalar yalnizca gorseldir: ekran okuyucu ve sekme sirasi disinda */
+  asillar.forEach(function(kart){
+    var kopya=kart.cloneNode(true);
+    kopya.setAttribute("aria-hidden","true");
+    kopya.setAttribute("tabindex","-1");
+    sira.appendChild(kopya);
+  });
+
+  function setGenisligi(){ return sira.scrollWidth/2; }
+
+  var durdu=false, gorunur=true, zamanlayici=null;
+  function duraklat(sure){
+    durdu=true;
+    if(zamanlayici) clearTimeout(zamanlayici);
+    if(sure) zamanlayici=setTimeout(function(){ durdu=false; },sure);
+  }
+  function devam(){ if(zamanlayici) clearTimeout(zamanlayici); durdu=false; }
+
+  kapsayici.addEventListener("pointerenter",function(){ duraklat(0); });
+  kapsayici.addEventListener("pointerleave",function(){ devam(); });
+  kapsayici.addEventListener("focusin",function(){ duraklat(0); });
+  kapsayici.addEventListener("focusout",function(){ devam(); });
+  yol.addEventListener("wheel",function(){ duraklat(2500); },{passive:true});
+  yol.addEventListener("touchstart",function(){ duraklat(4000); },{passive:true});
+
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(g){ gorunur=g[0].isIntersecting; },{threshold:0.15})
+      .observe(kapsayici);
+  }
+
+  function dongu(){
+    if(!durdu && gorunur && !azHareket.matches && document.visibilityState==="visible"){
+      yol.scrollLeft+=0.4;
+    }
+    var w=setGenisligi();
+    if(w>0){
+      if(yol.scrollLeft>=w) yol.scrollLeft-=w;
+      else if(yol.scrollLeft<0) yol.scrollLeft+=w;
+    }
+    requestAnimationFrame(dongu);
+  }
+  requestAnimationFrame(dongu);
+
+  /* fare ile surukleme — dokunmatikte tarayicinin kendi kaydirmasi kalsin */
+  var tutuyor=false, basX=0, basScroll=0, suruklendi=false;
+  yol.addEventListener("pointerdown",function(e){
+    if(e.pointerType!=="mouse") return;
+    tutuyor=true; suruklendi=false;
+    basX=e.clientX; basScroll=yol.scrollLeft;
+    yol.classList.add("tutuluyor");
+    duraklat(0);
+  });
+  yol.addEventListener("pointermove",function(e){
+    if(!tutuyor) return;
+    var fark=e.clientX-basX;
+    if(Math.abs(fark)>4) suruklendi=true;
+    yol.scrollLeft=basScroll-fark;
+    e.preventDefault();
+  });
+  function birak(){
+    if(!tutuyor) return;
+    tutuyor=false;
+    yol.classList.remove("tutuluyor");
+    duraklat(1500);
+  }
+  yol.addEventListener("pointerup",birak);
+  yol.addEventListener("pointercancel",birak);
+  yol.addEventListener("pointerleave",birak);
+  /* surukleyip birakinca kartin linki acilmasin */
+  yol.addEventListener("click",function(e){
+    if(suruklendi){ e.preventDefault(); e.stopPropagation(); suruklendi=false; }
+  },true);
+
+  /* oklar: bir kart boyu kaydirir */
+  function adim(yon){
+    var kart=sira.querySelector(".vaka");
+    var mesafe=kart?kart.getBoundingClientRect().width+14:300;
+    yol.scrollBy({left:yon*mesafe,behavior:azHareket.matches?"auto":"smooth"});
+    duraklat(3000);
+  }
+  var sol=kapsayici.querySelector(".kat-ok.sol");
+  var sag=kapsayici.querySelector(".kat-ok.sag");
+  if(sol) sol.addEventListener("click",function(){ adim(-1); });
+  if(sag) sag.addEventListener("click",function(){ adim(1); });
 })();
 </script>
 </body>
