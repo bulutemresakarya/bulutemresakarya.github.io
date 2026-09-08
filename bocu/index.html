@@ -672,32 +672,53 @@ EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + 
   <div class="wrap">
     <div class="sec-head">
       <h2>Gidişat</h2>
-      <span class="sec-note">son güncelleme: 30 Ağustos 2026</span>
+      <span class="sec-note">son güncelleme: 8 Eylül 2026</span>
     </div>
     <p class="sec-intro">
-      Proje fazlı ilerliyor; her fazın kendi kabul kriterleri var ve o kriterler geçmeden sonraki
-      faza geçilmiyor. Şu an sunucu tarafı (köprü) yazılıyor, mobil uygulama iskelet halinde.
+      Proje kapalı test aşamasında: sunucu tarafı bir sunucuda konteyner olarak 7/24 çalışıyor,
+      mobil uygulama kapalı teste dağıtıldı ve bir cihaz sahada gerçek bir üç fazlı pompaya bağlı.
+      Her fazın kendi kabul kriterleri var; kriterler geçmeden sonraki faza geçilmiyor.
     </p>
 
     <div class="tbl-wrap">
       <table>
         <tr><th>Katman</th><th>Durum</th></tr>
-        <tr><td>Protokol + simülatör</td><td>Tamam. Simülatör 14 senaryo koşuyor: <code>normal</code>, <code>overcurrent</code>, <code>dry_run</code>, <code>pipe_burst</code>, <code>clog</code>, <code>phase_loss</code>, <code>flapping</code>, <code>slow_ack</code>, <code>no_ack</code>, <code>bad_hmac</code>, <code>garbage</code>, <code>no_voltage</code>, <code>clock_invalid</code>, <code>offline_queue</code>. Bu sayfadaki demo bunlardan altısını tarayıcıda canlandırır.</td></tr>
-        <tr><td>Veritabanı + yetkilendirme</td><td>Tamam. Supabase üzerinde 4 migration: şema, cihaz sahiplenme (claim), bölümlenmiş telemetri, konfigürasyon + zamanlayıcı. RLS politikaları yerel Postgres'e karşı test ediliyor.</td></tr>
-        <tr><td>Ingest worker</td><td>Tamam. <code>b/+/t</code>, <code>b/+/e</code>, <code>b/+/s</code>, <code>b/+/a</code> dinleniyor; bozuk telemetri kaydedilmeden loglanıyor, aynı <code>seq</code> iki kez gelirse tek kayıt oluyor.</td></tr>
-        <tr><td>Commander worker</td><td>Yeni bitti. Komut imzalama, ACK takibi, 90 sn zaman aşımı, retained konfigürasyon yayını ve saat senkronu bu süreçte.</td></tr>
-        <tr><td>Bildirim (notifier)</td><td>Sırada. Expo Push, cooldown ve normale dönüş bildirimleri Faz 5'te.</td></tr>
-        <tr><td>Mobil uygulama</td><td>İskelet. Expo + TypeScript projesi kurulu; ekranlar Faz 6'da yazılacak.</td></tr>
-        <tr><td>Test</td><td>120 test: protokol 36, commander 20, RLS 20, ingest 19, claim 9, provisioning 7, simülatör 7, sağlık 2. <code>ruff</code> + <code>mypy --strict</code> temiz.</td></tr>
+        <tr><td>Protokol + simülatör</td><td>Tamam. Protokol tek bir modülde tanımlı; sahte cihaz 14 senaryo koşuyor (<code>overcurrent</code>, <code>dry_run</code>, <code>phase_loss</code>, <code>no_ack</code>, <code>bad_hmac</code>, <code>offline_queue</code> ve diğerleri). Bu sayfadaki demo bunlardan altısını tarayıcıda canlandırır. Ayrıca bir kabul aracı gerçek cihazı dinleyip 25 protokol maddesini tek tek derecelendiriyor.</td></tr>
+        <tr><td>Veritabanı + yetkilendirme</td><td>Supabase üzerinde canlı. Cihaz sahiplenme, cihaz paylaşımı, hesap silme, bölümlenmiş telemetri, konfigürasyon/zamanlayıcı ve abonelik şeması uygulandı. RLS politikaları 53 testle korunuyor.</td></tr>
+        <tr><td>Sunucu servisleri</td><td>Beş konteyner ayakta: EMQX, Redis, ingest, komutçu, bildirim. Yanlarında bir izleyici var — sağlıklıyken susuyor, yalnızca müdahale gerektireni bildiriyor ve aynı sebebi saat içinde tekrarlamıyor.</td></tr>
+        <tr><td>Komut yolu</td><td>Tamam. İmzalama, ACK takibi, 90 saniyelik zaman aşımı, retained konfigürasyon yayını ve saat senkronu. Cihaz başına aynı anda tek röle komutu tutuluyor; yenisi gelince eskisi bekletilmeden iptal ediliyor — geç teslim edilen bir "aç" komutu boş tarlada pompayı kaldırır.</td></tr>
+        <tr><td>Bildirim</td><td>Uçtan uca doğrulandı. FCM kurulu, cihaz jetonu kayıtlı; saha testinde 21 bildirim telefona düştü.</td></tr>
+        <tr><td>Mobil uygulama</td><td>15 ekran, 5 sekmeli navigasyon: canlı ölçüm, cihaz listesi, alarmlar, grafikler, olay geçmişi, haftalık zamanlayıcı, cihaz ayarları, cihaz paylaşımı ve hesap. Giriş e-posta, Google veya Apple ile; parola sıfırlama ve hesap silme dahil.</td></tr>
+        <tr><td>Test</td><td>237 test: RLS 53, protokol 39, komutçu 38, ingest 32, bildirim 30, protokol uyumluluğu 20, sahiplenme 9, provisioning 7, simülatör 7, sağlık 2. <code>ruff</code> + <code>mypy --strict</code> temiz.</td></tr>
+      </table>
+    </div>
+
+    <p class="sec-intro" style="margin-top:26px">
+      <b>5 Eylül 2026 — ilk saha testi.</b> O güne kadar her şey tezgâhta, ısıtıcı yüküyle
+      denenmişti. Cihaz tarlaya götürülüp gerçek bir üç fazlı pompaya bağlandı; korumaların
+      hepsi gerçek yükte tetiklendi. Tezgâhta günlerce sıfır okuyan gerilim ölçümü de burada
+      kapandı — sahada üç faz da okudu.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Kanıtlanan</th><th>Ölçüm</th></tr>
+        <tr><td>Üç faz gerilim + akım</td><td>240 / 240 / 239 V, 31 A</td></tr>
+        <tr><td>Uzaktan aç / kapat</td><td>Motor komutu izledi; kalkış akımı 24.3 → 31.1 A yakalandı</td></tr>
+        <tr><td>Aşırı akım koruması</td><td><code>OC</code> — 30.6 A, limit 6.9 A: kesti ve kilitledi</td></tr>
+        <tr><td>Düşük akım koruması</td><td><code>UC</code> — 0.1 A, limit 8.0 A: kesti</td></tr>
+        <tr><td>Faz kaybı</td><td><code>PL</code> — R fazı, alan seti şartnameye tam uygun</td></tr>
+        <tr><td>Çalıştırma reddi</td><td><code>NOSTART</code> — 241 V, limit 240: çalıştırmadı, kilitlemedi</td></tr>
+        <tr><td>Bildirim zinciri</td><td>21 bildirim telefona düştü</td></tr>
+        <tr><td>Komut başarısı</td><td>64 komut onaylandı (%77); kaybolan komut yok, düşenlerin sebebi saat gecikmesi</td></tr>
       </table>
     </div>
 
     <div class="note">
-      <b>Mobil taraf neden sonda?</b> Ekranların yazılabilmesi için önce protokolün, komut yolunun ve
-      konfigürasyon senkronunun oturması gerekiyordu; aksi halde uygulama, cihazda karşılığı olmayan
-      düğmeler gösterirdi. Yukarıdaki interaktif demo, Faz 6'da kodlanacak akışın tarayıcıdaki
-      karşılığıdır. Gerilim kartlarının uygulamada yer alıp almayacağı da firmware'in gerilim ölçümü
-      göndermesine bağlı — gelmezse kartlar tahmini değerle doldurulmak yerine gizlenecek.
+      <b>Bu sayfadaki demo ne gösteriyor?</b> Demo, uygulamanın akışını tarayıcıda canlandıran
+      bağımsız bir maket: gerçek protokolün senaryolarını çalıştırır ama sahadaki cihaza bağlı
+      değildir. Sahadaki sistem mobil uygulamadan kullanılıyor; buradaki demo, aynı akışın
+      kimse bir pompaya bağlanmadan denenebilen hâli.
     </div>
 
     <div class="roadmap">
@@ -705,28 +726,28 @@ EMQX Broker ──────► ingest worker ──► Postgres (Supabase) + 
       <div class="phase done"><div class="dot"></div><div><b>Faz 1 — Tamamlandı</b><p>Protokol modülü (encode/decode, HMAC, birim dönüşümleri), sahte cihaz simülatörü, firmware ekibine verilen <code>protocol.md</code>.</p></div></div>
       <div class="phase done"><div class="dot"></div><div><b>Faz 2 — Tamamlandı</b><p>Şema, RLS, kimlik doğrulama, cihaz sahiplenme (QR/claim kodu) ve üretim provisioning script'i. Mimari burada Supabase'e taşındı: auth ve CRUD hazır alındı, kendi servisimiz "köprü" boyutuna indi.</p></div></div>
       <div class="phase done"><div class="dot"></div><div><b>Faz 3 — Tamamlandı</b><p>Ingest worker, telemetri doğrulama, <code>seq</code> tabanlı tekrar eleme, aylık bölümlenmiş telemetri tablosu.</p></div></div>
-      <div class="phase current"><div class="dot"></div><div><b>Faz 4 — Şu an burada</b><p>Komut yolu ve konfigürasyon senkronu çalışıyor (imzalama, ACK, zaman aşımı, <code>pending/applied/failed</code>). Kalan: zamanlayıcı CRUD'unun uçtan uca doğrulanması.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 5</b><p>Bildirim worker'ı: Expo Push, alarm cooldown'ı, normale dönüş bildirimi, <code>LINK_LOST</code> gecikmesi.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 6</b><p>Mobil temel: giriş, cihaz listesi, dashboard, canlı MQTT, röle kontrolü, kilit akışı, QR ile cihaz ekleme.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 7</b><p>Mobil ayarlar, haftalık zamanlayıcı, grafikler, alarm listesi, cihaz paylaşımı.</p></div></div>
-      <div class="phase"><div class="dot"></div><div><b>Faz 8</b><p>Sertleştirme: rate limit, metrik, yedekleme, TLS, ACL sızıntı testi, 500 sanal cihazla yük testi, mağaza hazırlığı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 4 — Tamamlandı</b><p>Komut yolu ve konfigürasyon senkronu: imzalama, ACK, zaman aşımı, <code>pending/applied/failed</code> durumları, saat senkronu.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 5 — Tamamlandı</b><p>Bildirim worker'ı: FCM push, alarm cooldown'ı, normale dönüş bildirimi, <code>LINK_LOST</code> gecikmesi. Saha testinde uçtan uca doğrulandı.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 6 — Tamamlandı</b><p>Mobil temel: giriş, cihaz listesi, dashboard, canlı veri, röle kontrolü, kilit akışı, QR ile cihaz ekleme.</p></div></div>
+      <div class="phase done"><div class="dot"></div><div><b>Faz 7 — Tamamlandı</b><p>Mobil ayarlar, haftalık zamanlayıcı, grafikler, alarm ve olay listesi, cihaz paylaşımı, hesap silme.</p></div></div>
+      <div class="phase current"><div class="dot"></div><div><b>Faz 8 — Şu an burada</b><p>Kapalı test ve sertleştirme: rate limit, metrik, yedekleme, yük testi, mağaza hazırlığı. Uygulama kapalı test dağıtımında, sistem sahada gerçek bir pompayla çalışıyor.</p></div></div>
     </div>
 
     <div class="cols" style="margin-top:30px">
       <div class="col">
         <div class="kicker">Açık madde</div>
-        <h3>Gerilim ölçümü</h3>
-        <p>Firmware cevabında yalnızca 3 faz akım ölçümü var. Protokol gerilim alanını içeriyor; donanım göndermezse <code>null</code> gelir ve uygulama gerilim kartlarını gizler. Demodaki "gerilim ölçümü yok" senaryosu tam olarak bunu gösterir.</p>
-      </div>
-      <div class="col">
-        <div class="kicker">Açık madde</div>
         <h3>Elektrik kesintisi</h3>
-        <p>Yedek besleme yok. Süperkapasitör olmadan "elektrik kesildi" (<code>PF</code>) bildirimi üretilemez; sunucu bu durumda yalnızca <code>LINK_LOST</code> diyebilir ve bildirim metni değişir. Karar donanım tarafında bekliyor.</p>
+        <p>Cihazda yedek besleme yok. Süperkapasitör olmadan "elektrik kesildi" (<code>PF</code>) mesajı üretilemez; sunucu bu durumda yalnızca <code>LINK_LOST</code> diyebilir, yani şebeke kesintisi ile kapsama sorunu ayırt edilemez. Protokol iki durumu da destekliyor, karar donanım tarafında.</p>
       </div>
       <div class="col">
         <div class="kicker">Açık madde</div>
-        <h3>Telemetri saklama</h3>
-        <p>Şartname TimescaleDB hypertable'ı öngörüyordu; Supabase yeni projelerde TimescaleDB vermiyor. Telemetri şimdilik aylık bölümlenmiş tabloda tutuluyor, özetleme stratejisi Faz 3 verisi birikince netleşecek.</p>
+        <h3>Yapışmış kontaktör alarmı</h3>
+        <p>Uygulamanın gönderebileceği en ağır mesaj bu — kişiden tarlaya gidip şalteri indirmesini ister. Cihaz değerlendirmeyi röleyi açtıktan hemen sonra yaptığı için kaçak akımda da tetikleniyordu. Sunucu artık ölçümüyle çelişen alarmı telefona taşımıyor; kalıcı çözüm, kararın kesmeden birkaç saniye sonra ve üst üste birkaç örnekle verilmesi.</p>
+      </div>
+      <div class="col">
+        <div class="kicker">Açık madde</div>
+        <h3>Sinyal</h3>
+        <p>Saha kurulumunda sinyal sınırda ölçüldü (CSQ 2–8). Koruma bundan etkilenmiyor — karar cihazın kendisinde, internet gitse de motor korunur — ama uzaktan kontrolün güvenilir olması için antenin metal panonun dışına alınması gerekiyor.</p>
       </div>
     </div>
   </div>
