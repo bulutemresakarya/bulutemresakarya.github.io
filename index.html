@@ -166,14 +166,9 @@
      bosluga tasip birlesir, boylece kesintisiz tek bir raf gorunur. */
   /* vitrin katalogu: tek satir, sayfa sayfa gezilir; raf cizgisi kartin
      altinda kaldigi icin yolun alt bosluguna yer birakiliyor */
-  .katalog.vitrin .kat-yol{padding-bottom:26px;scroll-snap-type:x proximity}
+  .katalog.vitrin .kat-yol{padding-bottom:26px}
   .katalog.vitrin .kat-sira{gap:20px}
-  .katalog.vitrin .sol{flex:0 0 clamp(250px,74vw,318px);scroll-snap-align:start}
-  .kat-noktalar{display:flex;justify-content:center;gap:7px;margin-top:6px}
-  .kat-nokta{width:7px;height:7px;padding:0;border:0;border-radius:50%;cursor:pointer;
-    background:var(--line);transition:background .18s ease,transform .18s ease}
-  .kat-nokta[aria-current="true"]{background:var(--cobalt);transform:scale(1.35)}
-  .kat-nokta:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .katalog.vitrin .sol{flex:0 0 clamp(250px,74vw,318px)}
   .sol{
     position:relative;background:#fff;border:1px solid var(--line);border-radius:2px;
     display:flex;flex-direction:column;overflow:visible;
@@ -611,7 +606,7 @@
       <h2>Hazır Çözümler</h2>
       <span class="sec-note">size de kurabilirim — dene, beğen, sipariş ver</span>
     </div>
-    <div class="katalog vitrin" data-katalog data-sayfali>
+    <div class="katalog vitrin" data-katalog data-akis>
       <button class="kat-ok geri" type="button" aria-label="Önceki sayfa">‹</button>
       <button class="kat-ok ileri" type="button" aria-label="Sonraki sayfa">›</button>
       <div class="kat-yol" tabindex="0" role="region" aria-label="Hazır çözümler — yatay kaydırılabilir liste">
@@ -686,7 +681,6 @@
       </div>
         </div>
       </div>
-      <div class="kat-noktalar" aria-label="Sayfalar"></div>
     </div>
   </div>
 </section>
@@ -1007,58 +1001,14 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
     if(suruklendi){ e.preventDefault(); e.stopPropagation(); suruklendi=false; }
   },true);
 
-  /* oklar: sayfali katalogda bir ekran, digerinde bir kart kaydirir */
-  var sayfali=kapsayici.hasAttribute("data-sayfali");
+  /* oklar: bir kart boyu kaydirir */
   function adim(yon){
-    var mesafe;
-    if(sayfali){
-      mesafe=yol.clientWidth;
-    }else{
-      var kart=sira.firstElementChild;
-      mesafe=kart?kart.getBoundingClientRect().width+14:300;
-    }
+    var kart=sira.firstElementChild;
+    var mesafe=kart?kart.getBoundingClientRect().width+20:300;
     yol.scrollBy({left:yon*mesafe,behavior:azHareket.matches?"auto":"smooth"});
     duraklat(3000);
   }
 
-  /* sayfa noktalari: kac ekran varsa o kadar */
-  var noktaKutusu=kapsayici.querySelector(".kat-noktalar");
-  if(sayfali && noktaKutusu){
-    var noktalar=[];
-    function sayfaSayisi(){
-      return Math.max(1,Math.ceil(yol.scrollWidth/yol.clientWidth-0.02));
-    }
-    function noktalariKur(){
-      var adet=sayfaSayisi();
-      if(noktalar.length===adet) return;
-      noktaKutusu.innerHTML="";
-      noktalar=[];
-      for(var i=0;i<adet;i++){
-        (function(sira2){
-          var d=document.createElement("button");
-          d.type="button";
-          d.className="kat-nokta";
-          d.setAttribute("aria-label",(sira2+1)+". sayfa");
-          d.addEventListener("click",function(){
-            yol.scrollTo({left:sira2*yol.clientWidth,behavior:azHareket.matches?"auto":"smooth"});
-            duraklat(3000);
-          });
-          noktaKutusu.appendChild(d);
-          noktalar.push(d);
-        })(i);
-      }
-      noktaKutusu.style.display=adet>1?"":"none";
-    }
-    function noktalariIsaretle(){
-      var etkin=Math.round(yol.scrollLeft/Math.max(1,yol.clientWidth));
-      noktalar.forEach(function(d,i){
-        d.setAttribute("aria-current",i===etkin?"true":"false");
-      });
-    }
-    noktalariKur(); noktalariIsaretle();
-    yol.addEventListener("scroll",noktalariIsaretle,{passive:true});
-    window.addEventListener("resize",function(){ noktalariKur(); noktalariIsaretle(); });
-  }
   var geri=kapsayici.querySelector(".kat-ok.geri");
   var ileri=kapsayici.querySelector(".kat-ok.ileri");
   if(geri) geri.addEventListener("click",function(){ adim(-1); });
