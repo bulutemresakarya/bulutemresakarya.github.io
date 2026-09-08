@@ -82,8 +82,8 @@ window.CV_DATA = {
       { ad: "Mobil", deger: "React Native / Expo (EAS Build), push bildirim, Google Play & App Store yayın süreçleri, abonelik / RTDN entegrasyonu" },
       { ad: "Veri & BI", deger: "PostgreSQL (PostGIS), SQLite (WAL Mode), Supabase, Drizzle ORM, veri temizleme (ETL), React + TanStack Query ile dashboard geliştirme" },
       { ad: "Veri Toplama", deger: "Selenium, requests/aiohttp, anti-bot atlatma, oturum & rate-limit yönetimi" },
-      { ad: "Cloud & DevOps", deger: "AWS (Certified Cloud Practitioner, CLF-C02), Docker, Linux sunucu yönetimi (Ubuntu VDS, Oracle Cloud), PM2, Cloudflare Tunnel, Git & GitHub" },
-      { ad: "Yabancı Dil", deger: "Türkçe (ana dil), İngilizce (B2 — AWS sertifika sınavı İngilizce dilinde tamamlandı), Almanca (A1, başlangıç)" }
+      { ad: "Cloud & DevOps", deger: "AWS (bulut temelleri), Docker, Linux sunucu yönetimi (Ubuntu VDS, Oracle Cloud), PM2, Cloudflare Tunnel, Git & GitHub" },
+      { ad: "Yabancı Dil", deger: "Türkçe (ana dil), İngilizce (B2 — teknik dokümantasyon ve eğitimler İngilizce takip ediliyor), Almanca (A1, başlangıç)" }
     ],
 
     deneyim: [
@@ -248,8 +248,8 @@ window.CV_DATA = {
       { ad: "Mobile", deger: "React Native / Expo (EAS Build), push notifications, Google Play & App Store release pipelines, subscription / RTDN integration" },
       { ad: "Data & BI", deger: "PostgreSQL (PostGIS), SQLite (WAL Mode), Supabase, Drizzle ORM, ETL & data cleaning, dashboard development with React + TanStack Query" },
       { ad: "Web Scraping", deger: "Selenium, requests/aiohttp, anti-bot evasion, session & rate-limit management" },
-      { ad: "Cloud & DevOps", deger: "AWS (Certified Cloud Practitioner, CLF-C02), Docker, Linux server administration (Ubuntu VDS, Oracle Cloud), PM2, Cloudflare Tunnel, Git & GitHub" },
-      { ad: "Languages (spoken)", deger: "Turkish (native), English (B2 — AWS certification exam completed in English), German (A1, beginner)" }
+      { ad: "Cloud & DevOps", deger: "AWS (cloud fundamentals), Docker, Linux server administration (Ubuntu VDS, Oracle Cloud), PM2, Cloudflare Tunnel, Git & GitHub" },
+      { ad: "Languages (spoken)", deger: "Turkish (native), English (B2 — technical documentation and training followed in English), German (A1, beginner)" }
     ],
 
     deneyim: [
