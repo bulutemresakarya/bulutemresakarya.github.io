@@ -244,6 +244,38 @@
   
   footer{padding:24px 0 40px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+
+  /* ==========================================================================
+     HAREKET — kaydirmayla beliren bolumler, ilerleme cizgisi, hafif parallax.
+     Stiller yalnizca html.anim varken devreye girer: JavaScript kapaliysa
+     sayfa hicbir sey gizlemeden, oldugu gibi acilir.
+     ========================================================================== */
+  section{scroll-margin-top:70px}
+
+  .prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:30;pointer-events:none}
+  .prog span{display:block;height:100%;width:0;background:var(--cobalt)}
+
+  .topbar{transition:box-shadow .25s ease}
+  .topbar.stuck{box-shadow:0 8px 22px rgba(20,31,42,.07)}
+
+  html.anim .reveal{opacity:0;transform:translateY(18px);
+    transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)}
+  html.anim .reveal.in{opacity:1;transform:none}
+
+  .hero .wrap{will-change:transform}
+  .hero-strip .num{font-variant-numeric:tabular-nums}
+
+  .cert{transition:background .18s ease,transform .18s ease}
+  .cert:hover{background:#fff;transform:translateY(-2px)}
+  .cert:hover .c-year{color:var(--cobalt)}
+  .btn{transition:background .15s,color .15s,transform .15s}
+  .btn:hover{transform:translateY(-1px)}
+
+  @media (prefers-reduced-motion: reduce){
+    html.anim .reveal{opacity:1;transform:none;transition:none}
+    .cert:hover,.btn:hover{transform:none}
+    .prog{display:none}
+  }
 </style>
 </head>
 <body>
@@ -272,7 +304,7 @@
     <div class="hero-strip" role="list" aria-label="Özet istatistikler">
       <div class="stat" role="listitem"><div class="num">8</div><div class="lbl">ürün · canlı + demo</div></div>
       <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
-      <div class="stat" role="listitem"><div class="num">AWS</div><div class="lbl">certified cloud practitioner</div></div>
+      <div class="stat" role="listitem"><div class="num">5+</div><div class="lbl">yıl yazılım geliştirme</div></div>
       <div class="stat" role="listitem"><div class="num">%1</div><div class="lbl">replit agent global sıralama</div></div>
     </div>
   </div>
@@ -631,5 +663,96 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 });
 </script>
 
+
+<script>
+/* ---------------------------------------------------------------------------
+   Hareket: kaydirma ilerleme cizgisi, bolumlerin belirmesi, hero'da hafif
+   parallax ve istatistik sayaci. Kutuphane yok; hepsi IntersectionObserver
+   ve requestAnimationFrame ile. prefers-reduced-motion aciksa hicbiri calismaz,
+   icerik oldugu yerde durur.
+   --------------------------------------------------------------------------- */
+(function(){
+  "use strict";
+  var kok=document.documentElement;
+  var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
+  kok.classList.add("anim");
+
+  /* ilerleme cizgisi + yapisik ust bar + hero parallax */
+  var cizgi=document.createElement("div");
+  cizgi.className="prog"; cizgi.setAttribute("aria-hidden","true");
+  var dolgu=document.createElement("span"); cizgi.appendChild(dolgu);
+  document.body.appendChild(cizgi);
+
+  var ustBar=document.querySelector(".topbar");
+  var heroIc=document.querySelector(".hero .wrap");
+  var sirada=false;
+
+  function kaydirmaAninda(){
+    var y=window.pageYOffset||0;
+    var toplam=document.documentElement.scrollHeight-window.innerHeight;
+    dolgu.style.width=(toplam>0?Math.min(100,(y/toplam)*100):0)+"%";
+    if(ustBar){ ustBar.classList.toggle("stuck", y>8); }
+    if(heroIc && !azHareket.matches){
+      var k=Math.min(y,420);
+      heroIc.style.transform="translateY("+(k*0.06).toFixed(1)+"px)";
+      heroIc.style.opacity=String(1-Math.min(k/900,0.4));
+    }
+    sirada=false;
+  }
+  window.addEventListener("scroll",function(){
+    if(!sirada){ sirada=true; requestAnimationFrame(kaydirmaAninda); }
+  },{passive:true});
+  kaydirmaAninda();
+
+  /* bolumlerin belirmesi */
+  var hedefler=[].slice.call(document.querySelectorAll(
+    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.vaka,.stack-cell,.cert,.manifest,.contact-inner"
+  ));
+  hedefler.forEach(function(el){ el.classList.add("reveal"); });
+
+  function hepsiniGoster(){ hedefler.forEach(function(el){ el.classList.add("in"); }); }
+
+  if(azHareket.matches || !("IntersectionObserver" in window)){
+    hepsiniGoster();
+  }else{
+    var gozlemci=new IntersectionObserver(function(girisler){
+      girisler.forEach(function(g){
+        if(!g.isIntersecting) return;
+        var el=g.target;
+        /* ayni kaptaki kardesler sirayla gelsin, hepsi ayni anda zipllamasin */
+        var sira=el.parentNode?Array.prototype.indexOf.call(el.parentNode.children,el):0;
+        el.style.transitionDelay=(Math.min(sira,5)*70)+"ms";
+        el.classList.add("in");
+        gozlemci.unobserve(el);
+      });
+    },{rootMargin:"0px 0px -8% 0px",threshold:0.08});
+    hedefler.forEach(function(el){ gozlemci.observe(el); });
+    /* gorunur alandakiler icin ilk tetik */
+    requestAnimationFrame(function(){ window.dispatchEvent(new Event("resize")); });
+  }
+
+  /* istatistik sayaci: "30K+" gibi degerlerde yalnizca rakam kismi sayilir */
+  var sayilar=[].slice.call(document.querySelectorAll(".hero-strip .num"));
+  if(!azHareket.matches){
+    sayilar.forEach(function(el){
+      var tamDeger=el.textContent.trim();
+      var m=/^(\D*)(\d+)(.*)$/.exec(tamDeger);
+      if(!m) return;
+      var on=m[1], hedef=parseInt(m[2],10), son=m[3], bas=null, sure=900;
+      /* emniyet: sayim herhangi bir sebeple ilerlemezse son deger yine de yazilir */
+      setTimeout(function(){ el.textContent=tamDeger; }, sure+700);
+      el.textContent=on+"0"+son;
+      function adim(t){
+        if(bas===null) bas=t;
+        var p=Math.min((t-bas)/sure,1);
+        var yumusak=1-Math.pow(1-p,3);
+        el.textContent=on+Math.round(hedef*yumusak)+son;
+        if(p<1) requestAnimationFrame(adim);
+      }
+      setTimeout(function(){ requestAnimationFrame(adim); },260);
+    });
+  }
+})();
+</script>
 </body>
 </html>
