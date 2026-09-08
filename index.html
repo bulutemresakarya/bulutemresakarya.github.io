@@ -53,7 +53,20 @@
   .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
   .topnav a:hover{color:var(--cobalt)}
   .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  @media(max-width:560px){.topnav{display:none}}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
 
   .hero{padding:72px 0 56px;border-bottom:1px solid var(--line)}
   .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px}
@@ -86,6 +99,17 @@
   .price-tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--live);margin-top:10px;font-weight:500}
 
   /* --- akordeon proje listesi --- */
+  .filtreler{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .filtre{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);background:var(--card);
+    border:1px solid var(--line);padding:7px 13px;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .filtre .sayi{margin-left:7px;opacity:.55}
+  .filtre:hover{color:var(--cobalt);border-color:var(--cobalt)}
+  .filtre.secili{color:#fff;background:var(--cobalt);border-color:var(--cobalt)}
+  .filtre.secili .sayi{opacity:.75}
+  .filtre:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  .acc-item.gizli{display:none}
+
   .acc-item{border-bottom:1px solid var(--line)}
   .acc-item:last-child{border-bottom:none}
   .acc-head{
@@ -181,9 +205,8 @@
   .kat-yol.tutuluyor{cursor:grabbing}
   .kat-sira{display:flex;gap:14px;width:max-content}
   .katalog .vaka{flex:0 0 clamp(250px,72vw,320px)}
-  .katalog::before,.katalog::after{content:"";position:absolute;top:0;bottom:0;width:46px;pointer-events:none;z-index:2}
-  .katalog::before{left:0;background:linear-gradient(90deg,#EDF0F4,rgba(237,240,244,0))}
-  .katalog::after{right:0;background:linear-gradient(270deg,#EDF0F4,rgba(237,240,244,0))}
+  .kat-yol{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 38px,#000 calc(100% - 38px),transparent 100%)}
   .kat-ok{position:absolute;top:calc(50% - 4px);transform:translateY(-50%);z-index:3;
     width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);
     color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;
@@ -192,9 +215,9 @@
   .katalog:hover .kat-ok{opacity:1}
   .kat-ok:focus-visible{opacity:1;outline:2px solid var(--cobalt);outline-offset:2px}
   .kat-ok:hover{border-color:var(--cobalt);color:var(--cobalt)}
-  .kat-ok.sol{left:-6px} .kat-ok.sag{right:-6px}
-  .kat-not{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px}
-  @media(hover:none){.kat-ok{display:none}.katalog::before,.katalog::after{width:22px}}
+  .kat-ok.geri{left:-6px} .kat-ok.ileri{right:-6px}
+  .katalog .sol{flex:0 0 clamp(258px,78vw,330px)}
+  @media(hover:none){.kat-ok{display:none}}
   .row-link {
     display: flex;
     flex-wrap: wrap; /* Panel icinde yatay dizilir, sigmazsa alt satira gecer */
@@ -254,21 +277,46 @@
       repeating-linear-gradient(-45deg,rgba(20,31,42,.05) 0 2px,transparent 2px 7px),
       var(--card);
     box-shadow:inset 0 3px 16px rgba(20,31,42,.07)}
-  .cert{position:relative;display:block;background:#FFFFFF;border:1px solid var(--line);border-radius:2px;
-    padding:24px 16px 16px;box-shadow:0 7px 16px rgba(20,31,42,.11);
+  .cert{position:relative;display:block;--ton:#1746D1;--kagit:#FFFFFF;--damga:var(--ton);
+    background:var(--kagit);border:1px solid var(--line);border-top:3px solid var(--ton);border-radius:2px;
+    padding:22px 16px 16px;box-shadow:0 7px 16px rgba(20,31,42,.11);
     transform:rotate(var(--egim,0deg));transition:transform .22s ease,box-shadow .22s ease}
-  .cert::before{content:"";position:absolute;top:-6px;left:50%;margin-left:-7px;width:14px;height:14px;
-    border-radius:50%;background:radial-gradient(circle at 34% 30%,#7f9dff,var(--cobalt) 58%,#123a9e);
-    box-shadow:0 3px 5px rgba(20,31,42,.32)}
+  .cert::before{content:"";position:absolute;top:-7px;left:50%;margin-left:-7px;width:14px;height:14px;
+    border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.8),var(--ton) 62%);
+    box-shadow:0 3px 5px rgba(20,31,42,.32);z-index:1}
+
+  /* kurum renkleri: belgelerin kendi tonlarindan */
+  .cert.c-meb{--ton:#8C7B68;--kagit:#FFFCF5;--damga:#9E2B2B}
+  .cert.c-btk{--ton:#123A72;--kagit:#F7F9FD;--damga:#B58A2B}
+  .cert.c-bogazici{--ton:#2F4A55;--kagit:#F8FAFA;--damga:#A98230}
+  .cert.c-anadolu{--ton:#2C6BA8;--kagit:#F9FBFD;--damga:#9E2B2B}
+  .cert.c-aws{--ton:#232F3E;--kagit:#F6FBF9;--damga:#D9770B;
+    background:linear-gradient(165deg,#E9F6F0,#EEF3FD 45%,#FFFFFF 78%)}
+  .cert.c-tnc{--ton:#8B1F2A;--kagit:#FFFAFA;--damga:#8B1F2A}
+  /* MEB ve Anadolu belgelerindeki cerceve, TNC'nin kirmizi kosesi, BTK'nin altin seridi */
+  .cert.c-meb::after,.cert.c-anadolu::after{content:"";position:absolute;inset:6px;pointer-events:none;
+    border:1px solid rgba(140,123,104,.34)}
+  .cert.c-anadolu::after{border-color:rgba(158,43,43,.22)}
+  .cert.c-btk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+    background:linear-gradient(90deg,#123A72,#B58A2B)}
+  .cert.c-tnc::after{content:"";position:absolute;top:0;right:0;border-style:solid;border-width:0 18px 18px 0;
+    border-color:transparent #8B1F2A transparent transparent}
   .cert:nth-child(4n+1){--egim:-1.4deg}
   .cert:nth-child(4n+2){--egim:1.1deg}
   .cert:nth-child(4n+3){--egim:-.7deg}
   .cert:nth-child(4n+4){--egim:1.7deg}
   .cert:hover{transform:rotate(0deg) translateY(-5px);box-shadow:0 16px 26px rgba(20,31,42,.16);z-index:2}
   .cert .c-name{font-weight:600;font-size:14.5px;line-height:1.35}
-  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:7px}
+  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ton);margin-top:7px;opacity:.85}
   .cert .c-year{display:inline-block;margin-top:13px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
-    color:var(--cobalt);border:1px solid var(--cobalt);border-radius:2px;padding:2px 7px;white-space:nowrap}
+    color:var(--damga);border:1px solid var(--damga);border-radius:2px;padding:2px 7px;white-space:nowrap}
+  /* katlanir pano: ilk alti belge asili, gerisi dugmeyle iner */
+  .pano:not(.acik) .cert:nth-child(n+7){display:none}
+  .pano-dugme{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    color:var(--ink);background:var(--card);border:1px solid var(--line);padding:9px 18px;cursor:pointer;
+    transition:border-color .15s,color .15s}
+  .pano-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .pano-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
   @media(max-width:520px){.pano{padding:26px 16px 30px;gap:24px 14px}}
 
   .contact{padding:64px 0 80px;border-bottom:none}
@@ -323,14 +371,15 @@
 <div class="topbar">
   <div class="wrap">
     <div class="brand"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· ai-otomasyon</span></div>
-    <nav class="topnav" aria-label="Sayfa içi gezinme">
-      <a href="#demolar">demolar</a>
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="#projeler">projeler</a>
       <a href="#cozumler">çözümler</a>
       <a href="/vaka-analizi/">vaka analizi</a>
       <a href="#sertifikalar">sertifikalar</a>
       <a href="/cv/">cv</a>
       <a href="#iletisim">iletişim</a>
     </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
   </div>
 </div>
 
@@ -350,15 +399,23 @@
   </div>
 </header>
 
-<section id="demolar">
+<section id="projeler">
   <div class="wrap">
     <div class="sec-head">
-      <h2>İnteraktif Demolar</h2>
-      <span class="sec-note">başlığa dokun, detaylar açılır</span>
+      <h2>Projeler</h2>
+      <span class="sec-note">filtrele · başlığa dokun, detaylar açılır</span>
+    </div>
+    <div class="filtreler" role="group" aria-label="Proje filtresi">
+      <button class="filtre secili" type="button" data-filtre="hepsi" aria-pressed="true">tümü</button>
+      <button class="filtre" type="button" data-filtre="ai" aria-pressed="false">yapay zekâ</button>
+      <button class="filtre" type="button" data-filtre="mobil" aria-pressed="false">mobil</button>
+      <button class="filtre" type="button" data-filtre="whatsapp" aria-pressed="false">whatsapp botu</button>
+      <button class="filtre" type="button" data-filtre="web" aria-pressed="false">web &amp; pano</button>
+      <button class="filtre" type="button" data-filtre="iot" aria-pressed="false">iot &amp; donanım</button>
     </div>
     <div class="manifest">
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="ai mobil whatsapp">
         <button class="acc-head" id="h-tirdas" aria-expanded="false" aria-controls="p-tirdas">
           <span class="logo"><img src="assets/logo/tirdas.jpg" alt="" width="80" height="80"></span>
           <span class="proj-name">Tırdaş — Lojistik Yapay Zeka Asistanı</span>
@@ -384,7 +441,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="iot mobil">
         <button class="acc-head" id="h-bocu" aria-expanded="false" aria-controls="p-bocu">
           <span class="logo"><img src="assets/logo/bocu.jpg" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol</span>
@@ -408,7 +465,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="mobil">
         <button class="acc-head" id="h-quadmate" aria-expanded="false" aria-controls="p-quadmate">
           <span class="logo"><img src="assets/logo/quadmate.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">Quadmate — Oyun Arkadaşı Bulma Uygulaması</span>
@@ -433,7 +490,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="ai whatsapp">
         <button class="acc-head" id="h-truemax" aria-expanded="false" aria-controls="p-truemax">
           <span class="logo"><img src="assets/logo/truemax.svg" alt="" width="46" height="46"></span>
           <span class="proj-name">TrueMax.ai — Emlak Yapay Zeka Asistanı</span>
@@ -449,7 +506,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="ai whatsapp">
         <button class="acc-head" id="h-redi" aria-expanded="false" aria-controls="p-redi">
           <span class="logo"><img src="assets/logo/red-i.png" alt="" width="80" height="80" loading="lazy"></span>
           <span class="proj-name">RED-i — Emlak Yapay Zeka Asistanı</span>
@@ -465,7 +522,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="web">
         <button class="acc-head" id="h-dashboard" aria-expanded="false" aria-controls="p-dashboard">
           <span class="logo" style="background:#2E6BE6;border-color:#2E6BE6"><span class="mono">▦</span></span>
           <span class="proj-name">Danışman Performans Dashboard'u</span>
@@ -481,7 +538,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="web">
         <button class="acc-head" id="h-kripto" aria-expanded="false" aria-controls="p-kripto">
           <span class="logo" style="background:#4C1D95;border-color:#4C1D95"><span class="mono">₿</span></span>
           <span class="proj-name">Kripto Trader Bot</span>
@@ -497,7 +554,7 @@
         </div>
       </div>
 
-      <div class="acc-item">
+      <div class="acc-item" data-tur="web">
         <button class="acc-head" id="h-cleanhome" aria-expanded="false" aria-controls="p-cleanhome">
           <span class="logo logo-contain"><img src="assets/logo/cleanhome.svg" alt="" width="48" height="48" loading="lazy"></span>
           <span class="proj-name">CleanHome</span>
@@ -523,7 +580,11 @@
       <h2>Hazır Çözümler</h2>
       <span class="sec-note">size de kurabilirim — dene, beğen, sipariş ver</span>
     </div>
-    <div class="sol-grid">
+    <div class="katalog" data-katalog>
+      <button class="kat-ok geri" type="button" aria-label="Önceki çözüm">‹</button>
+      <button class="kat-ok ileri" type="button" aria-label="Sonraki çözüm">›</button>
+      <div class="kat-yol" tabindex="0" role="region" aria-label="Hazır çözümler — yatay kaydırılabilir liste">
+        <div class="kat-sira">
       <div class="sol">
         <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3c-1.5 0-2.9-.35-4.1-.97L3 20l1.2-4.3A8.1 8.1 0 0 1 3 11.5 8.4 8.4 0 0 1 12.5 3.2 8.4 8.4 0 0 1 21 11.5z"/><circle cx="8.6" cy="11.5" r=".4"/><circle cx="12.5" cy="11.5" r=".4"/><circle cx="16.4" cy="11.5" r=".4"/></svg></div>
         <h3>AI Müşteri Temsilcisi</h3>
@@ -592,6 +653,8 @@
           <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20%22Entegrasyon%20ve%20Otomasyon%22%20i%C3%A7in%20sipari%C5%9F%20olu%C5%9Fturmak%20istiyorum." target="_blank" rel="noopener">Sipariş Ver 💬</a>
         </div>
       </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -602,9 +665,9 @@
       <h2>Teknik Vaka Analizleri</h2>
       <span class="sec-note">demolar ne yaptığını gösterir, bunlar nasıl çalıştığını</span>
     </div>
-    <div class="katalog" data-katalog>
-      <button class="kat-ok sol" type="button" aria-label="Önceki vaka analizi">‹</button>
-      <button class="kat-ok sag" type="button" aria-label="Sonraki vaka analizi">›</button>
+    <div class="katalog" data-katalog data-akis>
+      <button class="kat-ok geri" type="button" aria-label="Önceki vaka analizi">‹</button>
+      <button class="kat-ok ileri" type="button" aria-label="Sonraki vaka analizi">›</button>
       <div class="kat-yol" tabindex="0" role="region" aria-label="Vaka analizleri — yatay kaydırılabilir liste">
         <div class="kat-sira">
       <a class="vaka" href="vaka-analizi/tirdas/">
@@ -640,7 +703,6 @@
         </div>
       </div>
     </div>
-    <p class="kat-not">kendi kendine akar · sürükleyerek veya kaydırarak gezinebilirsin</p>
   </div>
 </section>
 
@@ -664,16 +726,23 @@
       <h2>Sertifikalar & Eğitim</h2>
       <span class="sec-note">anadolu üniv. yönetim bilişim sistemleri, 2026</span>
     </div>
-    <div class="pano">
-      <div class="cert"><div><div class="c-name">Python ile Yapay Zekâya Giriş</div><div class="c-org">MEB · Hayat Boyu Öğrenme Genel Müdürlüğü</div></div><span class="c-year">2026</span></div>
-      <div class="cert"><div><div class="c-name">JavaScript Eğitimi (30 saat)</div><div class="c-org">Boğaziçi Enstitüsü</div></div><span class="c-year">2026</span></div>
-      <div class="cert"><div><div class="c-name">Bilgi Sistemi Tasarımı Sertifika Programı</div><div class="c-org">Anadolu Üniversitesi · SEM</div></div><span class="c-year">2026</span></div>
-      <div class="cert"><div><div class="c-name">Onur Belgesi — YBS - Bahar Dönemi</div><div class="c-org">Anadolu Üniversitesi</div></div><span class="c-year">2026</span></div>
-      <div class="cert"><div><div class="c-name">Nesneye Dayalı Programlama (Python) · Nesnelerin İnterneti · Robot Uygulamaları · İSG</div><div class="c-org">MEB · Hayat Boyu Öğrenme Genel Müdürlüğü</div></div><span class="c-year">2026</span></div>
-      <div class="cert"><div><div class="c-name">AWS Certified Cloud Practitioner (CLF-C02) — Resmî Uygulama Soru Seti</div><div class="c-org">AWS Training &amp; Certification</div></div><span class="c-year">2025</span></div>
-      <div class="cert"><div><div class="c-name">Yapay Zekâ Etiği · Etkili İletişim Stratejileri · İletişim ve Network Yönetimi · Müşteriyi Tanımak</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
-      <div class="cert"><div><div class="c-name">Bilgi Teknolojileri Stajı (Python, Excel, Photoshop, AutoCAD)</div><div class="c-org">TNC Group · Europäisches Bildungsinstitut</div></div><span class="c-year">2025</span></div>
+    <div class="pano" id="pano">
+      <div class="cert c-meb"><div><div class="c-name">Python ile Yapay Zekâya Giriş</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-anadolu"><div><div class="c-name">Bilgi Sistemi Tasarımı Sertifika Programı</div><div class="c-org">Anadolu Üniversitesi · SEM</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-bogazici"><div><div class="c-name">JavaScript Eğitimi (30 saat)</div><div class="c-org">Boğaziçi Enstitüsü</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-meb"><div><div class="c-name">Nesneye Dayalı Programlama (Python)</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-aws"><div><div class="c-name">AWS Certified Cloud Practitioner (CLF-C02) — Resmî Uygulama Soru Seti</div><div class="c-org">AWS Training &amp; Certification</div></div><span class="c-year">2025</span></div>
+      <div class="cert c-anadolu"><div><div class="c-name">Onur Belgesi — YBS, Bahar Dönemi</div><div class="c-org">Anadolu Üniversitesi</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-meb"><div><div class="c-name">Nesnelerin İnterneti (Temel Seviye)</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-meb"><div><div class="c-name">Robot Uygulamaları</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-meb"><div><div class="c-name">İş Sağlığı ve Güvenliği</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
+      <div class="cert c-btk"><div><div class="c-name">Müşteriyi Tanımak</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert c-btk"><div><div class="c-name">İletişim ve Network Yönetimi</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert c-btk"><div><div class="c-name">Etkili İletişim Stratejileri</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert c-btk"><div><div class="c-name">Yapay Zekâ Etiği</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
+      <div class="cert c-tnc"><div><div class="c-name">Bilgi Teknolojileri Stajı (Python, Excel, Photoshop, AutoCAD)</div><div class="c-org">TNC Group · Europäisches Bildungsinstitut</div></div><span class="c-year">2025</span></div>
     </div>
+    <button class="pano-dugme" type="button" aria-expanded="false" aria-controls="pano">tümünü göster</button>
   </div>
 </section>
 
@@ -821,25 +890,27 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
    --------------------------------------------------------------------------- */
 (function(){
   "use strict";
-  var kapsayici=document.querySelector("[data-katalog]");
-  if(!kapsayici) return;
+  Array.prototype.forEach.call(document.querySelectorAll("[data-katalog]"),kur);
+
+  function kur(kapsayici){
   var yol=kapsayici.querySelector(".kat-yol");
   var sira=kapsayici.querySelector(".kat-sira");
   if(!yol||!sira) return;
 
   var azHareket=window.matchMedia("(prefers-reduced-motion: reduce)");
+  var aksin=kapsayici.hasAttribute("data-akis");
   var asillar=[].slice.call(sira.children);
   if(!asillar.length) return;
 
   /* kopyalar yalnizca gorseldir: ekran okuyucu ve sekme sirasi disinda */
-  asillar.forEach(function(kart){
+  if(aksin) asillar.forEach(function(kart){
     var kopya=kart.cloneNode(true);
     kopya.setAttribute("aria-hidden","true");
     kopya.setAttribute("tabindex","-1");
     sira.appendChild(kopya);
   });
 
-  function setGenisligi(){ return sira.scrollWidth/2; }
+  function setGenisligi(){ return aksin?sira.scrollWidth/2:0; }
 
   var durdu=false, gorunur=true, zamanlayici=null;
   function duraklat(sure){
@@ -862,7 +933,7 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
   }
 
   function dongu(){
-    if(!durdu && gorunur && !azHareket.matches && document.visibilityState==="visible"){
+    if(aksin && !durdu && gorunur && !azHareket.matches && document.visibilityState==="visible"){
       yol.scrollLeft+=0.4;
     }
     var w=setGenisligi();
@@ -911,10 +982,96 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
     yol.scrollBy({left:yon*mesafe,behavior:azHareket.matches?"auto":"smooth"});
     duraklat(3000);
   }
-  var sol=kapsayici.querySelector(".kat-ok.sol");
-  var sag=kapsayici.querySelector(".kat-ok.sag");
-  if(sol) sol.addEventListener("click",function(){ adim(-1); });
-  if(sag) sag.addEventListener("click",function(){ adim(1); });
+  var geri=kapsayici.querySelector(".kat-ok.geri");
+  var ileri=kapsayici.querySelector(".kat-ok.ileri");
+  if(geri) geri.addEventListener("click",function(){ adim(-1); });
+  if(ileri) ileri.addEventListener("click",function(){ adim(1); });
+  }
+})();
+</script>
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
+
+<script>
+/* Sertifika panosu: ilk alti belge asili durur, gerisi dugmeyle iner */
+(function(){
+  var pano=document.getElementById("pano");
+  var dugme=document.querySelector(".pano-dugme");
+  if(!pano||!dugme) return;
+  var gizli=pano.querySelectorAll(".cert").length-6;
+  if(gizli<1){ dugme.remove(); return; }
+  function yaz(acik){
+    dugme.textContent=acik?"daha az göster":"tümünü göster (+"+gizli+")";
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+  }
+  yaz(false);
+  dugme.addEventListener("click",function(){ yaz(pano.classList.toggle("acik")); });
+})();
+</script>
+
+<script>
+/* Proje filtresi: secilen kategoriye uymayan satirlar gizlenir, acik olan kapanir */
+(function(){
+  var kutu=document.querySelector(".filtreler");
+  if(!kutu) return;
+  var ogeler=[].slice.call(document.querySelectorAll(".acc-item[data-tur]"));
+  var dugmeler=[].slice.call(kutu.querySelectorAll(".filtre"));
+  if(!ogeler.length) return;
+
+  function uyar(oge,tur){
+    return tur==="hepsi" || oge.getAttribute("data-tur").split(" ").indexOf(tur)>=0;
+  }
+
+  /* her filtrenin kac projeye denk geldigini yaz */
+  dugmeler.forEach(function(d){
+    var tur=d.getAttribute("data-filtre");
+    var adet=ogeler.filter(function(o){ return uyar(o,tur); }).length;
+    var s=document.createElement("span");
+    s.className="sayi"; s.textContent=adet;
+    d.appendChild(s);
+  });
+
+  function uygula(tur){
+    ogeler.forEach(function(o){
+      var gorunsun=uyar(o,tur);
+      o.classList.toggle("gizli",!gorunsun);
+      if(!gorunsun && o.classList.contains("open")){
+        o.classList.remove("open");
+        var bas=o.querySelector(".acc-head");
+        if(bas) bas.setAttribute("aria-expanded","false");
+      }
+    });
+    dugmeler.forEach(function(d){
+      var aktif=d.getAttribute("data-filtre")===tur;
+      d.classList.toggle("secili",aktif);
+      d.setAttribute("aria-pressed",aktif?"true":"false");
+    });
+  }
+
+  dugmeler.forEach(function(d){
+    d.addEventListener("click",function(){ uygula(d.getAttribute("data-filtre")); });
+  });
 })();
 </script>
 </body>

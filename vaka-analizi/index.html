@@ -45,7 +45,20 @@
   .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
   .topnav a:hover{color:var(--cobalt)}
   .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  @media(max-width:560px){.topnav{display:none}}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
 
   header.hero{padding:64px 0 44px;border-bottom:1px solid var(--line)}
   .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.08em;margin-bottom:18px}
@@ -93,11 +106,12 @@
 <div class="topbar">
   <div class="wrap">
     <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· vaka analizi</span></a>
-    <nav class="topnav" aria-label="Sayfa içi gezinme">
-      <a href="/#demolar">demolar</a>
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
+      <a href="/#projeler">projeler</a>
       <a href="/#cozumler">çözümler</a>
       <a href="/#iletisim">iletişim</a>
     </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
   </div>
 </div>
 
@@ -185,7 +199,7 @@
         <p style="color:var(--ink-soft);font-size:15px;margin:0">Ana sayfadaki interaktif demolarda aynı projelerle kendiniz oynayabilirsiniz.</p>
       </div>
       <div class="btns">
-        <a class="btn btn-primary" href="/#demolar">Demolara git →</a>
+        <a class="btn btn-primary" href="/#projeler">Demolara git →</a>
         <a class="btn" href="/#iletisim">İletişim</a>
       </div>
     </div>
@@ -199,5 +213,28 @@
   </div>
 </footer>
 
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
 </body>
 </html>

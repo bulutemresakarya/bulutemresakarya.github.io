@@ -47,7 +47,20 @@
   .topnav a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-decoration:none}
   .topnav a:hover{color:var(--cobalt)}
   .topnav a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  @media(max-width:560px){.topnav{display:none}}
+  .menu-dugme{display:none;width:36px;height:32px;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;padding:0}
+  .menu-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
+  .menu-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  @media(max-width:560px){
+    .menu-dugme{display:flex}
+    .topnav{display:none;position:absolute;top:100%;left:0;right:0;z-index:11;
+      flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);
+      padding:4px 24px 10px;box-shadow:0 14px 26px rgba(20,31,42,.10)}
+    .topbar.menu-acik .topnav{display:flex}
+    .topnav a{padding:12px 2px;font-size:13px;border-bottom:1px solid var(--line)}
+    .topnav a:last-child{border-bottom:none}
+  }
 
   .notice{background:var(--ink);color:#fff;text-align:center;padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.03em}
   .notice b{color:#FFB547}
@@ -94,12 +107,6 @@
   th{background:var(--card);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
   td b{color:var(--cobalt)}
 
-  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:18px}
-  .shots figure{border:1px solid var(--line);background:var(--card);padding:8px}
-  .shots img{width:100%;height:auto;display:block;border-radius:3px}
-  .shots figcaption{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:7px;text-align:center}
-  .shots.wide{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
-  video{width:100%;border:1px solid var(--line);background:#000;margin-top:18px;display:block}
 
   .cta{padding:46px 0;border-bottom:1px solid var(--line)}
   .cta-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -119,11 +126,12 @@
 <div class="topbar">
   <div class="wrap">
     <a class="brand" href="/"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bulutemre <span style="color:var(--ink-soft)">· vaka analizi</span></a>
-    <nav class="topnav" aria-label="Sayfa içi gezinme">
+    <nav id="ustmenu" class="topnav" aria-label="Sayfa içi gezinme">
       <a href="/vaka-analizi/">tüm analizler</a>
       <a href="/tirdas/">interaktif demo</a>
       <a href="/#iletisim">iletişim</a>
     </nav>
+    <button class="menu-dugme" type="button" aria-label="Menü" aria-expanded="false" aria-controls="ustmenu">≡</button>
   </div>
 </div>
 
@@ -254,35 +262,6 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <h2>Ekran görüntüleri</h2>
-    <p class="sec-note">whatsapp bot arayüzü ve streamlit yönetim paneli</p>
-
-    <video controls preload="metadata" poster="assets/tirdas2.png">
-      <source src="assets/tirdas_video.mp4" type="video/mp4">
-      Tarayıcınız video etiketini desteklemiyor.
-    </video>
-
-    <div class="shots" style="margin-top:22px">
-      <figure><img src="assets/1.png" alt="Bot ana menüsü" loading="lazy"><figcaption>Ana menü</figcaption></figure>
-      <figure><img src="assets/3.png" alt="Yük sorgulama akışı" loading="lazy"><figcaption>Yük sorgulama</figcaption></figure>
-      <figure><img src="assets/5.png" alt="Konum bazlı mekan arama" loading="lazy"><figcaption>Mekan arama</figcaption></figure>
-      <figure><img src="assets/7.png" alt="Hava durumu yanıtı" loading="lazy"><figcaption>Hava durumu</figcaption></figure>
-      <figure><img src="assets/8.png" alt="Gider takibi" loading="lazy"><figcaption>Gider takibi</figcaption></figure>
-      <figure><img src="assets/9.png" alt="Premium üyelik akışı" loading="lazy"><figcaption>Premium akışı</figcaption></figure>
-    </div>
-
-    <h2 style="margin-top:36px;font-size:20px">Yönetim paneli</h2>
-    <div class="shots wide">
-      <figure><img src="assets/panel1.png" alt="Panel genel bakış" loading="lazy"><figcaption>Genel bakış</figcaption></figure>
-      <figure><img src="assets/panel2.png" alt="İlan onay kuyruğu" loading="lazy"><figcaption>Onay kuyruğu</figcaption></figure>
-      <figure><img src="assets/panel3.png" alt="Kullanıcı yönetimi" loading="lazy"><figcaption>Kullanıcı yönetimi</figcaption></figure>
-      <figure><img src="assets/panel4.png" alt="Prompt yönetimi" loading="lazy"><figcaption>No-code prompt</figcaption></figure>
-    </div>
-  </div>
-</section>
-
 <section class="cta">
   <div class="wrap">
     <div class="cta-in">
@@ -305,5 +284,28 @@
   </div>
 </footer>
 
+
+<script>
+/* Mobil menu: dar ekranda ust bardaki baglantilar ≡ dugmesinin altina iner */
+(function(){
+  var bar=document.querySelector(".topbar");
+  var dugme=document.querySelector(".menu-dugme");
+  if(!bar||!dugme) return;
+  function ayarla(acik){
+    bar.classList.toggle("menu-acik",acik);
+    dugme.setAttribute("aria-expanded",acik?"true":"false");
+    dugme.textContent=acik?"\u00d7":"\u2261";
+  }
+  dugme.addEventListener("click",function(){
+    ayarla(!bar.classList.contains("menu-acik"));
+  });
+  Array.prototype.forEach.call(bar.querySelectorAll(".topnav a"),function(a){
+    a.addEventListener("click",function(){ ayarla(false); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"||e.key==="Esc") ayarla(false);
+  });
+})();
+</script>
 </body>
 </html>
