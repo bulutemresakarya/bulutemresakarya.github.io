@@ -130,7 +130,6 @@
   .proj{padding:16px 0;border-bottom:1px solid #E8EBEF}
   .proj:last-child{border-bottom:none}
   .proj-name{font-family:'Archivo',sans-serif;font-weight:750;font-variation-settings:'wdth' 106;font-size:16.5px;letter-spacing:-.005em}
-  .proj-role{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--cobalt);margin-top:3px;letter-spacing:.02em}
   .proj-desc{margin-top:8px;font-size:14.5px;color:var(--ink-soft)}
   .stack{margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);padding:5px 9px;display:inline-block}
 
@@ -199,7 +198,6 @@
 
     .proj{padding:3.2pt 0;break-inside:avoid;page-break-inside:avoid}
     .proj-name{font-size:8.8pt}
-    .proj-role{font-size:7.2pt;margin-top:.5pt}
     .proj-desc{font-size:7.9pt;margin-top:2pt}
     .stack{font-size:7pt;margin-top:2.2pt;padding:1.4pt 3.5pt;background:#F4F6F8}
 
@@ -337,10 +335,8 @@
     h += bolum(c.etiketler.projeler, c.projeler.map(function(p){
       return '<div class="proj">' +
         '<div class="proj-name">' + esc(p.ad) + "</div>" +
-        '<div class="proj-role">' + esc(p.rol) + "</div>" +
         '<p class="proj-desc">' + esc(p.ozet) + "</p>" +
         '<div class="stack">' + esc(p.stack) + "</div>" +
-        '<ul class="bullets">' + p.maddeler.map(madde).join("") + "</ul>" +
       "</div>";
     }).join(""));
 
