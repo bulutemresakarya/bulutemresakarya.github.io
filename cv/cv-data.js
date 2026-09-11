@@ -149,7 +149,7 @@ window.CV_DATA = {
       "JavaScript Eğitimi (30 saat) — Boğaziçi Enstitüsü (07/2026)",
       "Bilgi Sistemi Tasarımı Sertifika Programı — Anadolu Üniversitesi SEM (05/2026)",
       "Onur Belgesi, 2025-2026 Bahar Dönemi — Anadolu Üniversitesi (2026)",
-      "MEB Hayat Boyu Öğrenme — Nesneye Dayalı Programlama (Python), Nesnelerin İnterneti (Temel Seviye), Robot Uygulamaları, İş Sağlığı ve Güvenliği (2026)",
+      "MEB Hayat Boyu Öğrenme — Bilgisayar İşletmenliği (Operatörlüğü), Nesneye Dayalı Programlama (Python), Nesnelerin İnterneti (Temel Seviye), Robot Uygulamaları, İş Sağlığı ve Güvenliği (2026)",
       "AWS Certified Cloud Practitioner (CLF-C02) Resmî Uygulama Soru Seti — AWS Training & Certification (10/2025)",
       "BTK Akademi — Yapay Zekâ Etiği, Etkili İletişim Stratejileri, İletişim ve Network Yönetimi, Müşteriyi Tanımak (05/2025)",
       "Bilgi Teknolojileri Stajı — TNC Group · Europäisches Bildungsinstitut (07/2025)"
@@ -315,7 +315,7 @@ window.CV_DATA = {
       "JavaScript Training (30 hours) — Boğaziçi Enstitüsü (07/2026)",
       "Information System Design Certificate Program — Anadolu University, Continuing Education Center (05/2026)",
       "Honour Certificate, 2025-2026 Spring Term — Anadolu University (2026)",
-      "MoNE Lifelong Learning — Object-Oriented Programming (Python), Internet of Things (Basic), Robotics Applications, Occupational Health & Safety (2026)",
+      "MoNE Lifelong Learning — Computer Operator Training, Object-Oriented Programming (Python), Internet of Things (Basic), Robotics Applications, Occupational Health & Safety (2026)",
       "AWS Certified Cloud Practitioner (CLF-C02) Official Practice Question Set — AWS Training & Certification (10/2025)",
       "BTK Academy — AI Ethics, Effective Communication Strategies, Communication & Network Management, Customer Insight (05/2025)",
       "IT Internship — TNC Group · Europäisches Bildungsinstitut (07/2025)"
