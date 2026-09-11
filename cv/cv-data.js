@@ -49,9 +49,9 @@ window.CV_DATA = {
      TÜRKÇE
      ========================================================================== */
   tr: {
-    unvan: "Yazılım Mühendisi | AI & Otomasyon · Backend · Mobil",
+    unvan: "Yazılım Geliştirici | AI & Otomasyon · Backend · Mobil",
 
-    ozet: "Yazılım mühendisi, 5+ yıl. Python · FastAPI backend, LangChain/LangGraph ile otonom AI ajanları, React Native mobil uygulamalar ve gerçek zamanlı BI. İki uygulama Google Play ve App Store’da yayında; kurduğum otomasyonlar bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
+    ozet: "Yazılım geliştirici, 5+ yıl. Python · FastAPI backend, LangChain/LangGraph ile otonom AI ajanları, React Native mobil uygulamalar ve gerçek zamanlı BI. İki uygulama Google Play ve App Store’da yayında; kurduğum otomasyonlar bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
 
     etiketler: {
       ozet: "Profesyonel Özet",
@@ -196,9 +196,9 @@ window.CV_DATA = {
      ENGLISH
      ========================================================================== */
   en: {
-    unvan: "Software Engineer | AI & Automation · Backend · Mobile",
+    unvan: "Software Developer | AI & Automation · Backend · Mobile",
 
-    ozet: "Software engineer, 5+ years. Python · FastAPI backend, autonomous AI agents with LangChain/LangGraph, React Native mobile apps and real-time BI. Two apps live on Google Play and the App Store; the automations I built generated +1.5M TL net revenue for an office in 4 months.",
+    ozet: "Software developer, 5+ years. Python · FastAPI backend, autonomous AI agents with LangChain/LangGraph, React Native mobile apps and real-time BI. Two apps live on Google Play and the App Store; the automations I built generated +1.5M TL net revenue for an office in 4 months.",
 
     etiketler: {
       ozet: "Professional Summary",
@@ -236,7 +236,7 @@ window.CV_DATA = {
     deneyim: [
       {
         kurum: "Freelance / Karaarslan Digital",
-        rol: "Software Engineer (AI, Backend & Mobile)",
+        rol: "Software Developer (AI, Backend & Mobile)",
         tarih: "11/2025 – Present",
         maddeler: [
           "AI agents, data pipelines and mobile apps; end-to-end delivery from architecture to release.",
