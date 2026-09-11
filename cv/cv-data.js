@@ -51,7 +51,7 @@ window.CV_DATA = {
   tr: {
     unvan: "Yazılım Mühendisi | AI & Otomasyon · Backend · Mobil",
 
-    ozet: "Lojistik ve gayrimenkul sektörlerine SaaS ürün modeliyle uçtan uca yazılım geliştiren yazılım mühendisi; 5+ yıl deneyim. Otonom yapay zeka ajanları (LangChain/LangGraph), yüksek ölçekli veri madenciliği, React Native mobil uygulamalar ve gerçek zamanlı iş zekâsı (BI) sistemleri kuruyorum. Geliştirdiğim ürünlerden ikisi Google Play ve App Store'da yayında; sistemlerin tamamı no-code platformlara bağımlı olmadan kendi Linux VDS sunucularımda 7/24 çalışıyor. Manuel süreçleri %90 oranında otonomlaştıran, SLA takibini otomatikleştiren ve FinOps (LLM maliyet optimizasyonu) prensipleriyle kurgulanan mimariler tasarlıyorum; kurduğum sistemler bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
+    ozet: "Yazılım mühendisi, 5+ yıl. Python · FastAPI backend, LangChain/LangGraph ile otonom AI ajanları, React Native mobil uygulamalar ve gerçek zamanlı BI. İki uygulama Google Play ve App Store’da yayında; kurduğum otomasyonlar bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
 
     etiketler: {
       ozet: "Profesyonel Özet",
@@ -92,11 +92,9 @@ window.CV_DATA = {
         rol: "Yazılım Geliştirici (AI, Backend & Mobil)",
         tarih: "11/2025 – Halen",
         maddeler: [
-          "KOBİ ve kurumlar için yapay zekâ ajanları, veri hatları ve mobil uygulamalar geliştiriyorum; mimariden yayına teknik teslimat bende.",
-          { baslik: "Tırdaş", metin: "Lojistik için AI destekli SaaS, WhatsApp botu ve mobil uygulama — Google Play ve App Store’da yayında." },
-          { baslik: "Quadmate", metin: "Konum bazlı oyun arkadaşı eşleştirme uygulamasını uçtan uca geliştirdim." },
-          "Kurumsal web, hosting ve SEO işleri; tekrar satılabilir “Hazır Çözümler” ürün hattı.",
-          "Müşterilerin manuel veri girişini %90 otonomlaştırdım: 8 saatlik haftalık iş 5 saniyeye indi."
+          "AI ajanları, veri hatları ve mobil uygulamalar; mimariden yayına uçtan uca teslimat.",
+          { baslik: "Tırdaş", metin: "Lojistik SaaS, WhatsApp botu ve mobil uygulama — iki mağazada yayında." },
+          "Manuel veri girişini %90 otonomlaştırdım: haftalık 8 saatlik iş 5 saniyeye indi."
         ]
       },
       {
@@ -104,10 +102,9 @@ window.CV_DATA = {
         rol: "AI & Automation Programmer",
         tarih: "09/2024 – 10/2025",
         maddeler: [
-          "Danışman olarak başladım; yazdığım otomasyonlar fark edilince 2 ayda AI & Otomasyon Programcısı kadrosuna geçtim.",
-          "TrueMax ekosistemini tek başıma kurdum: anti-ban scraper, SLA lead dispatcher, AI outreach orkestratörü.",
-          "Müşteri portföyünü %60+, ofis cirosunu %40+ büyüttüm; 4 ayda +1,5 milyon TL net ciro.",
-          "40+ danışmanı canlı izleyen BI panosu kurdum; haftalık raporlama 8 saatten 5 saniyeye indi."
+          "Danışmanlıktan 2 ayda AI & Otomasyon Programcısı kadrosuna geçtim.",
+          "TrueMax ekosistemini tek başıma kurdum: scraper, SLA lead dispatcher, AI outreach.",
+          "Portföy %60+, ciro %40+; 4 ayda +1,5 milyon TL. Raporlama 8 saatten 5 saniyeye indi."
         ]
       },
       {
@@ -115,8 +112,8 @@ window.CV_DATA = {
         rol: "Data & Software Developer",
         tarih: "04/2024 – 08/2024",
         maddeler: [
-          "Python ile veri işleme ve raporlama otomasyonları geliştirdim; ekip haftalık hedeflerini düzenli aştı.",
-          "Teknik teslimat performansıyla 2 ayda stajyerlikten Data & Software Developer kadrosuna yükseldim."
+          "Python ile veri işleme ve raporlama otomasyonları geliştirdim.",
+          "2 ayda stajyerlikten Data & Software Developer kadrosuna yükseldim."
         ]
       },
       {
@@ -124,7 +121,7 @@ window.CV_DATA = {
         rol: "Python Developer",
         tarih: "03/2020 – 01/2024",
         maddeler: [
-          "E-ticaret müşterileri için backend otomasyonları ve web scraper’lar geliştirdim, sistemlerin bakımını sürdürdüm."
+          "E-ticaret müşterileri için backend otomasyonları ve web scraper’lar geliştirdim."
         ]
       }
     ],
@@ -157,41 +154,42 @@ window.CV_DATA = {
     projeler: [
       {
         ad: "Tırdaş — AI Destekli Lojistik SaaS, Mobil Uygulama & WhatsApp Botu",
-        ozet: "Lojistik firmalarıyla tır şoförlerini buluşturan otonom operasyon merkezi: şoför gündelik dille yük ister, sistem en uygun yükü eşleştirir, güzergâhı ve masrafı takip eder, çözemediğini canlı operatöre aktarır. Tek başıma geliştirdim; mobil uygulama Google Play ve App Store’da yayında.",
+        ozet: "Yük eşleştirme, güzergâh ve masraf takibi; mobil uygulama Google Play ve App Store’da yayında.",
         stack: "Python · FastAPI · LangGraph · PostgreSQL · React Native (Expo) · Meta Cloud API · PM2"
       },
       {
         ad: "BOCU BC-01 — Pompa Koruma ve Uzaktan Kontrol Sistemi",
-        ozet: "Tarımsal sulamada üç fazlı pompaları uzaktan izleyen, koruyan ve kontrol eden IoT sistemi. Koruma kararı cihazda verilir: internet kesilse de motor korunur. Sunucu ve mobil taraf bende, cihaz firmware’i harici ekipte. Sahada gerçek pompada aşırı akım ve faz kaybı korumaları doğrulandı; ürün kapalı testte.",
+        ozet: "Üç fazlı pompalar için IoT koruma ve uzaktan kontrol; karar cihazda, internet kesilse de motor korunur.",
         stack: "Python · FastAPI · MQTT (EMQX) · Supabase (RLS) · React Native (Expo) · NB-IoT"
       },
       {
         ad: "TrueMax.ai — AI Lead Generation & Outreach Pipeline",
-        ozet: "Emlak ilanlarını tarayan, mülk sahiplerine WhatsApp üzerinden insan gibi ulaşan ve sıcak müşteriyi danışmanlara dağıtan ciro motoru. 30.000+ mülk sahibine ulaşıldı; ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
+        ozet: "Scraper + WhatsApp outreach + lead dağıtımı; 30.000+ mülk sahibi, 4 ayda +1,5 milyon TL ciro.",
         stack: "Python · Selenium · Node.js · WhatsApp · LLM · SQLite"
       },
       {
         ad: "Quadmate — Konum Bazlı Oyun Arkadaşı Eşleştirme Uygulaması",
-        ozet: "Bir masa ya da etkinlik için eksik oyuncuyu konum bazlı bulmayı sağlayan mobil uygulama; kullanıcılar haritadan yakındaki açık masaları görür, katılır veya kendi masasını açar. Tek başıma geliştirdim, kapalı testte.",
+        ozet: "Haritadan yakındaki açık masaları bulup katılma; kapalı testte.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notification"
       },
       {
         ad: "Gerçek Zamanlı BI & Kiosk Dashboard’u",
-        ozet: "Ofis lobisinde 7/24 dönen TV panosu ve yönetim paneli: 40+ danışmanın anlık satış yarışı, ofis cirosu ve canlı döviz/altın/kripto kurları. 215 gerçek işlem verisiyle canlı çalıştı.",
+        ozet: "40+ danışmanın canlı satış panosu; haftalık raporlama 8 saatten 5 saniyeye indi.",
         stack: "React · Express · SQLite (WAL) · TanStack Query · Google Sheets API"
       },
       {
         ad: "Otomasyon & Yönetim Paneli — Hibrit RPA Paketi",
-        ozet: "Tekrarlayan kayıt ve doğrulama işlerini yürüten otomasyon paketi. Hibrit request/browser mimarisiyle kaynak tüketimini düşürür, sunucu yanıtına göre eşzamanlılığını kendi ayarlar.",
+        ozet: "Request/browser karışık mimari; eşzamanlılığını sunucu yanıtına göre kendi ayarlar.",
         stack: "Node.js · Express · Puppeteer · worker_threads · Cloudflare Tunnel"
       }
     ],
 
     diger: [
-      { ad: "Kripto Strateji Botu", metin: "Yalnızca Python standart kütüphanesiyle yazdığım zamanlanmış strateji botu ve kontrol paneli; kaldıraç, TP/SL ve pozisyon boyutu ayarları, canlı PnL akışı. Paper-trading modunda müşteriye canlı sundum." },
-      { ad: "Telegram İş Botu", metin: "Belirlenen kaynakları 7/24 izleyip koşul sağlandığında inline klavye ile tek dokunuşluk aksiyon sunan bildirim botunu Oracle Cloud üzerinde yayına aldım." },
-      { ad: "Kurumsal Web & Hosting", metin: "CleanHome ve Nilbaşak için kurumsal siteleri; SSL, teklif formu, SMTP/HTTP e-posta entegrasyonu ve SEO temelleriyle teslim ettim — teslimden bu yana kesintisiz yayında." }
+      { ad: "Kripto Strateji Botu", metin: "Zamanlanmış strateji botu ve kontrol paneli; kaldıraç, TP/SL ve pozisyon takibi (Python, borsa API)." },
+      { ad: "Telegram İş Botu", metin: "Kaynakları 7/24 izleyip koşul sağlandığında tek dokunuşluk aksiyon sunan bildirim botu." },
+      { ad: "Kurumsal Web & Hosting", metin: "CleanHome ve Nilbaşak kurumsal siteleri; SSL, teklif formu, SMTP entegrasyonu, SEO." }
     ]
+
   },
 
   /* ==========================================================================
@@ -200,7 +198,7 @@ window.CV_DATA = {
   en: {
     unvan: "Software Engineer | AI & Automation · Backend · Mobile",
 
-    ozet: "Software Engineer with 5+ years of experience building end-to-end products for the logistics and real estate industries, delivered under a SaaS model. I build autonomous AI agents (LangChain/LangGraph), high-scale web scraping pipelines, React Native mobile apps, and real-time BI dashboards. Two of my products are live on Google Play and the App Store, and every system I ship runs 24/7 on Linux VDS infrastructure I manage myself, with no dependency on no-code platforms. I design architectures that automate 90% of manual workflows, enforce SLAs automatically, and apply FinOps principles to LLM cost control — one system generated +1.5M TL in net revenue within 4 months.",
+    ozet: "Software engineer, 5+ years. Python · FastAPI backend, autonomous AI agents with LangChain/LangGraph, React Native mobile apps and real-time BI. Two apps live on Google Play and the App Store; the automations I built generated +1.5M TL net revenue for an office in 4 months.",
 
     etiketler: {
       ozet: "Professional Summary",
@@ -241,11 +239,9 @@ window.CV_DATA = {
         rol: "Software Engineer (AI, Backend & Mobile)",
         tarih: "11/2025 – Present",
         maddeler: [
-          "Build AI agents, data pipelines and mobile apps for SMEs and institutions; own the delivery from architecture to release.",
-          { baslik: "Tırdaş", metin: "AI-powered logistics SaaS, WhatsApp bot and mobile app — live on Google Play and the App Store." },
-          { baslik: "Quadmate", metin: "Shipped a location-based matchmaking app end to end." },
-          "Corporate web, hosting and SEO work; productized a resellable “Ready Solutions” line.",
-          "Automated 90% of clients’ manual data entry: an 8-hour weekly workload now takes 5 seconds."
+          "AI agents, data pipelines and mobile apps; end-to-end delivery from architecture to release.",
+          { baslik: "Tırdaş", metin: "Logistics SaaS, WhatsApp bot and mobile app — live on both stores." },
+          "Automated 90% of manual data entry: an 8-hour weekly workload now takes 5 seconds."
         ]
       },
       {
@@ -253,10 +249,9 @@ window.CV_DATA = {
         rol: "AI & Automation Programmer",
         tarih: "09/2024 – 10/2025",
         maddeler: [
-          "Joined as an agent; the automations I wrote were noticed and I moved into the AI & Automation role within 2 months.",
-          "Built the “TrueMax” ecosystem solo: anti-ban scraper, SLA lead dispatcher, AI outreach orchestrator.",
-          "Grew the client portfolio by 60%+ and branch revenue by 40%+; +1.5M TL net revenue in 4 months.",
-          "Built the live BI board tracking 40+ agents; weekly reporting went from 8 hours to 5 seconds."
+          "Moved from agent to AI & Automation Programmer within 2 months.",
+          "Built the TrueMax ecosystem solo: scraper, SLA lead dispatcher, AI outreach.",
+          "Portfolio +60%, revenue +40%; +1.5M TL in 4 months. Reporting: 8 hours to 5 seconds."
         ]
       },
       {
@@ -264,8 +259,8 @@ window.CV_DATA = {
         rol: "Data & Software Developer",
         tarih: "04/2024 – 08/2024",
         maddeler: [
-          "Developed Python automations for data processing and reporting; the team consistently beat weekly targets.",
-          "Promoted from intern to Data & Software Developer within two months on delivery performance."
+          "Developed Python automations for data processing and reporting.",
+          "Promoted from intern to Data & Software Developer within two months."
         ]
       },
       {
@@ -273,7 +268,7 @@ window.CV_DATA = {
         rol: "Python Developer",
         tarih: "03/2020 – 01/2024",
         maddeler: [
-          "Built backend automation scripts and web scrapers for e-commerce clients and maintained the systems I delivered."
+          "Built backend automation scripts and web scrapers for e-commerce clients."
         ]
       }
     ],
@@ -306,40 +301,41 @@ window.CV_DATA = {
     projeler: [
       {
         ad: "Tırdaş — AI-Powered Logistics SaaS, Mobile App & WhatsApp Bot",
-        ozet: "An autonomous dispatch ops-center connecting carriers with truck drivers: a driver asks for freight in plain language, the system matches the best load, tracks route and expenses, and escalates unresolved cases to a live operator. Built solo; the mobile app is live on Google Play and the App Store.",
+        ozet: "Freight matching, route and expense tracking; mobile app live on Google Play and the App Store.",
         stack: "Python · FastAPI · LangGraph · PostgreSQL · React Native (Expo) · Meta Cloud API · PM2"
       },
       {
         ad: "BOCU BC-01 — Pump Protection & Remote Control System",
-        ozet: "An IoT system that monitors, protects and remotely controls three-phase irrigation pumps. Protection is decided on the device: the motor stays protected even when connectivity drops. Server and mobile side are mine, device firmware is external. Overcurrent and phase-loss protection verified on a real pump in the field; product in closed testing.",
+        ozet: "IoT protection and remote control for three-phase pumps; decided on-device, safe without connectivity.",
         stack: "Python · FastAPI · MQTT (EMQX) · Supabase (RLS) · React Native (Expo) · NB-IoT"
       },
       {
         ad: "TrueMax.ai — AI Lead Generation & Outreach Pipeline",
-        ozet: "A revenue engine that scrapes property listings, reaches owners with human-like WhatsApp outreach and distributes warm leads to agents. 30,000+ owners reached; generated +1.5M TL net revenue for the office in 4 months.",
+        ozet: "Scraper + WhatsApp outreach + lead distribution; 30,000+ owners reached, +1.5M TL in 4 months.",
         stack: "Python · Selenium · Node.js · WhatsApp · LLM · SQLite"
       },
       {
         ad: "Quadmate — Location-Based Gaming Partner Matchmaking App",
-        ozet: "A mobile app for finding the missing player for a table or event nearby: users browse open tables on a map, join them, or open their own. Built solo, currently in closed testing.",
+        ozet: "Find and join open tables nearby from a map; in closed testing.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notifications"
       },
       {
         ad: "Real-Time BI & Kiosk Dashboard",
-        ozet: "A 24/7 lobby TV board and management panel: live sales race across 40+ agents, office revenue and live currency/gold/crypto rates. Ran in production on 215 real transactions.",
+        ozet: "Live sales board for 40+ agents; weekly reporting cut from 8 hours to 5 seconds.",
         stack: "React · Express · SQLite (WAL) · TanStack Query · Google Sheets API"
       },
       {
         ad: "Automation & Management Panel — Hybrid RPA Suite",
-        ozet: "An automation suite handling repetitive registration and verification work. A hybrid request/browser architecture keeps resource usage low and it tunes its own concurrency based on server response.",
+        ozet: "Hybrid request/browser architecture; tunes its own concurrency from server response.",
         stack: "Node.js · Express · Puppeteer · worker_threads · Cloudflare Tunnel"
       }
     ],
 
     diger: [
-      { ad: "Crypto Strategy Bot", metin: "A scheduled strategy bot and control panel written using only the Python standard library — leverage, TP/SL, and position sizing controls with a live PnL feed; demoed to the client in paper-trading mode." },
-      { ad: "Telegram Ops Bot", metin: "Deployed a notification bot on Oracle Cloud that monitors defined sources 24/7 and surfaces one-tap inline-keyboard actions when conditions are met." },
-      { ad: "Corporate Web & Hosting", metin: "Delivered corporate sites for CleanHome and Nilbaşak with SSL, quote forms, SMTP/HTTP mail integration, and SEO foundations — running uninterrupted since delivery." }
+      { ad: "Crypto Strategy Bot", metin: "Scheduled strategy bot and control panel; leverage, TP/SL and position tracking (Python, exchange API)." },
+      { ad: "Telegram Work Bot", metin: "Watches sources 24/7 and offers one-tap actions via inline keyboard when conditions are met." },
+      { ad: "Corporate Web & Hosting", metin: "Corporate sites for CleanHome and Nilbaşak; SSL, quote form, SMTP integration, SEO." }
     ]
+
   }
 };
