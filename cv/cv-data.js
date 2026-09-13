@@ -37,7 +37,7 @@ window.CV_DATA = {
 
   kisisel: {
     ad: "Bulut Emre Sakarya",
-    telefon: "+90 544 123 95 24",
+    telefon: "+90 540 001 05 95",
     eposta: "sbulutemre@gmail.com",
     konum: { tr: "Kartepe / Kocaeli, Türkiye", en: "Kartepe / Kocaeli, Türkiye" },
     site: "bulutemresakarya.github.io",
