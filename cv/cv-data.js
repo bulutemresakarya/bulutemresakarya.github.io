@@ -132,12 +132,6 @@ window.CV_DATA = {
         bolum: "Yönetim Bilişim Sistemleri (Lisans, Açık Öğretim)",
         tarih: "2025 – Devam",
         notlar: ["2025–2026 Öğretim Yılı Bahar Dönemi Onur Belgesi"]
-      },
-      {
-        kurum: "Dokuz Eylül Üniversitesi",
-        bolum: "Fizik (Lisans, kısmi eğitim)",
-        tarih: "2021 – 2023",
-        notlar: []
       }
     ],
 
@@ -279,12 +273,6 @@ window.CV_DATA = {
         bolum: "B.S. in Management Information Systems (Open Education)",
         tarih: "2025 – Present",
         notlar: ["Honor Certificate — Spring Semester, 2025–2026 Academic Year"]
-      },
-      {
-        kurum: "Dokuz Eylül University",
-        bolum: "Undergraduate Studies in Physics (partial coursework)",
-        tarih: "2021 – 2023",
-        notlar: []
       }
     ],
 
