@@ -294,57 +294,11 @@
   .stack-cell p{font-size:14px;color:var(--ink-soft)}
   @media(max-width:720px){.stack-grid{grid-template-columns:1fr}}
 
-  /* Pano: belgeler duvara raptiyeyle asilmis gibi, her biri biraz egik */
-  .pano{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));
-    gap:28px 20px;padding:32px 24px 36px;border:1px solid var(--line);border-radius:6px;
-    background:
-      linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),
-      repeating-linear-gradient(45deg,rgba(20,31,42,.05) 0 2px,transparent 2px 7px),
-      repeating-linear-gradient(-45deg,rgba(20,31,42,.05) 0 2px,transparent 2px 7px),
-      var(--card);
-    box-shadow:inset 0 3px 16px rgba(20,31,42,.07)}
-  .cert{position:relative;display:block;--ton:#1746D1;--kagit:#FFFFFF;--damga:var(--ton);
-    background:var(--kagit);border:1px solid var(--line);border-top:3px solid var(--ton);border-radius:2px;
-    padding:22px 16px 16px;box-shadow:0 7px 16px rgba(20,31,42,.11);
-    transform:rotate(var(--egim,0deg));transition:transform .22s ease,box-shadow .22s ease}
-  .cert::before{content:"";position:absolute;top:-7px;left:50%;margin-left:-7px;width:14px;height:14px;
-    border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.8),var(--ton) 62%);
-    box-shadow:0 3px 5px rgba(20,31,42,.32);z-index:1}
-
-  /* kurum renkleri: belgelerin kendi tonlarindan */
-  .cert.c-meb{--ton:#8C7B68;--kagit:#FFFCF5;--damga:#9E2B2B}
-  .cert.c-btk{--ton:#123A72;--kagit:#F7F9FD;--damga:#B58A2B}
-  .cert.c-bogazici{--ton:#2F4A55;--kagit:#F8FAFA;--damga:#A98230}
-  .cert.c-anadolu{--ton:#2C6BA8;--kagit:#F9FBFD;--damga:#9E2B2B}
-  .cert.c-aws{--ton:#232F3E;--kagit:#F6FBF9;--damga:#D9770B;
-    background:linear-gradient(165deg,#E9F6F0,#EEF3FD 45%,#FFFFFF 78%)}
-  .cert.c-tnc{--ton:#8B1F2A;--kagit:#FFFAFA;--damga:#8B1F2A}
-  /* MEB ve Anadolu belgelerindeki cerceve, TNC'nin kirmizi kosesi, BTK'nin altin seridi */
-  .cert.c-meb::after,.cert.c-anadolu::after{content:"";position:absolute;inset:6px;pointer-events:none;
-    border:1px solid rgba(140,123,104,.34)}
-  .cert.c-anadolu::after{border-color:rgba(158,43,43,.22)}
-  .cert.c-btk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
-    background:linear-gradient(90deg,#123A72,#B58A2B)}
-  .cert.c-tnc::after{content:"";position:absolute;top:0;right:0;border-style:solid;border-width:0 18px 18px 0;
-    border-color:transparent #8B1F2A transparent transparent}
-  .cert:nth-child(4n+1){--egim:-1.4deg}
-  .cert:nth-child(4n+2){--egim:1.1deg}
-  .cert:nth-child(4n+3){--egim:-.7deg}
-  .cert:nth-child(4n+4){--egim:1.7deg}
-  .cert:hover{transform:rotate(0deg) translateY(-5px);box-shadow:0 16px 26px rgba(20,31,42,.16);z-index:2}
-  .cert .c-logo{display:block;height:24px;width:auto;max-width:calc(100% - 58px);margin-bottom:14px;mix-blend-mode:multiply}
-  .cert .c-name{font-weight:600;font-size:14.5px;line-height:1.35}
-  .cert .c-org{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ton);margin-top:7px;opacity:.85}
-  .cert .c-year{position:absolute;top:12px;right:13px;display:inline-block;margin-top:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
-    color:var(--damga);border:1px solid var(--damga);border-radius:2px;padding:2px 7px;white-space:nowrap}
-  /* katlanir pano: ilk alti belge asili, gerisi dugmeyle iner */
-  .pano:not(.acik) .cert:nth-child(n+4){display:none}
   .pano-dugme,.daha-dugme{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
     color:var(--ink);background:var(--card);border:1px solid var(--line);padding:9px 18px;cursor:pointer;
     transition:border-color .15s,color .15s}
   .pano-dugme:hover,.daha-dugme:hover{border-color:var(--cobalt);color:var(--cobalt)}
   .pano-dugme:focus-visible,.daha-dugme:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
-  @media(max-width:520px){.pano{padding:26px 16px 30px;gap:24px 14px}}
 
   .contact{padding:64px 0 80px;border-bottom:none}
   .contact-inner{border:1px solid var(--ink);background:var(--card);padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -386,15 +340,12 @@
 
   @media (prefers-reduced-motion: reduce){
     html.anim .reveal{opacity:1;transform:none;transition:none}
-    .cert{transition:none}
-    .cert:hover{transform:rotate(var(--egim,0deg))}
     .btn:hover{transform:none}
     .prog{display:none}
   }
 </style>
 </head>
 <body>
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 <div class="topbar">
   <div class="wrap">
     <div class="brand"><img class="brandlogo" src="/favicon.svg" alt="" width="20" height="20"><b>~/</b>bescript <span style="color:var(--ink-soft)">· ai-otomasyon</span></div>
@@ -402,7 +353,7 @@
       <a href="#projeler">projeler</a>
       <a href="#cozumler">çözümler</a>
       <a href="/vaka-analizi/">vaka analizi</a>
-      <a href="#sertifikalar">sertifikalar</a>
+      <a href="/hakkinda/">hakkımda</a>
       <a href="/cv/">cv</a>
       <a href="#iletisim">iletişim</a>
     </nav>
@@ -748,33 +699,6 @@
   </div>
 </section>
 
-<section id="sertifikalar">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Sertifikalar & Eğitim</h2>
-      <span class="sec-note">anadolu üniv. yönetim bilişim sistemleri, 2026</span>
-    </div>
-    <div class="pano" id="pano">
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Python ile Yapay Zekâya Giriş</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-aws"><img class="c-logo" src="/assets/logo/sertifika/aws.svg" alt="AWS" width="40" height="24" loading="lazy"><div><div class="c-name">AWS Certified Cloud Practitioner (CLF-C02) — Resmî Uygulama Soru Seti</div><div class="c-org">AWS Training &amp; Certification</div></div><span class="c-year">2025</span></div>
-      <div class="cert c-anadolu"><img class="c-logo" src="/assets/logo/sertifika/anadolu.svg" alt="Anadolu Üniversitesi" width="103" height="24" loading="lazy"><div><div class="c-name">Bilgi Sistemi Tasarımı Sertifika Programı</div><div class="c-org">Anadolu Üniversitesi · SEM</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-bogazici"><img class="c-logo" src="/assets/logo/sertifika/bogazici.png" alt="Boğaziçi Enstitüsü" width="101" height="24" loading="lazy"><div><div class="c-name">JavaScript Eğitimi (30 saat)</div><div class="c-org">Boğaziçi Enstitüsü</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Nesneye Dayalı Programlama (Python)</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Bilgisayar İşletmenliği (Operatörlüğü)</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-anadolu"><img class="c-logo" src="/assets/logo/sertifika/anadolu.svg" alt="Anadolu Üniversitesi" width="103" height="24" loading="lazy"><div><div class="c-name">Onur Belgesi — YBS, Bahar Dönemi</div><div class="c-org">Anadolu Üniversitesi</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Nesnelerin İnterneti (Temel Seviye)</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Robot Uygulamaları</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">İş Sağlığı ve Güvenliği</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
-      <div class="cert c-btk"><img class="c-logo" src="/assets/logo/sertifika/btk.png" alt="BTK Akademi" width="66" height="24" loading="lazy"><div><div class="c-name">Müşteriyi Tanımak</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
-      <div class="cert c-btk"><img class="c-logo" src="/assets/logo/sertifika/btk.png" alt="BTK Akademi" width="66" height="24" loading="lazy"><div><div class="c-name">İletişim ve Network Yönetimi</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
-      <div class="cert c-btk"><img class="c-logo" src="/assets/logo/sertifika/btk.png" alt="BTK Akademi" width="66" height="24" loading="lazy"><div><div class="c-name">Etkili İletişim Stratejileri</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
-      <div class="cert c-btk"><img class="c-logo" src="/assets/logo/sertifika/btk.png" alt="BTK Akademi" width="66" height="24" loading="lazy"><div><div class="c-name">Yapay Zekâ Etiği</div><div class="c-org">BTK Akademi</div></div><span class="c-year">2025</span></div>
-      <div class="cert c-tnc"><img class="c-logo" src="/assets/logo/sertifika/tnc.png" alt="Europäisches Bildungsinstitut" width="92" height="24" loading="lazy"><div><div class="c-name">Bilgi Teknolojileri Stajı (Python, Excel, Photoshop, AutoCAD)</div><div class="c-org">TNC Group · Europäisches Bildungsinstitut</div></div><span class="c-year">2025</span></div>
-    </div>
-    <button class="pano-dugme" type="button" aria-expanded="false" aria-controls="pano">tümünü göster</button>
-  </div>
-</section>
-
 <section id="iletisim" class="contact">
   <div class="wrap">
     <div class="contact-inner">
@@ -861,7 +785,7 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 
   /* bolumlerin belirmesi */
   var hedefler=[].slice.call(document.querySelectorAll(
-    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.katalog,.stack-cell,.pano,.manifest,.contact-inner"
+    ".hero-eyebrow,.hero h1,.hero-sub,.hero-strip,.sec-head,.acc-item,.sol,.katalog,.stack-cell,.manifest,.contact-inner"
   ));
   hedefler.forEach(function(el){ el.classList.add("reveal"); });
 
@@ -1043,22 +967,6 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 })();
 </script>
 
-<script>
-/* Sertifika panosu: ilk alti belge asili durur, gerisi dugmeyle iner */
-(function(){
-  var pano=document.getElementById("pano");
-  var dugme=document.querySelector(".pano-dugme");
-  if(!pano||!dugme) return;
-  var gizli=pano.querySelectorAll(".cert").length-3;
-  if(gizli<1){ dugme.parentNode.removeChild(dugme); return; }
-  function yaz(acik){
-    dugme.textContent=acik?"daha az göster":"tümünü göster (+"+gizli+")";
-    dugme.setAttribute("aria-expanded",acik?"true":"false");
-  }
-  yaz(false);
-  dugme.addEventListener("click",function(){ yaz(pano.classList.toggle("acik")); });
-})();
-</script>
 
 <script>
 /* Proje filtresi ve "ilk uc proje" siniri.
@@ -1123,6 +1031,46 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 
   ciz();
 })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "BeScript",
+  "alternateName": "BeScript — AI Otomasyon & Backend",
+  "description": "AI otomasyon ve backend gelistirme: WhatsApp botlari, agentic sistemler, dashboard'lar ve ozel yazilim cozumleri.",
+  "url": "https://bescript.com.tr/",
+  "image": "https://bescript.com.tr/og-image.png",
+  "email": "mailto:sbulutemre@gmail.com",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kartepe",
+    "addressRegion": "Kocaeli",
+    "addressCountry": "TR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Kartepe" },
+    { "@type": "AdministrativeArea", "name": "Kocaeli" },
+    { "@type": "Country", "name": "Turkiye" }
+  ],
+  "knowsLanguage": ["tr", "en"],
+  "founder": {
+    "@type": "Person",
+    "name": "Bulut Emre Sakarya",
+    "jobTitle": "Yazilim Gelistirici",
+    "url": "https://bescript.com.tr/hakkinda/",
+    "sameAs": [
+      "https://www.linkedin.com/in/bulut-sakarya",
+      "https://github.com/bulutemresakarya",
+      "https://bionluk.com/bulutemresakarya"
+    ]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/bulut-sakarya",
+    "https://github.com/bulutemresakarya"
+  ]
+}
 </script>
 </body>
 </html>
