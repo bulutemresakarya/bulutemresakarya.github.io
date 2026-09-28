@@ -40,7 +40,7 @@ window.CV_DATA = {
     telefon: "+90 540 001 05 95",
     eposta: "sbulutemre@gmail.com",
     konum: { tr: "Kartepe / Kocaeli, Türkiye", en: "Kartepe / Kocaeli, Türkiye" },
-    site: "bulutemresakarya.github.io",
+    site: "bescript.com.tr",
     linkedin: "linkedin.com/in/bulut-sakarya",
     github: "github.com/bulutemresakarya"
   },
@@ -71,7 +71,7 @@ window.CV_DATA = {
       guncellemeOn: "Son güncelleme",
       geri: "ana sayfa",
       etiket: "ÖZGEÇMİŞ",
-      altNot: "Tüm interaktif demolar ve teknik vaka analizleri: bulutemresakarya.github.io"
+      altNot: "Tüm interaktif demolar ve teknik vaka analizleri: bescript.com.tr"
     },
 
     beceriler: [
@@ -212,7 +212,7 @@ window.CV_DATA = {
       guncellemeOn: "Last updated",
       geri: "home",
       etiket: "CURRICULUM VITAE",
-      altNot: "All interactive demos and technical case studies: bulutemresakarya.github.io"
+      altNot: "All interactive demos and technical case studies: bescript.com.tr"
     },
 
     beceriler: [
