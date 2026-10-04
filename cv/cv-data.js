@@ -163,7 +163,7 @@ window.CV_DATA = {
       },
       {
         ad: "Quadmate — Konum Bazlı Oyun Arkadaşı Eşleştirme Uygulaması",
-        ozet: "Haritadan yakındaki açık masaları bulup katılma; kapalı testte.",
+        ozet: "Haritadan yakındaki açık masaları bulup katılma; Google Play’de yayında.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notification"
       },
       {
@@ -304,7 +304,7 @@ window.CV_DATA = {
       },
       {
         ad: "Quadmate — Location-Based Gaming Partner Matchmaking App",
-        ozet: "Find and join open tables nearby from a map; in closed testing.",
+        ozet: "Find and join open tables nearby from a map; live on Google Play.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notifications"
       },
       {
