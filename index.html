@@ -283,10 +283,20 @@
      verip dolguyu negatif margin ile geri aliyoruz. */
   .badge-google{height:52px;margin:-6px 0}
   @media(max-width:720px){
-    /* Mobilde butonlar tam genislige yayilir, alt alta dizilir */
-    .row-link{flex-direction:column;align-items:stretch;width:100%}
-    /* Rozetler gerilmemeli, kendi boyutlarinda ortalanir */
-    .row-link .badge{align-self:center}
+    /* Mobilde tek hizalama mantigi: her buton kendi satirinda tam genislik,
+       iki magaza rozeti ise alta tek satirda yan yana ve ortali gelir.
+       Rozetleri tek tek ortalamak, farkli genislikte olduklari icin
+       sayfayi tirtikli gosteriyordu. */
+    .row-link{flex-direction:row;flex-wrap:wrap;align-items:center;
+      justify-content:center;width:100%;gap:10px}
+    .row-link .btn{flex:0 0 100%}
+    .row-link .badge{flex:0 0 auto}
+  }
+  /* Cok dar ekranlarda iki rozet yan yana sigsin diye biraz kuculur;
+     Google rozetinin seffaf dolgu orani korunur. */
+  @media(max-width:380px){
+    .badge-apple{height:36px}
+    .badge-google{height:47px;margin:-5px 0}
   }
   .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .stack-cell{background:var(--card);padding:20px 22px}
