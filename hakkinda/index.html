@@ -137,7 +137,7 @@
   .cert .c-year{position:absolute;top:12px;right:13px;display:inline-block;margin-top:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
     color:var(--damga);border:1px solid var(--damga);border-radius:2px;padding:2px 7px;white-space:nowrap}
   /* katlanir pano: ilk alti belge asili, gerisi dugmeyle iner */
-  .pano:not(.acik) .cert:nth-child(n+4){display:none}
+  .pano:not(.acik) .cert:nth-child(n+6){display:none}
   .pano-dugme{display:block;margin:16px auto 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
     padding:9px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
     cursor:pointer;transition:border-color .15s,color .15s}
@@ -259,7 +259,7 @@
   var pano=document.getElementById("pano");
   var dugme=document.querySelector(".pano-dugme");
   if(!pano||!dugme) return;
-  var gizli=pano.querySelectorAll(".cert").length-3;
+  var gizli=pano.querySelectorAll(".cert").length-5;
   if(gizli<1){ dugme.parentNode.removeChild(dugme); return; }
   function yaz(acik){
     dugme.textContent=acik?"daha az göster":"tümünü göster (+"+gizli+")";
