@@ -719,7 +719,7 @@
         <a class="btn btn-wa" href="https://wa.me/905400010595?text=Merhaba%2C%20bir%20proje%20hakk%C4%B1nda%20konu%C5%9Fmak%20istiyorum." target="_blank" rel="noopener">WhatsApp 💬</a>
         <a class="btn btn-primary" href="https://www.linkedin.com/in/bulut-sakarya" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn btn-primary" href="https://bionluk.com/bulutemresakarya" target="_blank" rel="noopener">Bionluk ↗</a>
-        <a class="btn" href="/cv/">Özgeçmiş</a>
+        <a class="btn" href="/hakkinda/">Hakkımda</a>
         <a class="btn" href="mailto:sbulutemre@gmail.com">E-posta</a>
       </div>
     </div>
@@ -978,8 +978,8 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
 
 
 <script>
-/* Proje filtresi ve "ilk uc proje" siniri.
-   Sinir secili kategoriye gore isler: mobil filtresinde de once uc proje gorunur,
+/* Proje filtresi ve "ilk bes proje" siniri.
+   Sinir secili kategoriye gore isler: mobil filtresinde de once bes proje gorunur,
    dugme kalan sayisini yazar. Filtre degisince liste yeniden toplanir. */
 (function(){
   var kutu=document.querySelector(".filtreler");
@@ -989,7 +989,7 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
   var dugmeler=[].slice.call(kutu.querySelectorAll(".filtre"));
   if(!ogeler.length) return;
 
-  var SINIR=3, acik=false, secili="hepsi";
+  var SINIR=5, acik=false, secili="hepsi";
 
   function uyar(oge,tur){
     return tur==="hepsi" || oge.getAttribute("data-tur").split(" ").indexOf(tur)>=0;

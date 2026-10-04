@@ -90,8 +90,16 @@
   .sec-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
 
   /* ---------- linkedin ---------- */
-  .li-kutu{border:1px solid var(--line);background:var(--card);padding:22px;
-    display:flex;justify-content:center}
+  .profil-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .profil{border:1px solid var(--line);background:var(--card);padding:16px 18px;
+    display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);
+    transition:border-color .15s,transform .15s}
+  .profil:hover{border-color:var(--cobalt);transform:translateY(-2px)}
+  .profil:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  .profil-ad{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:16px}
+  .profil-not{font-size:13.5px;color:var(--ink-soft);line-height:1.45}
+  .profil-ok{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--cobalt);
+    margin-top:2px;word-break:break-all}
 
   /* Pano: belgeler duvara raptiyeyle asilmis gibi, her biri biraz egik */
   .pano{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));
@@ -218,16 +226,28 @@
     </div>
   </section>
 
-  <section id="linkedin">
+  <section id="profiller">
     <div class="wrap">
       <div class="sec-head">
-        <h2>LinkedIn</h2>
-        <span class="sec-note">profil özeti</span>
+        <h2>Profiller</h2>
+        <span class="sec-note">nerede bulabilirsin</span>
       </div>
-      <div class="li-kutu">
-        <div class="badge-base LI-profile-badge" data-locale="tr_TR" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="bulut-sakarya" data-version="v1">
-          <a class="badge-base__link LI-simple-link" href="https://tr.linkedin.com/in/bulut-sakarya?trk=profile-badge" target="_blank" rel="noopener">Bulut Emre Sakarya</a>
-        </div>
+      <div class="profil-izgara">
+        <a class="profil" href="https://www.linkedin.com/in/bulut-sakarya" target="_blank" rel="noopener">
+          <span class="profil-ad">LinkedIn</span>
+          <span class="profil-not">AI &amp; Automation Engineer · Backend Developer</span>
+          <span class="profil-ok">linkedin.com/in/bulut-sakarya &#8599;</span>
+        </a>
+        <a class="profil" href="https://github.com/bulutemresakarya" target="_blank" rel="noopener">
+          <span class="profil-ad">GitHub</span>
+          <span class="profil-not">Açık kaynak depolar ve bu sitenin kaynağı</span>
+          <span class="profil-ok">github.com/bulutemresakarya &#8599;</span>
+        </a>
+        <a class="profil" href="https://bionluk.com/bulutemresakarya" target="_blank" rel="noopener">
+          <span class="profil-ad">Bionluk</span>
+          <span class="profil-not">Freelance iş ilanları ve müşteri yorumları</span>
+          <span class="profil-ok">bionluk.com/bulutemresakarya &#8599;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -240,7 +260,6 @@
   </div>
 </footer>
 
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 <script>
 /* Mobil menu */
 (function(){
