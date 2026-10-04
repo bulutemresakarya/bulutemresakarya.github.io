@@ -73,6 +73,11 @@
   @media(max-width:520px){.hero{padding:24px 0 34px}.hero-eyebrow{margin-bottom:14px}}
   .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cobalt);letter-spacing:.06em;margin-bottom:20px}
   h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118;font-weight:850;font-size:clamp(34px,6vw,58px);line-height:1.04;letter-spacing:-.015em;max-width:16ch}
+  /* Dar ekranda baslik genisletilmis eksende tasiyordu; wdth daraltilip
+     olcek asagi cekiliyor ki sayfa yatay tasmasin. */
+  @media(max-width:560px){
+    h1{font-variation-settings:'wdth' 100;font-size:clamp(27px,8.2vw,40px);max-width:none}
+  }
   h1 .accent{color:var(--cobalt)}
   .hero-sub{margin-top:22px;max-width:56ch;color:var(--ink-soft);font-size:17px}
   .hero-strip{margin-top:36px;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card)}
@@ -373,11 +378,11 @@
 
 <header class="hero">
   <div class="wrap">
-    <p class="hero-eyebrow">AI OTOMASYON · BACKEND · KARTEPE / KOCAELİ</p>
-    <h1>Manuel değil,<br><span class="accent">otonom sistemler kuruyorum.</span></h1>
-    <p class="hero-sub">BeScript — Bulut Emre Sakarya'nın AI otomasyon ve backend stüdyosu.
-    WhatsApp botları, agentic sistemler, dashboard'lar ve özel otomasyonlar kuruyorum; kurduğum
-    sistemler 7/24 canlı çalışıyor. Aşağıdaki demolar gerçek sistemlerin canlandırması; hangisinin sahada çalıştığı kartlardaki durum etiketinde yazıyor.</p>
+    <p class="hero-eyebrow">MOBİL UYGULAMA · AI OTOMASYON · IoT · KARTEPE / KOCAELİ</p>
+    <h1>Fikirden mağazaya,<br><span class="accent">uçtan uca.</span></h1>
+    <p class="hero-sub">BeScript — mobil uygulama, AI otomasyon ve IoT sistemleri geliştiren
+    bir yazılım stüdyosu. Tasarım, backend, mağaza yayını ve sonrası aynı elden çıkar.
+    Geliştirdiğimiz üç uygulama Google Play ve App Store'da yayında; kurduğumuz sistemler sahada 7/24 çalışıyor.</p>
     <div class="hero-strip" role="list" aria-label="Özet istatistikler">
       <div class="stat" role="listitem"><div class="num">7</div><div class="lbl">ürün · canlı + demo</div></div>
       <div class="stat" role="listitem"><div class="num">30K+</div><div class="lbl">tek sistemle ulaşılan müşteri</div></div>
@@ -391,7 +396,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Projeler</h2>
-      <span class="sec-note">filtrele · başlığa dokun, detaylar açılır</span>
+      <span class="sec-note">filtrele · başlığa dokun · demolar gerçek sistemlerin canlandırması</span>
     </div>
     <div class="filtreler" role="group" aria-label="Proje filtresi">
       <button class="filtre secili" type="button" data-filtre="hepsi" aria-pressed="true">tümü</button>
@@ -557,7 +562,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Hazır Çözümler</h2>
-      <span class="sec-note">size de kurabilirim — dene, beğen, sipariş ver</span>
+      <span class="sec-note">size de kurarız — dene, beğen, sipariş ver</span>
     </div>
     <div class="katalog vitrin" data-katalog data-akis>
       <button class="kat-ok geri" type="button" aria-label="Önceki sayfa">‹</button>
@@ -625,7 +630,7 @@
       <div class="sol">
         <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="2.5"/><circle cx="18.5" cy="5.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M7.8 10.8 16.2 6.6M7.8 13.2l8.4 4.2"/></svg></div>
         <h3>Entegrasyon & Otomasyon</h3>
-        <p>"Form doldu, CRM'e yazıldı, WhatsApp onayı gitti, rapor düştü." Kullandığınız araçları birbirine bağlar, elle taşınan her işi otomatiğe alırım.</p>
+        <p>"Form doldu, CRM'e yazıldı, WhatsApp onayı gitti, rapor düştü." Kullandığınız araçları birbirine bağlar, elle taşınan her işi otomatiğe alırız.</p>
      
         <div class="sol-btns">
           <a class="btn btn-primary" href="cozumler/entegrasyon/">Dene →</a>
@@ -697,13 +702,13 @@
 <section id="stack">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Nasıl Çalışıyorum</h2>
+      <h2>Nasıl Çalışıyoruz</h2>
       <span class="sec-note">hazır platform yok, kod var</span>
     </div>
     <div class="stack-grid">
       <div class="stack-cell"><h3>ÇEKİRDEK</h3><p>Python · Node.js · FastAPI · PostgreSQL · LangChain / LangGraph · React Native</p></div>
-      <div class="stack-cell"><h3>ALTYAPI</h3><p>Kendi VDS sunucularım (Oracle Cloud vb.) ve işin gerektirdiği yerde Supabase gibi yönetilen servisler. Hangi servisin aylık ne tuttuğu baştan yazılı; kod ve veri sende kalır, istediğin an taşınır.</p></div>
-      <div class="stack-cell"><h3>YAKLAŞIM</h3><p>Her otomasyon özel yazılmış kod. No-code araç kullanmıyorum; sistemin her satırına hakimim, her şey özelleştirilebilir.</p></div>
+      <div class="stack-cell"><h3>ALTYAPI</h3><p>Kendi VDS sunucularımız (Oracle Cloud vb.) ve işin gerektirdiği yerde Supabase gibi yönetilen servisler. Hangi servisin aylık ne tuttuğu baştan yazılı; kod ve veri sende kalır, istediğin an taşınır.</p></div>
+      <div class="stack-cell"><h3>YAKLAŞIM</h3><p>Her otomasyon özel yazılmış kod. No-code araç kullanmıyoruz; sistemin her satırına hakimiz, her şey özelleştirilebilir.</p></div>
     </div>
   </div>
 </section>

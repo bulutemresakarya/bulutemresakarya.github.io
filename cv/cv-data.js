@@ -128,6 +128,12 @@ window.CV_DATA = {
 
     egitim: [
       {
+        kurum: "Atatürk Üniversitesi",
+        bolum: "Bilgisayar Programcılığı (Ön Lisans, Açık Öğretim)",
+        tarih: "2026 – Devam",
+        notlar: []
+      },
+      {
         kurum: "Anadolu Üniversitesi",
         bolum: "Yönetim Bilişim Sistemleri (Lisans, Açık Öğretim)",
         tarih: "2025 – Devam",
@@ -268,6 +274,12 @@ window.CV_DATA = {
     ],
 
     egitim: [
+      {
+        kurum: "Atatürk University",
+        bolum: "Associate Degree in Computer Programming (Open Education)",
+        tarih: "2026 – Present",
+        notlar: []
+      },
       {
         kurum: "Anadolu University",
         bolum: "B.S. in Management Information Systems (Open Education)",

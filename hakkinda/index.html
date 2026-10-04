@@ -90,6 +90,14 @@
   .sec-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
 
   /* ---------- linkedin ---------- */
+  .egitim-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .egitim{border:1px solid var(--line);background:var(--card);padding:16px 18px;
+    display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--cobalt)}
+  .eg-tarih{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  .eg-bolum{font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100,"wght" 700;font-size:16.5px}
+  .eg-kurum{font-size:13.5px;color:var(--ink-soft)}
+  .eg-not{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--live);margin-top:3px}
   .profil-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
   .profil{border:1px solid var(--line);background:var(--card);padding:16px 18px;
     display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);
@@ -187,8 +195,8 @@
       <p><strong>BeScript</strong>'in arkasındaki geliştiriciyim. AI otomasyon ve backend
       üzerine çalışıyorum: WhatsApp botları, agentic sistemler, dashboard'lar ve özel
       otomasyonlar. Kurduğum sistemler kendi sunucularımda 7/24 canlı çalışıyor.</p>
-      <p>Anadolu Üniversitesi Yönetim Bilişim Sistemleri okuyorum. Aşağıdaki belgeler
-      şimdiye kadar tamamladığım eğitim ve sertifika programları.</p>
+      <p>Açık öğretimde iki programa birden devam ediyorum. Aşağıda eğitim geçmişim
+      ve şimdiye kadar tamamladığım sertifika programları var.</p>
       <div class="baglar">
         <a class="btn" href="/cv/">Özgeçmişi gör</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/bulut-sakarya" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -199,11 +207,33 @@
     </div>
   </div>
 
+  <section id="egitim">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Eğitim</h2>
+        <span class="sec-note">açık öğretim · devam ediyor</span>
+      </div>
+      <div class="egitim-izgara">
+        <div class="egitim">
+          <span class="eg-tarih">2026 — devam</span>
+          <span class="eg-bolum">Bilgisayar Programcılığı</span>
+          <span class="eg-kurum">Atatürk Üniversitesi · Açık Öğretim, Ön Lisans</span>
+        </div>
+        <div class="egitim">
+          <span class="eg-tarih">2025 — devam</span>
+          <span class="eg-bolum">Yönetim Bilişim Sistemleri</span>
+          <span class="eg-kurum">Anadolu Üniversitesi · Açık Öğretim, Lisans</span>
+          <span class="eg-not">2025–2026 Bahar Dönemi Onur Belgesi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="sertifikalar">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Sertifikalar &amp; Eğitim</h2>
-        <span class="sec-note">anadolu üniv. yönetim bilişim sistemleri, 2026</span>
+        <h2>Sertifikalar</h2>
+        <span class="sec-note">tamamlanan programlar</span>
       </div>
 <div class="pano" id="pano">
       <div class="cert c-meb"><img class="c-logo" src="/assets/logo/sertifika/meb.svg" alt="T.C. Millî Eğitim Bakanlığı" width="24" height="24" loading="lazy"><div><div class="c-name">Python ile Yapay Zekâya Giriş</div><div class="c-org">MEB · Hayat Boyu Öğrenme</div></div><span class="c-year">2026</span></div>
