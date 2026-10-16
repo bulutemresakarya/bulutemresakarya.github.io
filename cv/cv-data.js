@@ -51,7 +51,7 @@ window.CV_DATA = {
   tr: {
     unvan: "Yazılım Geliştirici | AI & Otomasyon · Backend · Mobil",
 
-    ozet: "Yazılım geliştirici, 5+ yıl. Python · FastAPI backend, LangChain/LangGraph ile otonom AI ajanları, React Native mobil uygulamalar ve gerçek zamanlı BI. İki uygulama Google Play ve App Store’da yayında; kurduğum otomasyonlar bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
+    ozet: "Yazılım geliştirici, 5+ yıl. Python · FastAPI backend, LangChain/LangGraph ile otonom AI ajanları, React Native mobil uygulamalar ve gerçek zamanlı BI. Üç uygulama Google Play’de, ikisi App Store’da da yayında; kurduğum otomasyonlar bir ofise 4 ayda +1,5 milyon TL net ciro kazandırdı.",
 
     etiketler: {
       ozet: "Profesyonel Özet",
@@ -169,7 +169,7 @@ window.CV_DATA = {
       },
       {
         ad: "Quadmate — Konum Bazlı Oyun Arkadaşı Eşleştirme Uygulaması",
-        ozet: "Haritadan yakındaki açık masaları bulup katılma; Google Play’de yayında.",
+        ozet: "Haritadan yakındaki açık masaları bulup katılma; Google Play ve App Store’da yayında.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notification"
       },
       {
@@ -198,7 +198,7 @@ window.CV_DATA = {
   en: {
     unvan: "Software Developer | AI & Automation · Backend · Mobile",
 
-    ozet: "Software developer, 5+ years. Python · FastAPI backend, autonomous AI agents with LangChain/LangGraph, React Native mobile apps and real-time BI. Two apps live on Google Play and the App Store; the automations I built generated +1.5M TL net revenue for an office in 4 months.",
+    ozet: "Software developer, 5+ years. Python · FastAPI backend, autonomous AI agents with LangChain/LangGraph, React Native mobile apps and real-time BI. Three apps live on Google Play, two of them also on the App Store; the automations I built generated +1.5M TL net revenue for an office in 4 months.",
 
     etiketler: {
       ozet: "Professional Summary",
@@ -316,7 +316,7 @@ window.CV_DATA = {
       },
       {
         ad: "Quadmate — Location-Based Gaming Partner Matchmaking App",
-        ozet: "Find and join open tables nearby from a map; live on Google Play.",
+        ozet: "Find and join open tables nearby from a map; live on Google Play and the App Store.",
         stack: "React Native (Expo) · Supabase · PostGIS · Push Notifications"
       },
       {
