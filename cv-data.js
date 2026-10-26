@@ -89,6 +89,7 @@ window.CV_DATA = {
     deneyim: [
       {
         kurum: "BeScript Yazılım Çözümleri",
+        link: "https://bescript.com.tr",
         rol: "Kurucu · Yazılım Geliştirici (Mobil, AI & Backend)",
         tarih: "11/2025 – Halen",
         maddeler: [
@@ -236,6 +237,7 @@ window.CV_DATA = {
     deneyim: [
       {
         kurum: "BeScript Software Solutions",
+        link: "https://bescript.com.tr",
         rol: "Founder · Software Developer (Mobile, AI & Backend)",
         tarih: "11/2025 – Present",
         maddeler: [
