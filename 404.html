@@ -15,6 +15,13 @@
     text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px}
   a:hover{background:#1746D1;color:#fff}
 </style>
+<script>
+/* Ana adres hicbir zaman 404 olmamali. Bir onbellek eski bir 404'u tutuyorsa
+   (site yeniden derlenirken alinmis olabilir) ziyaretciyi ozgecmise goturur. */
+if (location.pathname === "/" || location.pathname === "") {
+  location.replace("/index.html" + location.search + location.hash);
+}
+</script>
 </head>
 <body>
 <div>
