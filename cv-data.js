@@ -71,7 +71,7 @@ window.CV_DATA = {
       guncellemeOn: "Son güncelleme",
       geri: "ana sayfa",
       etiket: "ÖZGEÇMİŞ",
-      altNot: "Tüm interaktif demolar ve teknik vaka analizleri: bescript.com.tr"
+      altNot: "Teknik vaka analizleri: bulutemresakarya.github.io/vaka-analizi · İnteraktif demolar: bescript.com.tr"
     },
 
     beceriler: [
@@ -218,7 +218,7 @@ window.CV_DATA = {
       guncellemeOn: "Last updated",
       geri: "home",
       etiket: "CURRICULUM VITAE",
-      altNot: "All interactive demos and technical case studies: bescript.com.tr"
+      altNot: "Technical case studies: bulutemresakarya.github.io/vaka-analizi · Interactive demos: bescript.com.tr"
     },
 
     beceriler: [
