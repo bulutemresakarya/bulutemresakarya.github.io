@@ -33,7 +33,7 @@
 
 window.CV_DATA = {
 
-  guncelleme: { tr: "Eylül 2026", en: "September 2026" },
+  guncelleme: { tr: "Ekim 2026", en: "October 2026" },
 
   kisisel: {
     ad: "Bulut Emre Sakarya",
@@ -88,11 +88,11 @@ window.CV_DATA = {
 
     deneyim: [
       {
-        kurum: "Freelance / Karaarslan Digital",
-        rol: "Yazılım Geliştirici (AI, Backend & Mobil)",
+        kurum: "BeScript Yazılım Çözümleri",
+        rol: "Kurucu · Yazılım Geliştirici (Mobil, AI & Backend)",
         tarih: "11/2025 – Halen",
         maddeler: [
-          "AI ajanları, veri hatları ve mobil uygulamalar; mimariden yayına uçtan uca teslimat.",
+          "Mobil uygulama, AI otomasyon ve IoT projeleri; mimariden mağaza yayınına uçtan uca teslimat.",
           { baslik: "Tırdaş", metin: "Lojistik SaaS, WhatsApp botu ve mobil uygulama — iki mağazada yayında." },
           "Manuel veri girişini %90 otonomlaştırdım: haftalık 8 saatlik iş 5 saniyeye indi."
         ]
@@ -235,11 +235,11 @@ window.CV_DATA = {
 
     deneyim: [
       {
-        kurum: "Freelance / Karaarslan Digital",
-        rol: "Software Developer (AI, Backend & Mobile)",
+        kurum: "BeScript Software Solutions",
+        rol: "Founder · Software Developer (Mobile, AI & Backend)",
         tarih: "11/2025 – Present",
         maddeler: [
-          "AI agents, data pipelines and mobile apps; end-to-end delivery from architecture to release.",
+          "Mobile apps, AI automation and IoT projects; end-to-end delivery from architecture to store release.",
           { baslik: "Tırdaş", metin: "Logistics SaaS, WhatsApp bot and mobile app — live on both stores." },
           "Automated 90% of manual data entry: an 8-hour weekly workload now takes 5 seconds."
         ]
